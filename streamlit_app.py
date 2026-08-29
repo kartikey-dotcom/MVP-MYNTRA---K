@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import os
+import re
 
 # Streamlit Page Configuration
 st.set_page_config(
@@ -10,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Hide default Streamlit headers/footer for an authentic app feel
+# Custom Styling to hide default Streamlit branding & container padding
 hide_streamlit_style = """
 <style>
     #MainMenu {visibility: hidden;}
@@ -30,40 +31,119 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Read and inline the complete application HTML/CSS/JS for zero-dependency execution
+# Read file contents safely
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def get_file_content(relative_path):
+def read_file(relative_path):
     path = os.path.join(APP_DIR, relative_path)
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
     return ""
 
-html_content = get_file_content("index.html")
-design_tokens_css = get_file_content("css/design-tokens.css")
-base_css = get_file_content("css/base.css")
-stylestudio_css = get_file_content("css/stylestudio.css")
+design_tokens_css = read_file("css/design-tokens.css")
+base_css = read_file("css/base.css")
+stylestudio_css = read_file("css/stylestudio.css")
 
-catalog_js = get_file_content("js/data/catalog.js")
-pairings_js = get_file_content("js/data/pairings.js")
-pairing_engine_js = get_file_content("js/data/pairingEngine.js")
-store_js = get_file_content("js/state/store.js")
-header_js = get_file_content("js/components/MyntraHeader.js")
-style_btn_js = get_file_content("js/components/StyleButton.js")
-wishlist_card_js = get_file_content("js/components/WishlistCard.js")
-wishlist_grid_js = get_file_content("js/components/WishlistGrid.js")
-drawer_header_js = get_file_content("js/components/DrawerHeader.js")
-occasion_nav_js = get_file_content("js/components/OccasionNav.js")
-outfit_canvas_js = get_file_content("js/components/OutfitCanvas.js")
-styling_rationale_js = get_file_content("js/components/StylingRationale.js")
-pairing_card_js = get_file_content("js/components/PairingCard.js")
-toast_js = get_file_content("js/components/Toast.js")
-app_js = get_file_content("js/app.js")
+catalog_js = read_file("js/data/catalog.js")
+pairings_js = read_file("js/data/pairings.js")
+pairing_engine_js = read_file("js/data/pairingEngine.js")
+store_js = read_file("js/state/store.js")
+header_js = read_file("js/components/MyntraHeader.js")
+style_btn_js = read_file("js/components/StyleButton.js")
+wishlist_card_js = read_file("js/components/WishlistCard.js")
+wishlist_grid_js = read_file("js/components/WishlistGrid.js")
+drawer_header_js = read_file("js/components/DrawerHeader.js")
+occasion_nav_js = read_file("js/components/OccasionNav.js")
+outfit_canvas_js = read_file("js/components/OutfitCanvas.js")
+styling_rationale_js = read_file("js/components/StylingRationale.js")
+pairing_card_js = read_file("js/components/PairingCard.js")
+toast_js = read_file("js/components/Toast.js")
 
-# Inlined Single-Page HTML for Streamlit Component rendering
-inlined_html = f"""
-<!DOCTYPE html>
+# Clean JS code for browser inline execution
+def clean_js(code):
+    # Remove ES import statements
+    code = re.sub(r'import\s+.*?from\s+[\'"].*?[\'"];?', '', code)
+    # Remove export keywords
+    code = re.sub(r'\bexport\s+const\s+', 'const ', code)
+    code = re.sub(r'\bexport\s+function\s+', 'function ', code)
+    code = re.sub(r'\bexport\s+let\s+', 'let ', code)
+    code = re.sub(r'\bexport\s+default\s+', '', code)
+    code = re.sub(r'\bexport\s*\{[^}]*\};?', '', code)
+    return code
+
+catalog_clean = clean_js(catalog_js)
+pairings_clean = clean_js(pairings_js)
+pairing_engine_clean = clean_js(pairing_engine_js)
+store_clean = clean_js(store_js)
+header_clean = clean_js(header_js)
+style_btn_clean = clean_js(style_btn_js)
+wishlist_card_clean = clean_js(wishlist_card_js)
+wishlist_grid_clean = clean_js(wishlist_grid_js)
+drawer_header_clean = clean_js(drawer_header_js)
+occasion_nav_clean = clean_js(occasion_nav_js)
+outfit_canvas_clean = clean_js(outfit_canvas_js)
+styling_rationale_clean = clean_js(styling_rationale_js)
+pairing_card_clean = clean_js(pairing_card_js)
+toast_clean = clean_js(toast_js)
+
+# Combine styles and scripts cleanly without f-string parsing hazards
+all_styles = "\n".join([
+    design_tokens_css,
+    base_css,
+    stylestudio_css,
+    """
+    html, body {
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        overflow-x: hidden;
+    }
+    .desktop-stage {
+        min-height: 100vh;
+        background: transparent;
+        padding: 10px 0;
+    }
+    """
+])
+
+all_scripts = "\n\n".join([
+    catalog_clean,
+    pairings_clean,
+    pairing_engine_clean,
+    store_clean,
+    header_clean,
+    style_btn_clean,
+    wishlist_card_clean,
+    wishlist_grid_clean,
+    drawer_header_clean,
+    occasion_nav_clean,
+    outfit_canvas_clean,
+    styling_rationale_clean,
+    pairing_card_clean,
+    toast_clean,
+    """
+    function renderApp() {
+        renderHeader(store.wishlistItems.length);
+        renderWishlistGrid();
+        renderStyleDrawer();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderApp();
+        store.subscribe(() => {
+            renderApp();
+        });
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    });
+
+    renderApp();
+    """
+])
+
+html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -76,22 +156,7 @@ inlined_html = f"""
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    {design_tokens_css}
-    {base_css}
-    {stylestudio_css}
-    
-    /* Streamlit full-height fit */
-    html, body {{
-      margin: 0;
-      padding: 0;
-      background-color: transparent;
-      overflow-x: hidden;
-    }}
-    .desktop-stage {{
-      min-height: 100vh;
-      background: transparent;
-      padding: 10px 0;
-    }}
+__STYLES_PLACEHOLDER__
   </style>
 </head>
 <body>
@@ -104,41 +169,14 @@ inlined_html = f"""
     </main>
   </div>
 
-  <script type="module">
-    // Inlined Modules
-    {catalog_js.replace("export const ", "const ").replace("export {", "//")}
-    {pairings_js.replace("export const ", "const ").replace("export {", "//")}
-    {pairing_engine_js.replace("import { ALL_CATALOG_ITEMS } from './catalog.js';", "").replace("import { OUTFIT_PAIRINGS } from './pairings.js';", "").replace(/export /g, "")}
-    {store_js.replace("import { ANCHOR_WISHLIST_ITEMS } from '../data/catalog.js';", "").replace(/export /g, "")}
-    {header_js.replace(/export /g, "")}
-    {style_btn_js.replace(/export /g, "")}
-    {wishlist_card_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {wishlist_grid_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {drawer_header_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {occasion_nav_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {outfit_canvas_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {styling_rationale_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {pairing_card_js.replace(/import .*/g, "").replace(/export /g, "")}
-    {toast_js.replace(/import .*/g, "").replace(/export /g, "")}
-    
-    function renderApp() {{
-      renderHeader(store.wishlistItems.length);
-      renderWishlistGrid();
-      renderStyleDrawer();
-    }}
-
-    document.addEventListener('DOMContentLoaded', () => {{
-      renderApp();
-      store.subscribe(() => {{
-        renderApp();
-      }});
-      if (window.lucide) window.lucide.createIcons();
-    }});
-    renderApp();
+  <script>
+__SCRIPTS_PLACEHOLDER__
   </script>
 </body>
 </html>
 """
 
-# Render full mobile application in Streamlit Component
-components.html(inlined_html, height=890, scrolling=True)
+final_html = html_template.replace("__STYLES_PLACEHOLDER__", all_styles).replace("__SCRIPTS_PLACEHOLDER__", all_scripts)
+
+# Render in Streamlit
+components.html(final_html, height=890, scrolling=True)
