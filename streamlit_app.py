@@ -5,7 +5,7 @@ import re
 
 # Streamlit Page Configuration
 st.set_page_config(
-    page_title="Myntra StyleStudio — Wishlist",
+    page_title="Myntra StyleStudio — Browse & Wishlist",
     page_icon="✨",
     layout="centered",
     initial_sidebar_state="collapsed"
@@ -52,6 +52,8 @@ store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
 wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
+browse_card_js = read_file("js/components/BrowseCard.js")
+browse_view_js = read_file("js/components/BrowseView.js")
 drawer_header_js = read_file("js/components/DrawerHeader.js")
 occasion_nav_js = read_file("js/components/OccasionNav.js")
 pairing_card_js = read_file("js/components/PairingCard.js")
@@ -74,6 +76,8 @@ store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
 wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
+browse_card_clean = clean_js(browse_card_js)
+browse_view_clean = clean_js(browse_view_js)
 drawer_header_clean = clean_js(drawer_header_js)
 occasion_nav_clean = clean_js(occasion_nav_js)
 pairing_card_clean = clean_js(pairing_card_js)
@@ -106,6 +110,8 @@ all_scripts = "\n\n".join([
     header_clean,
     wishlist_card_clean,
     wishlist_grid_clean,
+    browse_card_clean,
+    browse_view_clean,
     drawer_header_clean,
     occasion_nav_clean,
     pairing_card_clean,
@@ -168,7 +174,12 @@ all_scripts = "\n\n".join([
 
     function renderApp() {
         renderHeader();
-        renderWishlistGrid();
+        if (store.activeTab === 'wishlist') {
+            renderWishlistGrid();
+        } else {
+            renderBrowseView();
+        }
+        renderBottomNavBar();
         renderStyleDrawer();
     }
 
@@ -189,7 +200,7 @@ html_template = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Myntra StyleStudio — Wishlist</title>
+  <title>Myntra StyleStudio — Browse & Wishlist</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,7 +215,7 @@ __STYLES_PLACEHOLDER__
   <div class="desktop-stage">
     <main class="mobile-frame" id="app">
       <header class="myntra-header" id="header-container"></header>
-      <section class="wishlist-viewport" id="wishlist-container" aria-label="Myntra Wishlist Items"></section>
+      <section class="wishlist-viewport" id="wishlist-container" aria-label="Fashion Products"></section>
       <div id="drawer-root"></div>
       <div id="toast-root"></div>
     </main>

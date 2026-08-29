@@ -3,18 +3,26 @@
  */
 
 import { renderHeader } from './components/MyntraHeader.js';
-import { renderWishlistGrid } from './components/WishlistGrid.js';
+import { renderWishlistGrid, renderBottomNavBar } from './components/WishlistGrid.js';
+import { renderBrowseView } from './components/BrowseView.js';
 import { renderStyleDrawer } from './components/StyleDrawer.js';
 import { store } from './state/store.js';
 
 function renderApp() {
-  // 1. Render Centered Header
+  // 1. Render Header (with dynamic title "Wishlist" or "Browse Products")
   renderHeader();
 
-  // 2. Render 2-Column Wishlist Grid
-  renderWishlistGrid();
+  // 2. Render Main Screen based on active tab
+  if (store.activeTab === 'wishlist') {
+    renderWishlistGrid();
+  } else {
+    renderBrowseView();
+  }
 
-  // 3. Render StyleStudio AI Bottom Sheet Drawer
+  // 3. Render Bottom Navigation Bar
+  renderBottomNavBar();
+
+  // 4. Render StyleStudio AI Bottom Sheet Drawer
   renderStyleDrawer();
 }
 
@@ -26,5 +34,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderApp();
   });
 
-  console.log('✨ Myntra StyleStudio AI UI loaded.');
+  console.log('✨ Myntra StyleStudio & Browse Products loaded.');
 });

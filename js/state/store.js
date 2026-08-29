@@ -1,20 +1,41 @@
 /**
  * StyleStudio Global Reactive Store
- * Manages Wishlist items, Drawer visibility, Active Anchor, and Saved Pairings.
+ * Manages Wishlist, Browse Products, Navigation Tabs, Drawer, and Saved Looks.
  */
 
-import { ANCHOR_WISHLIST_ITEMS } from '../data/catalog.js';
+import { INITIAL_WISHLIST_ITEMS, ALL_BROWSE_PRODUCTS } from '../data/catalog.js';
 
+const STORAGE_KEY_WISHLIST = 'myntra_stylestudio_wishlist_items';
 const STORAGE_KEY_SAVED_LOOKS = 'myntra_stylestudio_saved_pairings';
 
 class StyleStudioStore {
   constructor() {
-    this.wishlistItems = [...ANCHOR_WISHLIST_ITEMS];
+    this.browseProducts = [...ALL_BROWSE_PRODUCTS];
+    this.wishlistItems = this.loadWishlist();
+    this.activeTab = 'explore'; // 'explore', 'wishlist', 'home', 'studio', 'profile'
+    this.selectedBrowseCategory = 'All';
     this.activeAnchorItem = null;
     this.isDrawerOpen = false;
-    this.selectedOccasionFilter = 'All';
+    this.selectedOccasionFilter = 'Daily Look';
     this.savedPairingIds = this.loadSavedPairings();
     this.listeners = new Set();
+  }
+
+  loadWishlist() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_WISHLIST);
+      return stored ? JSON.parse(stored) : [...INITIAL_WISHLIST_ITEMS];
+    } catch (e) {
+      return [...INITIAL_WISHLIST_ITEMS];
+    }
+  }
+
+  persistWishlist() {
+    try {
+      localStorage.setItem(STORAGE_KEY_WISHLIST, JSON.stringify(this.wishlistItems));
+    } catch (e) {
+      console.warn('Failed to persist wishlist:', e);
+    }
   }
 
   loadSavedPairings() {
@@ -34,11 +55,6 @@ class StyleStudioStore {
     }
   }
 
-  /**
-   * Subscribe to state updates
-   * @param {Function} listener
-   * @returns {Function} Unsubscribe callback
-   */
   subscribe(listener) {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
@@ -48,10 +64,58 @@ class StyleStudioStore {
     this.listeners.forEach(listener => listener(this));
   }
 
+  setActiveTab(tab) {
+    this.activeTab = tab;
+    this.notify();
+  }
+
+  setBrowseCategory(category) {
+    this.selectedBrowseCategory = category;
+    this.notify();
+  }
+
   /**
-   * Opens the StyleStudio drawer for a target wishlisted item.
-   * @param {import('../types/index.js').WishlistItem} item
+   * Toggles an item in the Wishlist
+   * @param {import('../types/index.js').CatalogItem} product
+   * @returns {boolean} True if now added, False if removed
    */
+  toggleWishlist(product) {
+    if (!product) return false;
+    const existsIndex = this.wishlistItems.findIndex(item => item.id === product.id);
+    let isNowWishlisted = false;
+
+    if (existsIndex >= 0) {
+      // Remove from wishlist
+      this.wishlistItems.splice(existsIndex, 1);
+      isNowWishlisted = false;
+      if (this.activeAnchorItem && this.activeAnchorItem.id === product.id) {
+        this.closeDrawer();
+      }
+    } else {
+      // Add to wishlist
+      this.wishlistItems.unshift({
+        ...product,
+        isAnchor: true,
+        stylable: true,
+        addedAt: new Date().toISOString()
+      });
+      isNowWishlisted = true;
+    }
+
+    this.persistWishlist();
+    this.notify();
+    return isNowWishlisted;
+  }
+
+  /**
+   * Checks if an item is currently in the wishlist
+   * @param {string} productId
+   * @returns {boolean}
+   */
+  isItemInWishlist(productId) {
+    return this.wishlistItems.some(item => item.id === productId);
+  }
+
   openDrawer(item) {
     if (!item) return;
     this.activeAnchorItem = item;
@@ -61,20 +125,12 @@ class StyleStudioStore {
     this.notify();
   }
 
-  /**
-   * Closes the StyleStudio drawer.
-   */
   closeDrawer() {
     this.isDrawerOpen = false;
     document.body.classList.remove('drawer-open');
     this.notify();
   }
 
-  /**
-   * Toggles the saved status of an outfit pairing.
-   * @param {string} pairingId
-   * @returns {boolean} New saved state
-   */
   toggleSavePairing(pairingId) {
     if (!pairingId) return false;
     const isCurrentlySaved = Boolean(this.savedPairingIds[pairingId]);
@@ -88,44 +144,12 @@ class StyleStudioStore {
     return !isCurrentlySaved;
   }
 
-  /**
-   * Checks if a pairing is saved.
-   * @param {string} pairingId
-   * @returns {boolean}
-   */
   isPairingSaved(pairingId) {
     return Boolean(this.savedPairingIds[pairingId]);
   }
 
-  /**
-   * Returns how many saved pairings exist for an anchor item.
-   * @param {string} anchorItemId
-   * @param {import('../types/index.js').OutfitPairing[]} pairingsForAnchor
-   * @returns {number}
-   */
-  getSavedLooksCountForAnchor(anchorItemId, pairingsForAnchor = []) {
-    return pairingsForAnchor.filter(p => p.anchorItemId === anchorItemId && this.savedPairingIds[p.id]).length;
-  }
-
-  /**
-   * Sets the active occasion filter.
-   * @param {string} occasion
-   */
   setOccasionFilter(occasion) {
     this.selectedOccasionFilter = occasion;
-    this.notify();
-  }
-
-  /**
-   * Removes an item from the wishlist.
-   * @param {string} itemId
-   */
-  removeFromWishlist(itemId) {
-    this.wishlistItems = this.wishlistItems.filter(item => item.id !== itemId);
-    if (this.activeAnchorItem && this.activeAnchorItem.id === itemId) {
-      this.closeDrawer();
-      this.activeAnchorItem = null;
-    }
     this.notify();
   }
 }

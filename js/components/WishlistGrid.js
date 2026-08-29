@@ -1,6 +1,6 @@
 /**
- * WishlistGrid Component (Screenshot 1 Match)
- * Renders the 2-column wishlist grid and Bottom Navigation Bar.
+ * WishlistGrid Component
+ * Renders the Wishlist screen and interactive 5-item Bottom Navigation Bar.
  */
 
 import { renderWishlistCardHTML } from './WishlistCard.js';
@@ -12,14 +12,28 @@ export function renderWishlistGrid() {
 
   const items = store.wishlistItems;
 
-  container.innerHTML = `
-    <!-- 2-Column Product Grid -->
-    <div class="wishlist-grid" id="wishlist-grid-list">
-      ${items.map(item => renderWishlistCardHTML(item)).join('')}
-    </div>
-  `;
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 48px 16px; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <i data-lucide="heart" style="width: 48px; height: 48px; color: #D1D5DB;"></i>
+        <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">Your Wishlist is Empty</h3>
+        <p style="font-size: 12px; max-width: 260px; line-height: 1.4;">Browse fashion products and tap the heart icon on any piece to add it here.</p>
+        <button class="btn-browse-redirect" data-action="go-to-browse">
+          <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
+          <span>Browse Products</span>
+        </button>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <!-- 2-Column Product Grid -->
+      <div class="wishlist-grid" id="wishlist-grid-list">
+        ${items.map(item => renderWishlistCardHTML(item)).join('')}
+      </div>
+    `;
+  }
 
-  // Render or update bottom navigation bar
+  // Render bottom navigation bar
   renderBottomNavBar();
 
   if (window.lucide) {
@@ -31,9 +45,9 @@ export function renderWishlistGrid() {
 }
 
 /**
- * Renders the 5-item Bottom Navigation Bar (Screenshot 1)
+ * Renders the 5-item Bottom Navigation Bar with live active tab and wishlist count badge
  */
-function renderBottomNavBar() {
+export function renderBottomNavBar() {
   let navEl = document.getElementById('bottom-nav-bar');
   if (!navEl) {
     navEl = document.createElement('nav');
@@ -45,28 +59,54 @@ function renderBottomNavBar() {
     }
   }
 
+  const { activeTab, wishlistItems } = store;
+  const wishlistCount = wishlistItems.length;
+
   navEl.innerHTML = `
-    <button class="nav-item" data-tab="home">
+    <button class="nav-item ${activeTab === 'home' ? 'active' : ''}" data-tab="home" aria-label="Home">
       <i data-lucide="home"></i>
       <span>Home</span>
     </button>
-    <button class="nav-item" data-tab="studio">
+    <button class="nav-item ${activeTab === 'studio' ? 'active' : ''}" data-tab="studio" aria-label="Studio">
       <i data-lucide="sparkles"></i>
       <span>Studio</span>
     </button>
-    <button class="nav-item" data-tab="explore">
+    <button class="nav-item ${activeTab === 'explore' ? 'active' : ''}" data-tab="explore" aria-label="Explore">
       <i data-lucide="compass"></i>
       <span>Explore</span>
     </button>
-    <button class="nav-item active" data-tab="wishlist">
-      <i data-lucide="heart" style="fill: var(--text-brand-pink);"></i>
+    <button class="nav-item ${activeTab === 'wishlist' ? 'active' : ''}" data-tab="wishlist" aria-label="Wishlist">
+      <div class="nav-icon-badge-wrap">
+        <i data-lucide="heart" style="${activeTab === 'wishlist' ? 'fill: var(--text-brand-pink);' : ''}"></i>
+        ${wishlistCount > 0 ? `<span class="nav-wishlist-count">${wishlistCount}</span>` : ''}
+      </div>
       <span>Wishlist</span>
     </button>
-    <button class="nav-item" data-tab="profile">
+    <button class="nav-item ${activeTab === 'profile' ? 'active' : ''}" data-tab="profile" aria-label="Profile">
       <i data-lucide="user"></i>
       <span>Profile</span>
     </button>
   `;
+
+  // Attach navigation tab click handlers
+  navEl.onclick = (e) => {
+    const navBtn = e.target.closest('.nav-item');
+    if (navBtn) {
+      const tab = navBtn.dataset.tab;
+      if (tab === 'home' || tab === 'explore') {
+        store.setActiveTab('explore');
+      } else if (tab === 'wishlist') {
+        store.setActiveTab('wishlist');
+      } else if (tab === 'studio') {
+        // Open StyleStudio for the first wishlisted item if available
+        if (store.wishlistItems.length > 0) {
+          store.openDrawer(store.wishlistItems[0]);
+        } else if (store.browseProducts.length > 0) {
+          store.openDrawer(store.browseProducts[0]);
+        }
+      }
+    }
+  };
 }
 
 /**
@@ -79,22 +119,27 @@ function setupGridEvents(container) {
     const styleBtn = e.target.closest('[data-action="style-this"]');
     if (styleBtn) {
       const itemId = styleBtn.dataset.itemId;
-      const targetItem = store.wishlistItems.find(item => item.id === itemId);
+      const targetItem = store.wishlistItems.find(item => item.id === itemId) || store.browseProducts.find(item => item.id === itemId);
       if (targetItem) {
         store.openDrawer(targetItem);
       }
       return;
     }
 
-    // 2. Heart button toggle
+    // 2. Heart button toggle on wishlist card (remove from wishlist)
     const heartBtn = e.target.closest('[data-action="toggle-wishlist-heart"]');
     if (heartBtn) {
       const itemId = heartBtn.dataset.itemId;
-      if (itemId) {
-        // Toggle animation or action
-        heartBtn.style.transform = 'scale(1.2)';
-        setTimeout(() => heartBtn.style.transform = 'scale(1)', 200);
+      const targetItem = store.wishlistItems.find(item => item.id === itemId);
+      if (targetItem) {
+        store.toggleWishlist(targetItem);
       }
+      return;
+    }
+
+    // 3. Go to browse redirect
+    if (e.target.closest('[data-action="go-to-browse"]')) {
+      store.setActiveTab('explore');
       return;
     }
   };

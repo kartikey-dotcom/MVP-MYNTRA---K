@@ -66,12 +66,23 @@
 }
 
 .card-heart-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
-.card-heart-btn i {
-  width: 18px;
-  height: 18px;
+.card-heart-btn.unwishlisted {
+  color: #6B7280;
+}
+
+.card-heart-btn.unwishlisted i {
+  fill: none;
+  color: #6B7280;
+}
+
+.card-heart-btn.wishlisted {
+  color: var(--myntra-crimson);
+}
+
+.card-heart-btn.wishlisted i {
   fill: var(--myntra-crimson);
   color: var(--myntra-crimson);
 }
@@ -101,6 +112,142 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 8px;
+}
+
+/* Browse Screen Category Pills */
+.browse-category-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.browse-category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.browse-cat-pill {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.browse-cat-pill:hover {
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+}
+
+.browse-cat-pill.active {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* Browse Info Banner */
+.browse-info-banner {
+  background: #FFF0F3;
+  border: 1px solid rgba(225, 27, 83, 0.15);
+  border-radius: var(--border-radius-md);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.browse-info-banner strong {
+  color: var(--myntra-crimson);
+}
+
+/* Browse Card Wishlist Button */
+.btn-browse-wishlist-toggle {
+  width: 100%;
+  background: #F9FAFB;
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 8px 0;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-browse-wishlist-toggle:hover {
+  background: #F3F4F6;
+  color: var(--text-primary);
+}
+
+.btn-browse-wishlist-toggle.in-wishlist {
+  background: #FFF0F3;
+  border-color: rgba(225, 27, 83, 0.25);
+  color: var(--myntra-crimson);
+}
+
+/* Empty State Browse Redirect Button */
+.btn-browse-redirect {
+  background: var(--myntra-coral);
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--border-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  margin-top: 6px;
+  box-shadow: 0 2px 8px rgba(225, 27, 83, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.btn-browse-redirect:hover {
+  background: #C20042;
+  transform: translateY(-1px);
+}
+
+/* Bottom Nav Wishlist Count Badge */
+.nav-icon-badge-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-wishlist-count {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background: var(--myntra-crimson);
+  color: #FFFFFF;
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 4px;
+  min-width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #FFFFFF;
 }
 
 /* "✨ STYLE THIS" Button (Teal / Cyan Aesthetic) */

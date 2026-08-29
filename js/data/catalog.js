@@ -1,12 +1,12 @@
 /**
- * Curated Catalog Seed Data matching User Frontend UI Specification
+ * Master Fashion Catalog for Browse & Wishlist Screens
  * Strictly zero pricing / monetary data included.
  */
 
 /** @type {import('../types/index.js').WishlistItem[]} */
-export const ANCHOR_WISHLIST_ITEMS = [
+export const INITIAL_WISHLIST_ITEMS = [
   {
-    id: 'anchor-stark-blazer',
+    id: 'prod-stark-blazer',
     brand: 'STARK & CO.',
     name: 'Structured Navy Blazer',
     category: 'Outerwear / Layer',
@@ -20,7 +20,7 @@ export const ANCHOR_WISHLIST_ITEMS = [
     stylable: true
   },
   {
-    id: 'anchor-lumiere-dress',
+    id: 'prod-lumiere-dress',
     brand: 'LUMIÈRE',
     name: 'Emerald Silk Midi Dress',
     category: 'Topwear',
@@ -34,7 +34,7 @@ export const ANCHOR_WISHLIST_ITEMS = [
     stylable: true
   },
   {
-    id: 'anchor-aeris-sneakers',
+    id: 'prod-aeris-sneakers',
     brand: 'AERIS',
     name: 'Chunky Platform Sneakers',
     category: 'Footwear',
@@ -48,7 +48,7 @@ export const ANCHOR_WISHLIST_ITEMS = [
     stylable: true
   },
   {
-    id: 'anchor-nordic-trousers',
+    id: 'prod-nordic-trousers',
     brand: 'NORDIC',
     name: 'Wide-Leg Tailored Trousers',
     category: 'Bottomwear',
@@ -64,87 +64,97 @@ export const ANCHOR_WISHLIST_ITEMS = [
 ];
 
 /** @type {import('../types/index.js').CatalogItem[]} */
-export const COMPLEMENTARY_CATALOG_ITEMS = [
+export const ALL_BROWSE_PRODUCTS = [
+  ...INITIAL_WISHLIST_ITEMS,
   {
-    id: 'comp-white-shirt',
-    brand: 'STUDIO ESSENTIALS',
-    name: 'Crisp Structured White Shirt',
+    id: 'prod-mango-rust-blazer',
+    brand: 'MANGO',
+    name: 'Relaxed-Fit Linen Blazer',
+    category: 'Outerwear / Layer',
+    subCategory: 'Linen Blazer',
+    color: 'Rust Brown',
+    imageUrl: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Mango Relaxed-Fit Rust Linen Blazer',
+    tags: ['Linen', 'Blazer', 'Smart-Casual']
+  },
+  {
+    id: 'prod-zara-poplin',
+    brand: 'ZARA',
+    name: 'Cropped Structured Poplin Shirt',
     category: 'Topwear',
     subCategory: 'Poplin Shirt',
-    color: 'Clean White',
+    color: 'Optic White',
     imageUrl: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Crisp White Shirt',
-    tags: ['Shirt', 'Cotton', 'Classic']
+    imageAlt: 'Zara Poplin Shirt',
+    tags: ['Poplin', 'Shirt', 'Minimalist']
   },
   {
-    id: 'comp-beige-trousers',
-    brand: 'TAILOR & CO.',
-    name: 'Wide-Leg Pleated Beige Trousers',
+    id: 'prod-hm-olive-trousers',
+    brand: 'H&M PREMIUM',
+    name: 'High-Waisted Olive Tailored Trousers',
     category: 'Bottomwear',
     subCategory: 'Tailored Trousers',
-    color: 'Sand Beige',
+    color: 'Olive Green',
     imageUrl: 'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Beige Tailored Trousers',
-    tags: ['Tailored', 'Trousers', 'Beige']
+    imageAlt: 'H&M Olive Tailored Trousers',
+    tags: ['Tailored', 'Trousers', 'Olive']
   },
   {
-    id: 'comp-grey-knit',
-    brand: 'PURE CASHMERE',
-    name: 'Soft Relaxed Grey Crewneck Knit',
-    category: 'Topwear',
-    subCategory: 'Knit Sweater',
-    color: 'Heather Grey',
-    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Grey Crewneck Knit Sweater',
-    tags: ['Knit', 'Grey', 'Casual']
-  },
-  {
-    id: 'comp-dark-denim',
-    brand: 'DENIM WORKS',
-    name: 'Classic Straight-Leg Indigo Denim',
-    category: 'Bottomwear',
-    subCategory: 'Jeans',
-    color: 'Dark Indigo',
-    imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Dark Indigo Straight Denim',
-    tags: ['Denim', 'Dark Indigo', 'Classic']
-  },
-  {
-    id: 'comp-satin-skirt',
-    brand: 'MANGO',
+    id: 'prod-massimo-skirt',
+    brand: 'MASSIMO DUTTI',
     name: 'Bias-Cut Slip Satin Midi Skirt',
     category: 'Bottomwear',
     subCategory: 'Midi Skirt',
     color: 'Champagne Gold',
     imageUrl: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Champagne Satin Midi Skirt',
-    tags: ['Evening', 'Satin']
+    imageAlt: 'Massimo Dutti Satin Skirt',
+    tags: ['Satin', 'Midi Skirt', 'Evening']
   },
   {
-    id: 'comp-leather-loafers',
+    id: 'prod-levis-vintage',
+    brand: 'LEVI\'S',
+    name: '501 Straight-Leg Vintage Denim',
+    category: 'Bottomwear',
+    subCategory: 'Jeans',
+    color: 'Vintage Indigo',
+    imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Levi\'s 501 Straight Denim',
+    tags: ['Denim', 'Jeans', 'Classic']
+  },
+  {
+    id: 'prod-cos-knitwear',
+    brand: 'COS',
+    name: 'Fine Ribbed Mock-Neck Knit',
+    category: 'Topwear',
+    subCategory: 'Knitwear',
+    color: 'Ivory Cream',
+    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'COS Fine Ribbed Mock-Neck Knit',
+    tags: ['Knitwear', 'Cream', 'Neutral']
+  },
+  {
+    id: 'prod-aldo-loafers',
     brand: 'ALDO',
-    name: 'Pointed Leather Penny Loafers',
+    name: 'Pointed Black Leather Penny Loafers',
     category: 'Footwear',
     subCategory: 'Loafers',
     color: 'Black',
     imageUrl: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Pointed Leather Loafers',
-    tags: ['Loafers', 'Formal']
+    imageAlt: 'Aldo Pointed Black Loafers',
+    tags: ['Loafers', 'Leather', 'Formal']
   },
   {
-    id: 'comp-heeled-mules',
+    id: 'prod-steve-madden-mules',
     brand: 'STEVE MADDEN',
     name: 'Sculpted Strap Heeled Mules',
     category: 'Footwear',
     subCategory: 'Heeled Mules',
     color: 'Warm Taupe',
     imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Heeled Taupe Mules',
-    tags: ['Heels', 'Evening']
+    imageAlt: 'Steve Madden Taupe Heeled Mules',
+    tags: ['Heels', 'Mules', 'Evening']
   }
 ];
 
-export const ALL_CATALOG_ITEMS = [
-  ...ANCHOR_WISHLIST_ITEMS,
-  ...COMPLEMENTARY_CATALOG_ITEMS
-];
+export const ALL_CATALOG_ITEMS = ALL_BROWSE_PRODUCTS;
+export const ANCHOR_WISHLIST_ITEMS = INITIAL_WISHLIST_ITEMS;
