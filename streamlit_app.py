@@ -25,7 +25,7 @@ hide_streamlit_style = """
         max-width: 100% !important;
     }
     iframe {
-        border-radius: 12px;
+        border-radius: 16px;
     }
 </style>
 """
@@ -50,21 +50,16 @@ pairings_js = read_file("js/data/pairings.js")
 pairing_engine_js = read_file("js/data/pairingEngine.js")
 store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
-style_btn_js = read_file("js/components/StyleButton.js")
 wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
 drawer_header_js = read_file("js/components/DrawerHeader.js")
 occasion_nav_js = read_file("js/components/OccasionNav.js")
-outfit_canvas_js = read_file("js/components/OutfitCanvas.js")
-styling_rationale_js = read_file("js/components/StylingRationale.js")
 pairing_card_js = read_file("js/components/PairingCard.js")
 toast_js = read_file("js/components/Toast.js")
 
 # Clean JS code for browser inline execution
 def clean_js(code):
-    # Remove ES import statements
     code = re.sub(r'import\s+.*?from\s+[\'"].*?[\'"];?', '', code)
-    # Remove export keywords
     code = re.sub(r'\bexport\s+const\s+', 'const ', code)
     code = re.sub(r'\bexport\s+function\s+', 'function ', code)
     code = re.sub(r'\bexport\s+let\s+', 'let ', code)
@@ -77,17 +72,13 @@ pairings_clean = clean_js(pairings_js)
 pairing_engine_clean = clean_js(pairing_engine_js)
 store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
-style_btn_clean = clean_js(style_btn_js)
 wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
 drawer_header_clean = clean_js(drawer_header_js)
 occasion_nav_clean = clean_js(occasion_nav_js)
-outfit_canvas_clean = clean_js(outfit_canvas_js)
-styling_rationale_clean = clean_js(styling_rationale_js)
 pairing_card_clean = clean_js(pairing_card_js)
 toast_clean = clean_js(toast_js)
 
-# Combine styles and scripts cleanly without f-string parsing hazards
 all_styles = "\n".join([
     design_tokens_css,
     base_css,
@@ -113,18 +104,70 @@ all_scripts = "\n\n".join([
     pairing_engine_clean,
     store_clean,
     header_clean,
-    style_btn_clean,
     wishlist_card_clean,
     wishlist_grid_clean,
     drawer_header_clean,
     occasion_nav_clean,
-    outfit_canvas_clean,
-    styling_rationale_clean,
     pairing_card_clean,
     toast_clean,
     """
+    function renderStyleDrawer() {
+        const drawerRoot = document.getElementById('drawer-root');
+        if (!drawerRoot) return;
+
+        const { isDrawerOpen, activeAnchorItem, selectedOccasionFilter } = store;
+        if (!activeAnchorItem) {
+            drawerRoot.innerHTML = '';
+            return;
+        }
+
+        const pairings = getPairingsForAnchor(activeAnchorItem.id, selectedOccasionFilter);
+
+        drawerRoot.innerHTML = `
+            <div class="drawer-backdrop ${isDrawerOpen ? 'active' : ''}" id="style-drawer-backdrop" data-action="close-drawer"></div>
+            <div class="drawer-container ${isDrawerOpen ? 'open' : ''}" id="style-drawer-body" role="dialog" aria-modal="true">
+                ${renderDrawerHeaderHTML(activeAnchorItem)}
+                ${renderOccasionNavHTML(activeAnchorItem.id, selectedOccasionFilter)}
+                <div class="drawer-content-scroll" id="drawer-pairing-list">
+                    ${pairings.map(p => renderPairingCardHTML(p, activeAnchorItem)).join('')}
+                </div>
+            </div>
+        `;
+
+        if (window.lucide) window.lucide.createIcons();
+        setupDrawerEvents(drawerRoot);
+    }
+
+    function setupDrawerEvents(drawerRoot) {
+        drawerRoot.onclick = (e) => {
+            if (e.target.closest('[data-action="close-drawer"]')) {
+                store.closeDrawer();
+                return;
+            }
+            const filterBtn = e.target.closest('[data-action="filter-occasion"]');
+            if (filterBtn) {
+                const occasion = filterBtn.dataset.occasion;
+                if (occasion) store.setOccasionFilter(occasion);
+                return;
+            }
+            const saveBtn = e.target.closest('[data-action="toggle-save-pairing"]');
+            if (saveBtn) {
+                const pairingId = saveBtn.dataset.pairingId;
+                if (pairingId && store.activeAnchorItem) {
+                    const isNowSaved = store.toggleSavePairing(pairingId);
+                    if (isNowSaved) {
+                        showToast('Look saved!', 'Added to your saved styling looks ✨', 'success');
+                    } else {
+                        showToast('Look removed from saved', '', 'info');
+                    }
+                }
+                return;
+            }
+        };
+    }
+
     function renderApp() {
-        renderHeader(store.wishlistItems.length);
+        renderHeader();
         renderWishlistGrid();
         renderStyleDrawer();
     }
@@ -134,9 +177,7 @@ all_scripts = "\n\n".join([
         store.subscribe(() => {
             renderApp();
         });
-        if (window.lucide) {
-            window.lucide.createIcons();
-        }
+        if (window.lucide) window.lucide.createIcons();
     });
 
     renderApp();
@@ -178,5 +219,4 @@ __SCRIPTS_PLACEHOLDER__
 
 final_html = html_template.replace("__STYLES_PLACEHOLDER__", all_styles).replace("__SCRIPTS_PLACEHOLDER__", all_scripts)
 
-# Render in Streamlit
 components.html(final_html, height=890, scrolling=True)

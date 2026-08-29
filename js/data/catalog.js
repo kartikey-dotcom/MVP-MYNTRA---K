@@ -1,50 +1,64 @@
 /**
- * Curated Catalog Seed Data for StyleStudio MVP
+ * Curated Catalog Seed Data matching User Frontend UI Specification
  * Strictly zero pricing / monetary data included.
  */
 
 /** @type {import('../types/index.js').WishlistItem[]} */
 export const ANCHOR_WISHLIST_ITEMS = [
   {
-    id: 'anchor-mango-blazer',
-    brand: 'MANGO',
-    name: 'Relaxed-Fit Linen Blazer',
+    id: 'anchor-stark-blazer',
+    brand: 'STARK & CO.',
+    name: 'Structured Navy Blazer',
     category: 'Outerwear / Layer',
-    subCategory: 'Linen Blazer',
-    color: 'Rust Brown',
-    imageUrl: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Mango Relaxed-Fit Rust Linen Blazer',
-    tags: ['Linen', 'Relaxed', 'Smart-Casual', 'Earth Tones'],
+    subCategory: 'Navy Blazer',
+    color: 'Navy Blue',
+    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'STARK & CO. Structured Navy Blazer',
+    tags: ['Tailored', 'Structured', 'Navy', 'Corporate'],
     isAnchor: true,
     addedAt: '2026-08-28',
     stylable: true
   },
   {
-    id: 'anchor-zara-shirt',
-    brand: 'ZARA',
-    name: 'Cropped Structured Poplin Shirt',
+    id: 'anchor-lumiere-dress',
+    brand: 'LUMIÈRE',
+    name: 'Emerald Silk Midi Dress',
     category: 'Topwear',
-    subCategory: 'Poplin Shirt',
-    color: 'Optic White',
-    imageUrl: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Zara Cropped Structured Poplin Shirt in White',
-    tags: ['Crisp Cotton', 'Minimalist', 'Structured', 'Monochrome'],
+    subCategory: 'Silk Dress',
+    color: 'Emerald Green',
+    imageUrl: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'LUMIÈRE Emerald Silk Midi Dress',
+    tags: ['Silk', 'Emerald', 'Evening', 'Midi'],
     isAnchor: true,
     addedAt: '2026-08-27',
     stylable: true
   },
   {
-    id: 'anchor-hm-trousers',
-    brand: 'H&M',
-    name: 'High-Waisted Tailored Wide Trousers',
-    category: 'Bottomwear',
-    subCategory: 'Tailored Trousers',
-    color: 'Olive Green',
-    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'H&M High-Waisted Tailored Wide Trousers in Olive',
-    tags: ['Tailored', 'High-Rise', 'Wide Leg', 'Contemporary'],
+    id: 'anchor-aeris-sneakers',
+    brand: 'AERIS',
+    name: 'Chunky Platform Sneakers',
+    category: 'Footwear',
+    subCategory: 'Platform Sneakers',
+    color: 'Clean White',
+    imageUrl: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'AERIS Chunky Platform Sneakers in White',
+    tags: ['Platform', 'Sneakers', 'Streetwear', 'White'],
     isAnchor: true,
     addedAt: '2026-08-26',
+    stylable: true
+  },
+  {
+    id: 'anchor-nordic-trousers',
+    brand: 'NORDIC',
+    name: 'Wide-Leg Tailored Trousers',
+    category: 'Bottomwear',
+    subCategory: 'Tailored Trousers',
+    color: 'Sand Beige',
+    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'NORDIC Wide-Leg Tailored Trousers in Beige',
+    tags: ['Wide-Leg', 'Tailored', 'Beige', 'Contemporary'],
+    isAnchor: true,
+    addedAt: '2026-08-25',
     stylable: true
   }
 ];
@@ -52,48 +66,48 @@ export const ANCHOR_WISHLIST_ITEMS = [
 /** @type {import('../types/index.js').CatalogItem[]} */
 export const COMPLEMENTARY_CATALOG_ITEMS = [
   {
-    id: 'comp-black-trousers',
-    brand: 'MASSIMO DUTTI',
-    name: 'Pleated Wool-Blend Black Trousers',
+    id: 'comp-white-shirt',
+    brand: 'STUDIO ESSENTIALS',
+    name: 'Crisp Structured White Shirt',
+    category: 'Topwear',
+    subCategory: 'Poplin Shirt',
+    color: 'Clean White',
+    imageUrl: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Crisp White Shirt',
+    tags: ['Shirt', 'Cotton', 'Classic']
+  },
+  {
+    id: 'comp-beige-trousers',
+    brand: 'TAILOR & CO.',
+    name: 'Wide-Leg Pleated Beige Trousers',
     category: 'Bottomwear',
     subCategory: 'Tailored Trousers',
-    color: 'Black',
+    color: 'Sand Beige',
     imageUrl: 'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Massimo Dutti Pleated Black Trousers',
-    tags: ['Workwear', 'Tailored', 'Wool']
+    imageAlt: 'Beige Tailored Trousers',
+    tags: ['Tailored', 'Trousers', 'Beige']
   },
   {
-    id: 'comp-leather-loafers',
-    brand: 'ALDO',
-    name: 'Pointed Leather Penny Loafers',
-    category: 'Footwear',
-    subCategory: 'Loafers',
-    color: 'Black',
-    imageUrl: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Aldo Pointed Black Leather Loafers',
-    tags: ['Formal', 'Footwear', 'Leather']
+    id: 'comp-grey-knit',
+    brand: 'PURE CASHMERE',
+    name: 'Soft Relaxed Grey Crewneck Knit',
+    category: 'Topwear',
+    subCategory: 'Knit Sweater',
+    color: 'Heather Grey',
+    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Grey Crewneck Knit Sweater',
+    tags: ['Knit', 'Grey', 'Casual']
   },
   {
-    id: 'comp-straight-denim',
-    brand: 'LEVI\'S',
-    name: '501 Straight-Leg Vintage Denim',
+    id: 'comp-dark-denim',
+    brand: 'DENIM WORKS',
+    name: 'Classic Straight-Leg Indigo Denim',
     category: 'Bottomwear',
     subCategory: 'Jeans',
-    color: 'Light Vintage Indigo',
+    color: 'Dark Indigo',
     imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Levi\'s 501 Straight Leg Denim',
-    tags: ['Denim', 'Casual', 'Classic']
-  },
-  {
-    id: 'comp-white-sneakers',
-    brand: 'VEJA',
-    name: 'Campo Minimalist Leather Sneakers',
-    category: 'Footwear',
-    subCategory: 'Sneakers',
-    color: 'Clean White',
-    imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Veja Campo Minimalist White Leather Sneakers',
-    tags: ['Sneakers', 'Weekend', 'Clean']
+    imageAlt: 'Dark Indigo Straight Denim',
+    tags: ['Denim', 'Dark Indigo', 'Classic']
   },
   {
     id: 'comp-satin-skirt',
@@ -103,8 +117,19 @@ export const COMPLEMENTARY_CATALOG_ITEMS = [
     subCategory: 'Midi Skirt',
     color: 'Champagne Gold',
     imageUrl: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Mango Bias Cut Champagne Satin Midi Skirt',
-    tags: ['Evening', 'Satin', 'Elegant']
+    imageAlt: 'Champagne Satin Midi Skirt',
+    tags: ['Evening', 'Satin']
+  },
+  {
+    id: 'comp-leather-loafers',
+    brand: 'ALDO',
+    name: 'Pointed Leather Penny Loafers',
+    category: 'Footwear',
+    subCategory: 'Loafers',
+    color: 'Black',
+    imageUrl: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Pointed Leather Loafers',
+    tags: ['Loafers', 'Formal']
   },
   {
     id: 'comp-heeled-mules',
@@ -114,34 +139,11 @@ export const COMPLEMENTARY_CATALOG_ITEMS = [
     subCategory: 'Heeled Mules',
     color: 'Warm Taupe',
     imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Steve Madden Sculpted Strap Taupe Mules',
-    tags: ['Heels', 'Evening', 'Minimalist']
-  },
-  {
-    id: 'comp-khaki-trousers',
-    brand: 'COS',
-    name: 'High-Waisted Wide-Leg Khaki Chinos',
-    category: 'Bottomwear',
-    subCategory: 'Wide-Leg Chino',
-    color: 'Sand Khaki',
-    imageUrl: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'COS High-Waisted Wide-Leg Khaki Trousers',
-    tags: ['Wide Leg', 'Cotton', 'Workwear']
-  },
-  {
-    id: 'comp-mock-knit',
-    brand: 'UNIQLO',
-    name: 'Fine Ribbed Mock-Neck Knit',
-    category: 'Topwear',
-    subCategory: 'Knit Top',
-    color: 'Ivory Cream',
-    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Uniqlo Fine Ribbed Mock-Neck Ivory Knit',
-    tags: ['Knitwear', 'Layering', 'Neutral']
+    imageAlt: 'Heeled Taupe Mules',
+    tags: ['Heels', 'Evening']
   }
 ];
 
-/** Full Catalog Map for Lookup */
 export const ALL_CATALOG_ITEMS = [
   ...ANCHOR_WISHLIST_ITEMS,
   ...COMPLEMENTARY_CATALOG_ITEMS

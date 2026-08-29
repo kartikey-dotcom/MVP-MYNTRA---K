@@ -8,18 +8,17 @@ import { renderStyleDrawer } from './components/StyleDrawer.js';
 import { store } from './state/store.js';
 
 function renderApp() {
-  // 1. Render Header with updated item count
-  renderHeader(store.wishlistItems.length);
+  // 1. Render Centered Header
+  renderHeader();
 
-  // 2. Render Wishlist Grid
+  // 2. Render 2-Column Wishlist Grid
   renderWishlistGrid();
 
-  // 3. Render StyleStudio Bottom Sheet Drawer
+  // 3. Render StyleStudio AI Bottom Sheet Drawer
   renderStyleDrawer();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initial render
   renderApp();
 
   // Subscribe to store updates
@@ -27,5 +26,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderApp();
   });
 
-  console.log('✨ Myntra StyleStudio MVP initialized successfully (Phase 4).');
+  console.log('✨ Myntra StyleStudio AI UI loaded.');
 });

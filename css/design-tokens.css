@@ -1,50 +1,51 @@
 :root {
   /* Brand Accents */
-  --myntra-coral: #FF3F6C;
-  --myntra-coral-hover: #E02D59;
-  --myntra-coral-light: #FFF0F3;
-  --myntra-coral-glow: rgba(255, 63, 108, 0.2);
+  --myntra-coral: #E11B53;
+  --myntra-crimson: #C20042;
   --myntra-pink-gradient: linear-gradient(135deg, #FF3F6C 0%, #FF527B 100%);
-  --myntra-sparkle-gradient: linear-gradient(135deg, #FFF0F3 0%, #FFE4E9 100%);
+  --myntra-teal-brand: #0A7E8C;
+  --myntra-teal-light: #E6F7F8;
+  --myntra-teal-border: #BEE7E9;
+  --myntra-teal-dark: #00606B;
 
   /* Neutral Surface Colors */
-  --bg-app: #F5F5F6;
+  --bg-app: #F7F7F8;
   --bg-surface: #FFFFFF;
   --bg-card: #FFFFFF;
   --bg-drawer: #FFFFFF;
-  --bg-backdrop: rgba(0, 0, 0, 0.6);
+  --bg-backdrop: rgba(0, 0, 0, 0.55);
 
   /* Borders & Dividers */
-  --border-subtle: #EAEAEC;
-  --border-light: #F0F0F2;
-  --border-active: #FF3F6C;
+  --border-subtle: #EBEBEF;
+  --border-card: #E5E7EB;
+  --border-light: #F3F4F6;
+  --border-drawer: #F3E8E9;
 
   /* Typography Colors */
-  --text-primary: #282C3F;
-  --text-secondary: #535766;
-  --text-muted: #7E818C;
-  --text-tertiary: #94969F;
-  --text-coral: #FF3F6C;
-  --text-inverse: #FFFFFF;
+  --text-primary: #181A20;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --text-brand-pink: #C20042;
 
   /* Functional Accents */
   --status-success: #03A685;
-  --status-success-light: #E6F7F3;
-  --tag-bg: #F4F4F5;
+  --status-saved: #C20042;
 
   /* Shadows */
-  --shadow-subtle: 0 1px 4px rgba(40, 44, 63, 0.08);
-  --shadow-card: 0 2px 8px rgba(40, 44, 63, 0.06);
-  --shadow-drawer: 0 -4px 24px rgba(40, 44, 63, 0.16);
-  --shadow-badge: 0 2px 6px rgba(255, 63, 108, 0.25);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-drawer: 0 -8px 30px rgba(0, 0, 0, 0.15);
+  --shadow-heart: 0 2px 8px rgba(0, 0, 0, 0.12);
 
   /* Layout Constants */
-  --mobile-max-width: 430px;
-  --header-height: 56px;
-  --border-radius-sm: 6px;
-  --border-radius-md: 10px;
+  --mobile-max-width: 420px;
+  --header-height: 54px;
+  --bottom-nav-height: 60px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
   --border-radius-lg: 16px;
-  --border-radius-xl: 20px;
+  --border-radius-xl: 24px;
   --border-radius-pill: 9999px;
 
   /* Transitions */

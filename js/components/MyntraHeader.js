@@ -1,32 +1,28 @@
 /**
- * MyntraHeader Component
- * Renders the top navigation bar with Wishlist count and action buttons.
+ * MyntraHeader Component (Screenshot 1 Match)
+ * Renders Back arrow, Centered "Wishlist", and Search button.
  */
-export function renderHeader(itemCount = 3) {
+
+export function renderHeader() {
   const container = document.getElementById('header-container');
   if (!container) return;
 
   container.innerHTML = `
     <div class="header-left">
       <button class="icon-btn" aria-label="Go Back" title="Back">
-        <i data-lucide="chevron-left" style="width: 22px; height: 22px;"></i>
+        <i data-lucide="arrow-left" style="width: 22px; height: 22px;"></i>
       </button>
-      <div class="header-title-container">
-        <span class="header-title">WISHLIST</span>
-        <span class="header-subtitle" id="wishlist-count-badge">${itemCount} ${itemCount === 1 ? 'ITEM' : 'ITEMS'}</span>
-      </div>
     </div>
+    
+    <div class="header-title-center">Wishlist</div>
+
     <div class="header-right">
       <button class="icon-btn" aria-label="Search" title="Search">
-        <i data-lucide="search" style="width: 20px; height: 20px;"></i>
-      </button>
-      <button class="icon-btn" aria-label="Shopping Bag" title="Bag">
-        <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+        <i data-lucide="search" style="width: 21px; height: 21px;"></i>
       </button>
     </div>
   `;
 
-  // Initialize Lucide icons
   if (window.lucide) {
     window.lucide.createIcons();
   }

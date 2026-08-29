@@ -1,10 +1,7 @@
 /**
- * OccasionNav Component
- * Renders occasion filter tabs (All, Office, Weekend, Evening) with counts.
+ * OccasionNav Component (Screenshot 2 Match)
+ * Renders occasion filter tabs: Daily Look, Date Night, Office Sharp.
  */
-
-import { getOccasionCountsForAnchor } from '../data/pairingEngine.js';
-import { store } from '../state/store.js';
 
 /**
  * Generates Occasion Filter Navigation HTML
@@ -12,29 +9,33 @@ import { store } from '../state/store.js';
  * @param {string} activeFilter
  * @returns {string}
  */
-export function renderOccasionNavHTML(anchorItemId, activeFilter = 'All') {
-  const counts = getOccasionCountsForAnchor(anchorItemId);
-
+export function renderOccasionNavHTML(anchorItemId, activeFilter = 'Daily Look') {
   const tabs = [
-    { key: 'All', label: 'All Looks', count: counts['All'] || 0, icon: 'layers' },
-    { key: 'Office', label: 'Office', count: counts['Office'] || 0, icon: 'briefcase' },
-    { key: 'Weekend', label: 'Weekend', count: counts['Weekend'] || 0, icon: 'coffee' },
-    { key: 'Evening', label: 'Evening Out', count: counts['Evening'] || 0, icon: 'wine' }
+    { key: 'Daily Look', label: 'Daily Look', icon: 'sun' },
+    { key: 'Date Night', label: 'Date Night', icon: 'wine' },
+    { key: 'Office Sharp', label: 'Office Sharp', icon: 'briefcase' }
   ];
 
   return `
     <nav class="occasion-nav-wrap" aria-label="Filter Outfits by Occasion">
-      ${tabs.map(tab => `
-        <button 
-          class="occasion-pill-btn ${activeFilter === tab.key ? 'active' : ''}" 
-          data-action="filter-occasion" 
-          data-occasion="${tab.key}"
-        >
-          <i data-lucide="${tab.icon}" style="width: 12px; height: 12px;"></i>
-          <span>${tab.label}</span>
-          <span class="occasion-pill-count">${tab.count}</span>
-        </button>
-      `).join('')}
+      ${tabs.map(tab => {
+        const isActive = (activeFilter === tab.key) || (activeFilter === 'All' && tab.key === 'Daily Look');
+        return `
+          <button 
+            class="occasion-pill-btn ${isActive ? 'active' : ''}" 
+            data-action="filter-occasion" 
+            data-occasion="${tab.key}"
+          >
+            <i data-lucide="${tab.icon}" style="width: 14px; height: 14px;"></i>
+            <span>${tab.label}</span>
+          </button>
+        `;
+      }).join('')}
     </nav>
+
+    <!-- Sub-header text from Screenshot 2 -->
+    <div class="drawer-ai-subtext">
+      AI generated pairings based on your wardrobe.
+    </div>
   `;
 }

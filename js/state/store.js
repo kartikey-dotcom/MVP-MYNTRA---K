@@ -56,7 +56,7 @@ class StyleStudioStore {
     if (!item) return;
     this.activeAnchorItem = item;
     this.isDrawerOpen = true;
-    this.selectedOccasionFilter = 'All';
+    this.selectedOccasionFilter = 'Daily Look';
     document.body.classList.add('drawer-open');
     this.notify();
   }

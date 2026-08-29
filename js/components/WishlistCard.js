@@ -1,11 +1,7 @@
 /**
- * WishlistCard Component
- * Renders a single wishlist item with authentic Myntra mobile aesthetics and zero prices.
+ * WishlistCard Component (Screenshot 1 Match)
+ * Renders individual product card with round floating heart button and cyan "STYLE THIS" CTA.
  */
-
-import { renderStyleButtonHTML } from './StyleButton.js';
-import { getPairingsForAnchor } from '../data/pairingEngine.js';
-import { store } from '../state/store.js';
 
 /**
  * Generates the HTML for a Wishlist product card.
@@ -13,9 +9,6 @@ import { store } from '../state/store.js';
  * @returns {string}
  */
 export function renderWishlistCardHTML(item) {
-  const pairings = getPairingsForAnchor(item.id);
-  const savedCount = store.getSavedLooksCountForAnchor(item.id, pairings);
-
   return `
     <article class="wishlist-card" data-item-id="${item.id}">
       <div class="card-image-wrap">
@@ -24,23 +17,25 @@ export function renderWishlistCardHTML(item) {
           alt="${item.imageAlt || item.name}" 
           class="card-image"
           loading="lazy"
-          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=80';"
+          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80';"
         />
         
-        <!-- Dismiss / Remove Button -->
-        <button class="card-remove-btn" data-action="remove-item" data-item-id="${item.id}" aria-label="Remove from Wishlist" title="Remove">
-          <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+        <!-- Floating Round White Heart Button -->
+        <button class="card-heart-btn" data-action="toggle-wishlist-heart" data-item-id="${item.id}" aria-label="Wishlist item" title="Wishlist">
+          <i data-lucide="heart"></i>
         </button>
-
-        <!-- "✨ Style This" CTA Badge -->
-        ${renderStyleButtonHTML(item.id, savedCount)}
       </div>
 
-      <!-- Product Metadata Details (Zero Pricing) -->
+      <!-- Product Metadata Details -->
       <div class="card-details">
         <h3 class="card-brand">${item.brand}</h3>
         <p class="card-name" title="${item.name}">${item.name}</p>
-        <span class="card-tag">${item.subCategory}</span>
+        
+        <!-- "✨ STYLE THIS" CTA Button -->
+        <button class="btn-style-this" data-action="style-this" data-item-id="${item.id}" aria-label="Style this item">
+          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+          <span>STYLE THIS</span>
+        </button>
       </div>
     </article>
   `;

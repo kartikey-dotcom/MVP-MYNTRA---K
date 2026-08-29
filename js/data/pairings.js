@@ -1,100 +1,154 @@
 /**
- * Curated Outfit Pairings Seed Data for StyleStudio MVP
- * Each anchor item features 3 distinct, occasion-tagged pairings answering the "Rule of 3".
+ * Curated Outfit Pairings matching Screenshot 2 & Rule of 3 Specifications
  */
 
 /** @type {import('../types/index.js').OutfitPairing[]} */
 export const OUTFIT_PAIRINGS = [
   // ==========================================
-  // ANCHOR 1: Mango Relaxed-Fit Linen Blazer (Rust)
+  // ANCHOR 1: STARK & CO. - Structured Navy Blazer
   // ==========================================
   {
-    id: 'pairing-mango-office',
-    anchorItemId: 'anchor-mango-blazer',
-    occasion: 'Office / Workwear',
-    title: 'Tailored Contrast Corporate Edit',
-    complementaryItemIds: ['comp-black-trousers', 'comp-leather-loafers'],
-    stylingRationale: 'Structured black wool trousers counterbalance the relaxed drape of rust linen, grounding the silhouette with polished pointed loafers for modern boardroom authority.',
+    id: 'pairing-stark-daily',
+    anchorItemId: 'anchor-stark-blazer',
+    occasion: 'Daily Look',
+    title: 'Effortless Linen Mix',
+    subtitle: 'Crisp White Shirt + Beige Trousers',
+    complementaryItemIds: ['comp-white-shirt', 'comp-beige-trousers'],
+    isPerfectMatch: true,
+    stylingRationale: 'Layering this structured navy blazer over a crisp poplin shirt and fluid sand beige trousers creates an effortlessly balanced silhouette for daily meetings and lunches.',
     styleConfidence: 'Curated Look'
   },
   {
-    id: 'pairing-mango-weekend',
-    anchorItemId: 'anchor-mango-blazer',
-    occasion: 'Weekend Casual',
-    title: 'Relaxed Urban Brunch Layer',
-    complementaryItemIds: ['comp-straight-denim', 'comp-white-sneakers'],
-    stylingRationale: 'Warm rust earthy tones contrast crisp vintage indigo denim, while minimalist clean sneakers keep the blazer feeling effortless rather than overdressed.',
+    id: 'pairing-stark-datenight',
+    anchorItemId: 'anchor-stark-blazer',
+    occasion: 'Date Night',
+    title: 'Casual Knit Comfort',
+    subtitle: 'Soft Grey Knit + Dark Indigo Denim',
+    complementaryItemIds: ['comp-grey-knit', 'comp-dark-denim'],
+    isPerfectMatch: false,
+    stylingRationale: 'Pairing the sharp lapels with a soft heather grey crewneck knit and deep indigo denim dresses down the blazer for an elevated, relaxed evening aesthetic.',
     styleConfidence: 'Trending Match'
   },
   {
-    id: 'pairing-mango-evening',
-    anchorItemId: 'anchor-mango-blazer',
-    occasion: 'Evening Out',
-    title: 'Satin & Linen Sunset Dinner Edit',
-    complementaryItemIds: ['comp-satin-skirt', 'comp-heeled-mules'],
-    stylingRationale: 'A rich textural play pairing matte, breathable linen against high-shine champagne satin, elongated by sculpted strap mules for intimate evening dinners.',
+    id: 'pairing-stark-officesharp',
+    anchorItemId: 'anchor-stark-blazer',
+    occasion: 'Office Sharp',
+    title: 'Corporate Power Duo',
+    subtitle: 'Crisp White Shirt + Black Loafers',
+    complementaryItemIds: ['comp-white-shirt', 'comp-leather-loafers'],
+    isPerfectMatch: false,
+    stylingRationale: 'Sharp contrasting proportions with polished pointed penny loafers provide clean lines and authoritative elegance for high-stakes office days.',
     styleConfidence: 'Classic Pairing'
   },
 
   // ==========================================
-  // ANCHOR 2: Zara Cropped Poplin Shirt (Optic White)
+  // ANCHOR 2: LUMIÈRE - Emerald Silk Midi Dress
   // ==========================================
   {
-    id: 'pairing-zara-office',
-    anchorItemId: 'anchor-zara-shirt',
-    occasion: 'Office / Workwear',
-    title: 'Architectural High-Rise Workwear',
-    complementaryItemIds: ['comp-khaki-trousers', 'comp-leather-loafers'],
-    stylingRationale: 'High-waisted wide-leg chinos meet the cropped hemline at the natural waist, creating a clean elongating proportion suitable for creative work spaces.',
+    id: 'pairing-lumiere-daily',
+    anchorItemId: 'anchor-lumiere-dress',
+    occasion: 'Daily Look',
+    title: 'Daytime Minimalist Layer',
+    subtitle: 'Soft Grey Knit + Minimalist Sneakers',
+    complementaryItemIds: ['comp-grey-knit'],
+    isPerfectMatch: true,
+    stylingRationale: 'Throw a relaxed grey crewneck over the emerald slip dress to transform evening glamour into an effortless daytime layered skirt look.',
     styleConfidence: 'Curated Look'
   },
   {
-    id: 'pairing-zara-weekend',
-    anchorItemId: 'anchor-zara-shirt',
-    occasion: 'Weekend Casual',
-    title: 'Crisp Off-Duty Gallery Stroll',
-    complementaryItemIds: ['comp-straight-denim', 'comp-white-sneakers'],
-    stylingRationale: 'Unbutton the collar slightly and pair with classic straight-leg denim and low-profile white sneakers for effortless Parisian-inspired downtime styling.',
-    styleConfidence: 'Trending Match'
-  },
-  {
-    id: 'pairing-zara-evening',
-    anchorItemId: 'anchor-zara-shirt',
-    occasion: 'Evening Out',
-    title: 'Monochrome Cocktail Silhouette',
-    complementaryItemIds: ['comp-satin-skirt', 'comp-heeled-mules'],
-    stylingRationale: 'Tuck into a high-waisted fluid champagne midi skirt to balance the structured poplin collar with sensual evening drape and minimalist heels.',
-    styleConfidence: 'Classic Pairing'
-  },
-
-  // ==========================================
-  // ANCHOR 3: H&M High-Waisted Tailored Wide Trousers (Olive Green)
-  // ==========================================
-  {
-    id: 'pairing-hm-office',
-    anchorItemId: 'anchor-hm-trousers',
-    occasion: 'Office / Workwear',
-    title: 'Refined Earthy Neutral Tailoring',
-    complementaryItemIds: ['comp-mock-knit', 'comp-leather-loafers'],
-    stylingRationale: 'A slim ribbed ivory mock-neck knit provides structured upper-body proportion to balance the voluminous wide-leg drape of olive trousers.',
-    styleConfidence: 'Curated Look'
-  },
-  {
-    id: 'pairing-hm-weekend',
-    anchorItemId: 'anchor-hm-trousers',
-    occasion: 'Weekend Casual',
-    title: 'Elevated Weekend City Uniform',
-    complementaryItemIds: ['comp-white-sneakers'],
-    stylingRationale: 'Ditch the formal footwear for pristine white sneakers to turn these sharp tailored trousers into your go-to weekend walking trousers.',
-    styleConfidence: 'Trending Match'
-  },
-  {
-    id: 'pairing-hm-evening',
-    anchorItemId: 'anchor-hm-trousers',
-    occasion: 'Evening Out',
-    title: 'Dusk Bistro Accent',
+    id: 'pairing-lumiere-datenight',
+    anchorItemId: 'anchor-lumiere-dress',
+    occasion: 'Date Night',
+    title: 'Satin Radiance Edit',
+    subtitle: 'Champagne Satin + Sculpted Mules',
     complementaryItemIds: ['comp-heeled-mules'],
-    stylingRationale: 'Add sculpted height with warm taupe mules to lift the wide hem and add sleek nocturnal polish to deep olive tailoring.',
+    isPerfectMatch: false,
+    stylingRationale: 'Lustrous emerald silk catches evening ambient light, elevated by sculpted strap mules for romantic dinner settings.',
     styleConfidence: 'Classic Pairing'
+  },
+  {
+    id: 'pairing-lumiere-officesharp',
+    anchorItemId: 'anchor-lumiere-dress',
+    occasion: 'Office Sharp',
+    title: 'Modern Executive Slip',
+    subtitle: 'Pointed Loafers + Structured Outerwear',
+    complementaryItemIds: ['comp-leather-loafers'],
+    isPerfectMatch: false,
+    stylingRationale: 'Grounding fluid silk with structured footwear makes the dress office-appropriate and sophisticated.',
+    styleConfidence: 'Curated Look'
+  },
+
+  // ==========================================
+  // ANCHOR 3: AERIS - Chunky Platform Sneakers
+  // ==========================================
+  {
+    id: 'pairing-aeris-daily',
+    anchorItemId: 'anchor-aeris-sneakers',
+    occasion: 'Daily Look',
+    title: 'Off-Duty Gallery Stroll',
+    subtitle: 'Crisp White Shirt + Indigo Denim',
+    complementaryItemIds: ['comp-white-shirt', 'comp-dark-denim'],
+    isPerfectMatch: true,
+    stylingRationale: 'Clean white sneakers ground dark denim and a classic button-down for timeless weekend streetwear.',
+    styleConfidence: 'Curated Look'
+  },
+  {
+    id: 'pairing-aeris-datenight',
+    anchorItemId: 'anchor-aeris-sneakers',
+    occasion: 'Date Night',
+    title: 'Edgy High-Low Contrast',
+    subtitle: 'Silk Slip Skirt + Grey Cashmere',
+    complementaryItemIds: ['comp-satin-skirt', 'comp-grey-knit'],
+    isPerfectMatch: false,
+    stylingRationale: 'Juxtaposing feminine champagne satin with chunky platform footwear creates a trendy downtown date night edge.',
+    styleConfidence: 'Trending Match'
+  },
+  {
+    id: 'pairing-aeris-officesharp',
+    anchorItemId: 'anchor-aeris-sneakers',
+    occasion: 'Office Sharp',
+    title: 'Smart-Casual Tailored Commute',
+    subtitle: 'Beige Trousers + Crisp White Shirt',
+    complementaryItemIds: ['comp-beige-trousers', 'comp-white-shirt'],
+    isPerfectMatch: false,
+    stylingRationale: 'Wide-leg pleated beige trousers drape smoothly over chunky white platforms for a modern creative office uniform.',
+    styleConfidence: 'Classic Pairing'
+  },
+
+  // ==========================================
+  // ANCHOR 4: NORDIC - Wide-Leg Tailored Trousers
+  // ==========================================
+  {
+    id: 'pairing-nordic-daily',
+    anchorItemId: 'anchor-nordic-trousers',
+    occasion: 'Daily Look',
+    title: 'Effortless Linen Mix',
+    subtitle: 'Crisp White Shirt + Beige Trousers',
+    complementaryItemIds: ['comp-white-shirt'],
+    isPerfectMatch: true,
+    stylingRationale: 'Tucking a crisp white button-down into high-waisted sand beige trousers elongates the silhouette for versatile daytime elegance.',
+    styleConfidence: 'Curated Look'
+  },
+  {
+    id: 'pairing-nordic-datenight',
+    anchorItemId: 'anchor-nordic-trousers',
+    occasion: 'Date Night',
+    title: 'Dusk Bistro Tailoring',
+    subtitle: 'Sculpted Mules + Evening Satin Accent',
+    complementaryItemIds: ['comp-heeled-mules'],
+    isPerfectMatch: false,
+    stylingRationale: 'Adding sculpted heel height creates dramatic movement and flow in wide-leg tailoring for evening cocktails.',
+    styleConfidence: 'Classic Pairing'
+  },
+  {
+    id: 'pairing-nordic-officesharp',
+    anchorItemId: 'anchor-nordic-trousers',
+    occasion: 'Office Sharp',
+    title: 'Architectural Boardroom Edit',
+    subtitle: 'Pointed Loafers + Structured Poplin',
+    complementaryItemIds: ['comp-leather-loafers', 'comp-white-shirt'],
+    isPerfectMatch: false,
+    stylingRationale: 'Clean pleats over polished black leather loafers create a powerful, refined tailored foundation.',
+    styleConfidence: 'Curated Look'
   }
 ];
