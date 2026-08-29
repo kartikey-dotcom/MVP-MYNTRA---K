@@ -285,7 +285,282 @@
 }
 
 /* =========================================
-   StyleStudio AI Bottom Drawer (Screenshot 2 & 3 Match)
+   Home Screen Components
+   ========================================= */
+
+.home-hero-banner {
+  background: linear-gradient(135deg, #FFF0F3 0%, #FFFFFF 100%);
+  border: 1px solid rgba(225, 27, 83, 0.12);
+  border-radius: var(--border-radius-lg);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 10px rgba(225, 27, 83, 0.05);
+}
+
+.home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FFFFFF;
+  border: 1px solid rgba(225, 27, 83, 0.2);
+  color: var(--myntra-crimson);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: var(--border-radius-pill);
+  width: fit-content;
+}
+
+.home-hero-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.home-hero-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.home-hero-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.btn-home-cta {
+  flex: 1;
+  background: var(--myntra-coral);
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 11.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(225, 27, 83, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.btn-home-cta:hover {
+  background: #C20042;
+}
+
+.btn-home-secondary {
+  flex: 1;
+  background: #FFFFFF;
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 11.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-home-secondary:hover {
+  background: #F9FAFB;
+}
+
+.home-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 2px 2px 2px;
+}
+
+.home-section-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+
+.home-see-all-btn {
+  background: none;
+  border: none;
+  color: var(--myntra-crimson);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* =========================================
+   Profile Screen Components
+   ========================================= */
+
+.profile-user-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.profile-avatar-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF3F6C 0%, #FF6B8B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(255, 63, 108, 0.3);
+  flex-shrink: 0;
+}
+
+.profile-user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.profile-user-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.profile-insider-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #D97706; /* Golden Amber */
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.profile-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.profile-stat-box {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile-stat-box:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+}
+
+.profile-stat-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--myntra-crimson);
+}
+
+.profile-stat-label {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.profile-menu-group {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-lg);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-menu-section-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.profile-menu-row {
+  background: none;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 4px;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.profile-menu-row:last-child {
+  border-bottom: none;
+}
+
+.profile-menu-row:hover {
+  background-color: #F9FAFB;
+}
+
+.profile-row-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-row-icon {
+  width: 18px;
+  height: 18px;
+  color: #6B7280;
+}
+
+.profile-row-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-badge-pill {
+  background: #FFF0F3;
+  color: var(--myntra-crimson);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--border-radius-pill);
+}
+
+/* =========================================
+   StyleStudio AI Bottom Drawer
    ========================================= */
 
 .drawer-backdrop {
@@ -378,7 +653,7 @@
   font-size: 19px;
   font-weight: 800;
   font-style: italic;
-  color: #0E7490; /* Vibrant Deep Teal */
+  color: #0E7490;
   letter-spacing: -0.3px;
 }
 
@@ -490,7 +765,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Multi-Garment Grid: 2 Garment Cards Side by Side */
 .outfit-grid-2col {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -513,7 +787,6 @@
   object-position: center;
 }
 
-/* "✨ PERFECT MATCH" Badge */
 .perfect-match-badge {
   position: absolute;
   top: 8px;
@@ -533,7 +806,6 @@
   text-transform: uppercase;
 }
 
-/* Pairing Card Footer: Title on Left, Button on Right */
 .pairing-footer-row {
   display: flex;
   align-items: center;
@@ -564,7 +836,6 @@
   text-overflow: ellipsis;
 }
 
-/* Save / Saved Button (Screenshot 2 Match) */
 .btn-save-toggle {
   background: #FFFFFF;
   border: 1px solid #71717A;

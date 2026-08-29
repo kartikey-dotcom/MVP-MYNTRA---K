@@ -14,13 +14,15 @@ export function renderWishlistGrid() {
 
   if (items.length === 0) {
     container.innerHTML = `
-      <div style="text-align: center; padding: 48px 16px; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 10px;">
-        <i data-lucide="heart" style="width: 48px; height: 48px; color: #D1D5DB;"></i>
+      <div style="text-align: center; padding: 48px 16px; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: #FFF0F3; display: flex; align-items: center; justify-content: center;">
+          <i data-lucide="heart" style="width: 32px; height: 32px; color: var(--myntra-crimson);"></i>
+        </div>
         <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">Your Wishlist is Empty</h3>
-        <p style="font-size: 12px; max-width: 260px; line-height: 1.4;">Browse fashion products and tap the heart icon on any piece to add it here.</p>
+        <p style="font-size: 12px; max-width: 260px; line-height: 1.4;">Explore fashion pieces and tap the heart icon on any garment to save and style it here.</p>
         <button class="btn-browse-redirect" data-action="go-to-browse">
           <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
-          <span>Browse Products</span>
+          <span>Explore Catalog</span>
         </button>
       </div>
     `;
@@ -93,17 +95,15 @@ export function renderBottomNavBar() {
     const navBtn = e.target.closest('.nav-item');
     if (navBtn) {
       const tab = navBtn.dataset.tab;
-      if (tab === 'home' || tab === 'explore') {
-        store.setActiveTab('explore');
-      } else if (tab === 'wishlist') {
-        store.setActiveTab('wishlist');
-      } else if (tab === 'studio') {
-        // Open StyleStudio for the first wishlisted item if available
+      if (tab === 'studio') {
+        // Open StyleStudio for the active or first wishlisted item
         if (store.wishlistItems.length > 0) {
           store.openDrawer(store.wishlistItems[0]);
         } else if (store.browseProducts.length > 0) {
           store.openDrawer(store.browseProducts[0]);
         }
+      } else if (tab) {
+        store.setActiveTab(tab);
       }
     }
   };

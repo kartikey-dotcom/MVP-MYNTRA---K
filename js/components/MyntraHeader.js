@@ -1,6 +1,6 @@
 /**
  * MyntraHeader Component
- * Renders dynamic header title depending on active tab ("Wishlist" or "Browse Products").
+ * Renders dynamic header title and contextual actions depending on active tab.
  */
 
 import { store } from '../state/store.js';
@@ -9,8 +9,28 @@ export function renderHeader() {
   const container = document.getElementById('header-container');
   if (!container) return;
 
-  const isWishlistTab = store.activeTab === 'wishlist';
-  const headerTitle = isWishlistTab ? 'Wishlist' : 'Browse Products';
+  const { activeTab } = store;
+  let headerTitle = 'Wishlist';
+
+  switch (activeTab) {
+    case 'home':
+      headerTitle = 'Myntra';
+      break;
+    case 'explore':
+      headerTitle = 'Explore Fashion';
+      break;
+    case 'wishlist':
+      headerTitle = 'Wishlist';
+      break;
+    case 'studio':
+      headerTitle = 'StyleStudio AI';
+      break;
+    case 'profile':
+      headerTitle = 'My Profile';
+      break;
+    default:
+      headerTitle = 'Wishlist';
+  }
 
   container.innerHTML = `
     <div class="header-left">
@@ -28,14 +48,14 @@ export function renderHeader() {
     </div>
   `;
 
-  // Back button event: if in wishlist, go back to explore; if in explore, go to wishlist
+  // Back button event: navigation back fallback
   const backBtn = container.querySelector('[data-action="nav-back"]');
   if (backBtn) {
     backBtn.onclick = () => {
-      if (store.activeTab === 'wishlist') {
+      if (store.activeTab === 'home') {
         store.setActiveTab('explore');
       } else {
-        store.setActiveTab('wishlist');
+        store.setActiveTab('home');
       }
     };
   }

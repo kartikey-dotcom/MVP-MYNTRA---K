@@ -5,7 +5,7 @@ import re
 
 # Streamlit Page Configuration
 st.set_page_config(
-    page_title="Myntra StyleStudio — Browse & Wishlist",
+    page_title="Myntra StyleStudio — Fashion App",
     page_icon="✨",
     layout="centered",
     initial_sidebar_state="collapsed"
@@ -54,6 +54,8 @@ wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
 browse_card_js = read_file("js/components/BrowseCard.js")
 browse_view_js = read_file("js/components/BrowseView.js")
+home_view_js = read_file("js/components/HomeView.js")
+profile_view_js = read_file("js/components/ProfileView.js")
 drawer_header_js = read_file("js/components/DrawerHeader.js")
 occasion_nav_js = read_file("js/components/OccasionNav.js")
 pairing_card_js = read_file("js/components/PairingCard.js")
@@ -78,6 +80,8 @@ wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
 browse_card_clean = clean_js(browse_card_js)
 browse_view_clean = clean_js(browse_view_js)
+home_view_clean = clean_js(home_view_js)
+profile_view_clean = clean_js(profile_view_js)
 drawer_header_clean = clean_js(drawer_header_js)
 occasion_nav_clean = clean_js(occasion_nav_js)
 pairing_card_clean = clean_js(pairing_card_js)
@@ -112,6 +116,8 @@ all_scripts = "\n\n".join([
     wishlist_grid_clean,
     browse_card_clean,
     browse_view_clean,
+    home_view_clean,
+    profile_view_clean,
     drawer_header_clean,
     occasion_nav_clean,
     pairing_card_clean,
@@ -174,10 +180,24 @@ all_scripts = "\n\n".join([
 
     function renderApp() {
         renderHeader();
-        if (store.activeTab === 'wishlist') {
-            renderWishlistGrid();
-        } else {
-            renderBrowseView();
+        switch (store.activeTab) {
+            case 'home':
+                renderHomeView();
+                break;
+            case 'explore':
+                renderBrowseView();
+                break;
+            case 'wishlist':
+                renderWishlistGrid();
+                break;
+            case 'profile':
+                renderProfileView();
+                break;
+            case 'studio':
+                renderWishlistGrid();
+                break;
+            default:
+                renderBrowseView();
         }
         renderBottomNavBar();
         renderStyleDrawer();
@@ -200,7 +220,7 @@ html_template = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Myntra StyleStudio — Browse & Wishlist</title>
+  <title>Myntra StyleStudio — Fashion App</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -215,7 +235,7 @@ __STYLES_PLACEHOLDER__
   <div class="desktop-stage">
     <main class="mobile-frame" id="app">
       <header class="myntra-header" id="header-container"></header>
-      <section class="wishlist-viewport" id="wishlist-container" aria-label="Fashion Products"></section>
+      <section class="wishlist-viewport" id="wishlist-container" aria-label="Fashion App Viewport"></section>
       <div id="drawer-root"></div>
       <div id="toast-root"></div>
     </main>
