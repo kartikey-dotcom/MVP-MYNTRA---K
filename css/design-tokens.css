@@ -1,0 +1,54 @@
+:root {
+  /* Brand Accents */
+  --myntra-coral: #FF3F6C;
+  --myntra-coral-hover: #E02D59;
+  --myntra-coral-light: #FFF0F3;
+  --myntra-coral-glow: rgba(255, 63, 108, 0.2);
+  --myntra-pink-gradient: linear-gradient(135deg, #FF3F6C 0%, #FF527B 100%);
+  --myntra-sparkle-gradient: linear-gradient(135deg, #FFF0F3 0%, #FFE4E9 100%);
+
+  /* Neutral Surface Colors */
+  --bg-app: #F5F5F6;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-drawer: #FFFFFF;
+  --bg-backdrop: rgba(0, 0, 0, 0.6);
+
+  /* Borders & Dividers */
+  --border-subtle: #EAEAEC;
+  --border-light: #F0F0F2;
+  --border-active: #FF3F6C;
+
+  /* Typography Colors */
+  --text-primary: #282C3F;
+  --text-secondary: #535766;
+  --text-muted: #7E818C;
+  --text-tertiary: #94969F;
+  --text-coral: #FF3F6C;
+  --text-inverse: #FFFFFF;
+
+  /* Functional Accents */
+  --status-success: #03A685;
+  --status-success-light: #E6F7F3;
+  --tag-bg: #F4F4F5;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 4px rgba(40, 44, 63, 0.08);
+  --shadow-card: 0 2px 8px rgba(40, 44, 63, 0.06);
+  --shadow-drawer: 0 -4px 24px rgba(40, 44, 63, 0.16);
+  --shadow-badge: 0 2px 6px rgba(255, 63, 108, 0.25);
+
+  /* Layout Constants */
+  --mobile-max-width: 430px;
+  --header-height: 56px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 20px;
+  --border-radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}

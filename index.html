@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Myntra StyleStudio — Wishlist</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/stylestudio.css">
+</head>
+<body>
+
+  <!-- Desktop Stage Frame Wrapper -->
+  <div class="desktop-stage">
+    
+    <!-- Mobile Viewport Shell (Max 430px) -->
+    <main class="mobile-frame" id="app">
+      
+      <!-- Myntra Header (Component) -->
+      <header class="myntra-header" id="header-container">
+        <div class="header-left">
+          <button class="icon-btn" aria-label="Go Back">
+            <i data-lucide="chevron-left" style="width: 22px; height: 22px;"></i>
+          </button>
+          <div class="header-title-container">
+            <span class="header-title">WISHLIST</span>
+            <span class="header-subtitle" id="wishlist-count-badge">3 ITEMS</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="icon-btn" aria-label="Search">
+            <i data-lucide="search" style="width: 20px; height: 20px;"></i>
+          </button>
+          <button class="icon-btn" aria-label="Shopping Bag">
+            <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Wishlist Grid Viewport -->
+      <section class="wishlist-viewport" id="wishlist-container" aria-label="Myntra Wishlist Items">
+        <!-- Wishlist items will be dynamically mounted here -->
+      </section>
+
+      <!-- StyleStudio Bottom Sheet Drawer Container -->
+      <div id="drawer-root"></div>
+
+      <!-- Notification Toast Container -->
+      <div id="toast-root"></div>
+
+    </main>
+
+  </div>
+
+  <!-- Main JavaScript Entry -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

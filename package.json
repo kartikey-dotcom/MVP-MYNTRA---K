@@ -1,0 +1,21 @@
+{
+  "name": "myntra-stylestudio-mvp",
+  "version": "1.0.0",
+  "description": "Functional MVP for Myntra StyleStudio solving the Rule of 3 hesitation barrier in Wishlist",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python server.py",
+    "start": "python server.py",
+    "test": "python verify_mvp.py"
+  },
+  "keywords": [
+    "myntra",
+    "fashion",
+    "stylestudio",
+    "rule-of-3",
+    "wishlist",
+    "mvp"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}

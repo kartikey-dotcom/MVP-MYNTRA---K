@@ -1,0 +1,815 @@
+/* Wishlist Grid & Header Enhancements */
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+/* Wishlist Banner Alert */
+.wishlist-intent-banner {
+  background: var(--myntra-sparkle-gradient);
+  border: 1px solid rgba(255, 63, 108, 0.15);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.intent-banner-icon {
+  color: var(--myntra-coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.intent-banner-text {
+  font-size: 11px;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.intent-banner-text strong {
+  color: var(--myntra-coral);
+  font-weight: 700;
+}
+
+/* Wishlist Card */
+.wishlist-card {
+  background: var(--bg-card);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.wishlist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-color: #ECECEC;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--transition-smooth);
+}
+
+.wishlist-card:hover .card-image {
+  transform: scale(1.03);
+}
+
+.card-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: all var(--transition-fast);
+  z-index: 5;
+}
+
+.card-remove-btn:hover {
+  background: #FFFFFF;
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+/* "✨ Style This" Floating Pill CTA */
+.style-this-cta-wrap {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 8px;
+  z-index: 6;
+}
+
+.btn-style-this {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 63, 108, 0.3);
+  color: var(--myntra-coral);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 63, 108, 0.2);
+  transition: all var(--transition-spring);
+  width: auto;
+}
+
+.btn-style-this:hover {
+  background: #FFFFFF;
+  border-color: var(--myntra-coral);
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 14px rgba(255, 63, 108, 0.3);
+}
+
+.btn-style-this:active {
+  transform: scale(0.96);
+}
+
+.btn-style-this i {
+  color: var(--myntra-coral);
+}
+
+/* Saved Looks Badge on Card */
+.saved-count-pill {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: var(--status-success-light);
+  border: 1px solid rgba(3, 166, 133, 0.3);
+  color: var(--status-success);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--border-radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Card Body */
+.card-details {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: #FFFFFF;
+}
+
+.card-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.card-name {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-tag {
+  font-size: 10px;
+  color: var(--text-secondary);
+  background: var(--tag-bg);
+  padding: 2px 6px;
+  border-radius: var(--border-radius-sm);
+  width: fit-content;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* =========================================
+   StyleStudio Bottom Sheet Drawer Styles
+   ========================================= */
+
+/* Backdrop Overlay */
+.drawer-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(24, 27, 38, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Drawer Body Container */
+.drawer-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-drawer);
+  border-top-left-radius: var(--border-radius-xl);
+  border-top-right-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-drawer);
+  z-index: 101;
+  transform: translateY(100%);
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  overflow: hidden;
+}
+
+.drawer-container.open {
+  transform: translateY(0);
+}
+
+/* Handle Bar */
+.drawer-handle-wrap {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.drawer-handle {
+  width: 36px;
+  height: 4px;
+  background-color: #D4D5D9;
+  border-radius: var(--border-radius-pill);
+}
+
+/* Drawer Header Area */
+.drawer-header {
+  padding: 0 16px 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-surface);
+  flex-shrink: 0;
+}
+
+.drawer-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-brand-badge .studio-logo {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+}
+
+.drawer-brand-badge .studio-sparkle {
+  color: var(--myntra-coral);
+  display: flex;
+  align-items: center;
+}
+
+.drawer-rule3-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--myntra-coral-light);
+  color: var(--myntra-coral);
+  padding: 2px 8px;
+  border-radius: var(--border-radius-pill);
+  border: 1px solid rgba(255, 63, 108, 0.2);
+}
+
+.drawer-close-btn {
+  background: var(--border-light);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.drawer-close-btn:hover {
+  background: #E4E4E7;
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+/* Anchor Product Mini Sticky Bar */
+.anchor-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #FAFAFB;
+  border: 1px solid var(--border-subtle);
+  padding: 8px 10px;
+  border-radius: var(--border-radius-md);
+}
+
+.anchor-summary-thumb {
+  width: 40px;
+  height: 52px;
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.anchor-summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.anchor-summary-brand {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.anchor-summary-name {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anchor-summary-tag {
+  font-size: 10px;
+  color: var(--myntra-coral);
+  font-weight: 600;
+}
+
+/* Occasion Filter Navigation */
+.occasion-nav-wrap {
+  padding: 10px 16px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.occasion-nav-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.occasion-pill-btn {
+  background-color: #F5F5F6;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.occasion-pill-btn:hover {
+  background-color: #EAEAEC;
+  color: var(--text-primary);
+}
+
+.occasion-pill-btn.active {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #FFFFFF;
+}
+
+.occasion-pill-count {
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 1px 5px;
+  border-radius: var(--border-radius-pill);
+}
+
+.occasion-pill-btn.active .occasion-pill-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* Drawer Content Scroll Area */
+.drawer-content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 16px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =========================================
+   Phase 5: Pairing Card & Outfit Canvas
+   ========================================= */
+
+.pairing-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.pairing-card:hover {
+  box-shadow: var(--shadow-card);
+}
+
+/* Pairing Card Header */
+.pairing-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.occasion-tag-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #F4F4F6;
+  border: 1px solid var(--border-subtle);
+  padding: 4px 10px;
+  border-radius: var(--border-radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+}
+
+.occasion-tag-badge.office {
+  background-color: #F0F4F8;
+  border-color: #D8E2EC;
+  color: #1A365D;
+}
+
+.occasion-tag-badge.weekend {
+  background-color: #FFF7ED;
+  border-color: #FED7AA;
+  color: #9A3412;
+}
+
+.occasion-tag-badge.evening {
+  background-color: #FAF5FF;
+  border-color: #E9D5FF;
+  color: #581C87;
+}
+
+.style-confidence-pill {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--status-success);
+  background: var(--status-success-light);
+  padding: 2px 8px;
+  border-radius: var(--border-radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pairing-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+}
+
+/* Outfit Canvas Multi-Garment Grid */
+.outfit-canvas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FAFAFB;
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+}
+
+.outfit-canvas::-webkit-scrollbar {
+  display: none;
+}
+
+.garment-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 80px;
+  max-width: 105px;
+}
+
+.garment-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #ECECEC;
+}
+
+.garment-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.garment-tag-overlay {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  color: #FFFFFF;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+
+.garment-tag-overlay.anchor {
+  background: var(--myntra-coral);
+}
+
+.garment-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.garment-brand {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.garment-subname {
+  font-size: 9px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outfit-plus-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #A0A2AB;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Styling Rationale Box */
+.styling-rationale-box {
+  background: #FFF8F9;
+  border-left: 3px solid var(--myntra-coral);
+  padding: 10px 12px;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rationale-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--myntra-coral);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.rationale-text {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.rationale-disclaimer {
+  font-size: 9.5px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* Save Pairing CTA Action */
+.pairing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.btn-save-pairing {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: var(--border-radius-pill);
+  border: 1px solid rgba(255, 63, 108, 0.3);
+  background: #FFFFFF;
+  color: var(--myntra-coral);
+  font-size: 11.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-save-pairing:hover {
+  background: var(--myntra-coral-light);
+  border-color: var(--myntra-coral);
+  transform: translateY(-1px);
+}
+
+.btn-save-pairing.saved {
+  background: var(--myntra-coral);
+  border-color: var(--myntra-coral);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-badge);
+}
+
+.empty-pairings-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reset-filter {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* =========================================
+   Phase 6: Floating Toast Notifications
+   ========================================= */
+
+#toast-root {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  right: 16px;
+  z-index: 999;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.toast-notification {
+  background: #181B26;
+  color: #FFFFFF;
+  border-radius: var(--border-radius-lg);
+  padding: 12px 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 63, 108, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 94%;
+  opacity: 0;
+  transform: translateY(-16px) scale(0.95);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.toast-notification.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast-icon {
+  color: var(--myntra-coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.toast-notification.success .toast-icon {
+  color: var(--status-success);
+}
+
+.toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.toast-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.toast-sub {
+  font-size: 10.5px;
+  color: #B2B5BF;
+  font-weight: 500;
+}
+
+/* Button morph animation on save */
+.btn-save-pairing {
+  transform: translateZ(0);
+}
+
+.btn-save-pairing:active {
+  transform: scale(0.95);
+}
+
+.btn-save-pairing.saved {
+  animation: pulse-saved 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pulse-saved {
+  0% { transform: scale(0.94); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* Style button active state on card */
+.btn-style-this.active-has-saved {
+  background: var(--myntra-coral-light);
+  border-color: var(--myntra-coral);
+  color: var(--myntra-coral);
+  font-weight: 700;
+}
+
+
+
