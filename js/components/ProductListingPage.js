@@ -12,6 +12,7 @@ export function renderProductListingPage() {
 
   const currentCategory = store.currentView;
   const products = store.getFilteredProductsForCurrentCategory();
+  const searchQuery = store.filters.searchQuery;
   
   // Category Display Titles
   const categoryMeta = {
@@ -19,14 +20,26 @@ export function renderProductListingPage() {
     'MEN': { title: "Men's Casual & Executive Wear", breadcrumb: "Men's Fashion" },
     'KIDS': { title: "Kids' Fashion & Daily Essentials", breadcrumb: "Kids Collection" },
     'BEAUTY': { title: "Beauty, Skincare & Personal Care", breadcrumb: "Beauty & Grooming" },
-    'HOME & LIVING': { title: "Home Decor, Living & Textures", breadcrumb: "Home & Living" }
+    'HOME & LIVING': { title: "Home Decor, Living & Textures", breadcrumb: "Home & Living" },
+    'SEARCH': { 
+      title: searchQuery ? `Search Results for "${searchQuery}"` : "All Products Catalog", 
+      breadcrumb: searchQuery ? `Search / "${searchQuery}"` : "All Products" 
+    }
   };
 
-  const meta = categoryMeta[currentCategory] || { title: `${currentCategory} Collection`, breadcrumb: currentCategory };
+  let meta = categoryMeta[currentCategory] || { title: `${currentCategory} Collection`, breadcrumb: currentCategory };
+  if (searchQuery && currentCategory !== 'SEARCH') {
+    meta = {
+      title: `Search in ${meta.breadcrumb}: "${searchQuery}"`,
+      breadcrumb: `${meta.breadcrumb} / "${searchQuery}"`
+    };
+  }
 
-  // Get unique brands for current category
-  const allCategoryProducts = store.allProducts.filter(p => p.category === currentCategory);
-  const brands = ['All', ...new Set(allCategoryProducts.map(p => p.brand))];
+  // Get unique brands for current pool
+  const candidatePool = (currentCategory === 'SEARCH' || searchQuery) 
+    ? store.allProducts 
+    : store.allProducts.filter(p => p.category === currentCategory);
+  const brands = ['All', ...new Set(candidatePool.map(p => p.brand))];
 
   container.innerHTML = `
     <div class="plp-page-wrapper">

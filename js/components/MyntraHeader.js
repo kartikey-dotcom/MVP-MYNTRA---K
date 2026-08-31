@@ -1,7 +1,7 @@
 /**
  * Myntra Desktop Header Component
- * Handles Category Navigation (MEN, WOMEN, KIDS, HOME & LIVING, BEAUTY, STUDIO),
- * Search Bar, Profile Dropdown, Wishlist button, and Bag drawer.
+ * Handles Category Navigation, Instant Live Search with Suggestions Dropdown,
+ * User Profile Popover, Wishlist, and Bag Drawer.
  */
 
 import { store } from '../state/store.js';
@@ -10,10 +10,18 @@ export function renderHeader() {
   const container = document.getElementById('header-container');
   if (!container) return;
 
+  const activeInput = document.getElementById('header-search-input');
+  const wasFocused = activeInput && (document.activeElement === activeInput);
+  const cursorStart = activeInput ? activeInput.selectionStart : null;
+  const cursorEnd = activeInput ? activeInput.selectionEnd : null;
+
   const categories = ['MEN', 'WOMEN', 'KIDS', 'HOME & LIVING', 'BEAUTY', 'STUDIO'];
   const { currentView, wishlistItems, userProfile, isProfileDropdownOpen } = store;
   const bagCount = store.getBagCount();
   const wishlistCount = wishlistItems.length;
+  const searchQuery = store.filters.searchQuery || '';
+
+  const suggestions = store.getSearchSuggestions(searchQuery);
 
   container.innerHTML = `
     <header class="desktop-header">
@@ -39,17 +47,74 @@ export function renderHeader() {
         </nav>
       </div>
 
-      <!-- Center: Search Input -->
-      <div class="header-search-bar">
-        <i data-lucide="search" class="search-icon"></i>
-        <input 
-          type="text" 
-          class="search-input" 
-          placeholder="Search for products, brands and more" 
-          value="${store.filters.searchQuery || ''}"
-          id="header-search-input"
-          aria-label="Search"
-        />
+      <!-- Center: Search Input & Instant Suggestions Dropdown -->
+      <div class="header-search-bar-wrap">
+        <div class="header-search-bar ${searchQuery ? 'has-query' : ''}">
+          <i data-lucide="search" class="search-icon"></i>
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Search for products, brands and more (e.g. Blazer, Dress, Watch)" 
+            value="${searchQuery}"
+            id="header-search-input"
+            autocomplete="off"
+            aria-label="Search"
+          />
+          ${searchQuery ? `
+            <button class="btn-clear-search" data-action="clear-search" aria-label="Clear Search">
+              <i data-lucide="x"></i>
+            </button>
+          ` : ''}
+        </div>
+
+        <!-- Live Search Suggestions Popover -->
+        <div class="search-suggestions-popover" id="search-suggestions-popover">
+          ${suggestions.trending.length > 0 ? `
+            <div class="suggestion-section">
+              <div class="suggestion-header">
+                <i data-lucide="trending-up" style="width: 12px; height: 12px; color: var(--myntra-crimson);"></i>
+                <span>TRENDING SEARCHES</span>
+              </div>
+              <div class="trending-pills-row">
+                ${suggestions.trending.map(term => `
+                  <button class="trending-search-pill" data-action="quick-search" data-query="${term}">
+                    <span>${term}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${suggestions.items.length > 0 ? `
+            <div class="suggestion-section">
+              <div class="suggestion-header">
+                <i data-lucide="sparkles" style="width: 12px; height: 12px; color: var(--myntra-crimson);"></i>
+                <span>MATCHING PRODUCTS (${suggestions.items.length})</span>
+              </div>
+              <div class="suggestion-items-list">
+                ${suggestions.items.map(p => `
+                  <div class="suggestion-product-row" data-action="select-suggested-product" data-product-id="${p.id}">
+                    <img src="${p.image || p.imageUrl}" alt="${p.title}" class="suggest-thumb" />
+                    <div class="suggest-meta">
+                      <span class="suggest-brand">${p.brand}</span>
+                      <span class="suggest-title">${p.title}</span>
+                    </div>
+                    <div class="suggest-price-tag">
+                      <span class="suggest-price">₹${p.price.toLocaleString('en-IN')}</span>
+                      <span class="suggest-category">${p.category}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${searchQuery && suggestions.items.length === 0 ? `
+            <div class="suggestion-empty-state">
+              <span>Press Enter to search for "<strong>${searchQuery}</strong>"</span>
+            </div>
+          ` : ''}
+        </div>
       </div>
 
       <!-- Right: User Actions (Profile, Wishlist, Bag) -->
@@ -140,13 +205,25 @@ export function renderHeader() {
     window.lucide.createIcons();
   }
 
+  // Restore focus if it was focused prior to re-render
+  if (wasFocused) {
+    const newInput = document.getElementById('header-search-input');
+    if (newInput) {
+      newInput.focus();
+      if (cursorStart !== null && cursorEnd !== null) {
+        newInput.setSelectionRange(cursorStart, cursorEnd);
+      }
+    }
+  }
+
   // Event delegation
   container.onclick = (e) => {
-    // 1. Category or Wishlist Navigation
+    // 1. Category Navigation
     const navBtn = e.target.closest('[data-action="nav-category"]');
     if (navBtn) {
       const targetCat = navBtn.dataset.category;
       store.toggleProfileDropdown(false);
+      store.clearSearchQuery();
       if (targetCat === 'STUDIO') {
         store.setCurrentView('WISHLIST');
       } else {
@@ -155,7 +232,36 @@ export function renderHeader() {
       return;
     }
 
-    // 2. Toggle Profile Dropdown or Navigate to Profile
+    // 2. Clear Search
+    if (e.target.closest('[data-action="clear-search"]')) {
+      store.clearSearchQuery();
+      return;
+    }
+
+    // 3. Quick Trending Search
+    const trendBtn = e.target.closest('[data-action="quick-search"]');
+    if (trendBtn) {
+      const q = trendBtn.dataset.query;
+      store.setSearchQuery(q);
+      return;
+    }
+
+    // 4. Select suggested product directly from search
+    const suggestRow = e.target.closest('[data-action="select-suggested-product"]');
+    if (suggestRow) {
+      const pId = suggestRow.dataset.productId;
+      const targetP = store.allProducts.find(p => p.id === pId);
+      if (targetP) {
+        if (!store.isItemWishlisted(pId)) {
+          store.toggleWishlist(targetP);
+        }
+        store.setActiveHeroSku(pId);
+        store.setCurrentView('WISHLIST');
+      }
+      return;
+    }
+
+    // 5. Toggle Profile Dropdown
     if (e.target.closest('[data-action="toggle-profile"]')) {
       if (store.currentView === 'PROFILE') {
         store.toggleProfileDropdown();
@@ -165,7 +271,7 @@ export function renderHeader() {
       return;
     }
 
-    // 3. Open Specific Profile Tab
+    // 6. Open Profile Tab
     const tabLink = e.target.closest('[data-action="open-profile-tab"]');
     if (tabLink) {
       store.setProfileTab(tabLink.dataset.tab);
@@ -174,7 +280,7 @@ export function renderHeader() {
       return;
     }
 
-    // 4. Toggle Bag Drawer
+    // 7. Toggle Bag Drawer
     if (e.target.closest('[data-action="toggle-bag"]')) {
       store.toggleProfileDropdown(false);
       store.toggleBag();
@@ -182,11 +288,20 @@ export function renderHeader() {
     }
   };
 
-  // Search input handler
+  // Search input change & key listeners
   const searchInput = container.querySelector('#header-search-input');
   if (searchInput) {
     searchInput.oninput = (e) => {
       store.setSearchQuery(e.target.value);
+    };
+
+    searchInput.onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        store.setSearchQuery(e.target.value);
+      } else if (e.key === 'Escape') {
+        searchInput.blur();
+      }
     };
   }
 }

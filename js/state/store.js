@@ -418,24 +418,65 @@ class StyleStudioStore {
     this.notify();
   }
 
-  setSearchQuery(q) {
+  setSearchQuery(q, switchView = true) {
     this.filters.searchQuery = q;
+    if (q && q.trim().length > 0 && switchView && ['WISHLIST', 'PROFILE', 'STUDIO'].includes(this.currentView)) {
+      this.currentView = 'SEARCH';
+    }
     this.notify();
   }
 
-  getFilteredProductsForCurrentCategory() {
-    if (['WISHLIST', 'STUDIO'].includes(this.currentView)) {
-      return this.wishlistItems;
+  clearSearchQuery() {
+    this.filters.searchQuery = '';
+    if (this.currentView === 'SEARCH') {
+      this.currentView = 'WOMEN';
+    }
+    this.notify();
+  }
+
+  getSearchSuggestions(query) {
+    if (!query || query.trim().length === 0) {
+      return {
+        trending: ['Satin Blouse', 'Linen Shirt', 'Tailored Trousers', 'Watch', 'Retro Sneakers', 'Lip Mask', 'Ceramic Vase'],
+        items: []
+      };
     }
 
-    let products = this.allProducts.filter(p => p.category === this.currentView);
+    const q = query.toLowerCase().trim();
+    const matches = this.allProducts.filter(p => 
+      (p.title && p.title.toLowerCase().includes(q)) || 
+      (p.brand && p.brand.toLowerCase().includes(q)) ||
+      (p.category && p.category.toLowerCase().includes(q)) ||
+      (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
+      (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+    ).slice(0, 6);
 
-    // Search query filter
-    if (this.filters.searchQuery) {
-      const q = this.filters.searchQuery.toLowerCase();
+    return {
+      trending: [],
+      items: matches
+    };
+  }
+
+  getFilteredProductsForCurrentCategory() {
+    let products = [];
+
+    if (this.currentView === 'SEARCH') {
+      // Global search across all catalog products
+      products = [...this.allProducts];
+    } else if (['WISHLIST', 'STUDIO'].includes(this.currentView)) {
+      products = [...this.wishlistItems];
+    } else {
+      products = this.allProducts.filter(p => p.category === this.currentView);
+    }
+
+    // Search query filter (matches title, brand, category, subCategory, and tags)
+    if (this.filters.searchQuery && this.filters.searchQuery.trim().length > 0) {
+      const q = this.filters.searchQuery.toLowerCase().trim();
       products = products.filter(p => 
-        p.title.toLowerCase().includes(q) || 
-        p.brand.toLowerCase().includes(q) ||
+        (p.title && p.title.toLowerCase().includes(q)) || 
+        (p.brand && p.brand.toLowerCase().includes(q)) ||
+        (p.category && p.category.toLowerCase().includes(q)) ||
+        (p.subCategory && p.subCategory.toLowerCase().includes(q)) ||
         (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
       );
     }
