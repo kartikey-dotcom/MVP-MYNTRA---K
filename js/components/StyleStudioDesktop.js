@@ -7,12 +7,7 @@
  */
 
 import { store } from '../state/store.js';
-import { 
-  CITIES_WEATHER_DATA, 
-  OCCASION_PRESETS, 
-  getActiveOccasions, 
-  getPairingForProductAndOccasion 
-} from '../data/pairingEngine.js';
+import { CITIES_WEATHER_DATA, OCCASION_PRESETS, getActiveOccasions, getPairingForProductAndOccasion } from '../data/pairingEngine.js';
 import { showToast } from './Toast.js';
 
 export function renderStyleStudioDesktop() {

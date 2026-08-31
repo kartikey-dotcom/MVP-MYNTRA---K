@@ -61,14 +61,15 @@ toast_js = read_file("js/components/Toast.js")
 
 # Clean JS code for browser inline execution
 def clean_js(code):
-    code = re.sub(r'import\s+.*?from\s+[\'"].*?[\'"];?', '', code)
+    # Strip multiline imports like `import {\n  foo,\n  bar\n} from '...';`
+    code = re.sub(r'import\s+[\s\S]*?from\s+[\'"].*?[\'"];?', '', code)
     code = re.sub(r'import\s+[\'"].*?[\'"];?', '', code)
     code = re.sub(r'\bexport\s+const\s+', 'const ', code)
     code = re.sub(r'\bexport\s+function\s+', 'function ', code)
     code = re.sub(r'\bexport\s+let\s+', 'let ', code)
     code = re.sub(r'\bexport\s+class\s+', 'class ', code)
     code = re.sub(r'\bexport\s+default\s+', '', code)
-    code = re.sub(r'\bexport\s*\{[^}]*\};?', '', code)
+    code = re.sub(r'\bexport\s*\{[\s\S]*?\};?', '', code)
     return code
 
 catalog_clean = clean_js(catalog_js)
