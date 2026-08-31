@@ -44,7 +44,6 @@ export function renderStyleStudioDesktop() {
   const heroName = heroProduct.title || heroProduct.name;
   const heroImage = heroProduct.image || heroProduct.imageUrl;
   const totalLookPrice = activeLook.totalLookPrice || heroProduct.price;
-  const cpw = activeLook.costPerWear || { calculatedCostPerWear: Math.round(totalLookPrice / 25), justificationText: 'Based on seasonal rotations' };
 
   container.innerHTML = `
     <section class="stylestudio-desktop-card" aria-label="Myntra StyleStudio">
@@ -188,18 +187,6 @@ export function renderStyleStudioDesktop() {
             <p class="styling-note-text">
               ${activeLook.stylingTip}
             </p>
-          </div>
-
-          <!-- Cost-Per-Wear Indicator Box -->
-          <div class="cpw-intelligence-card">
-            <div class="cpw-metric-row">
-              <div class="cpw-icon-wrap">
-                <i data-lucide="calculator" style="width: 15px; height: 15px; color: #03A685;"></i>
-              </div>
-              <span class="cpw-label">Estimated Cost-Per-Wear:</span>
-              <span class="cpw-value">₹${cpw.calculatedCostPerWear} / wear</span>
-            </div>
-            <span class="cpw-justification">${cpw.justificationText}</span>
           </div>
 
           <!-- Itemized Breakdown List with Styling Roles -->
