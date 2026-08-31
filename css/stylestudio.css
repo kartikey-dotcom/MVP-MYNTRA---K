@@ -440,6 +440,14 @@
 /* Header & Titles */
 .stylestudio-card-header {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-left-col {
+  display: flex;
   flex-direction: column;
   gap: 3px;
 }
@@ -464,21 +472,152 @@
 }
 
 .stylestudio-main-subtitle {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--text-secondary);
   font-weight: 500;
+  font-style: italic;
+}
+
+/* Top Right Actions: City Selector & Customize */
+.stylestudio-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.city-selector-dropdown-wrap {
+  position: relative;
+}
+
+.btn-city-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1px solid #D4D5D9;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-city-pill:hover {
+  border-color: var(--myntra-crimson);
+  color: var(--myntra-crimson);
+}
+
+.city-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 250px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: all var(--transition-fast);
+}
+
+.city-dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.city-dropdown-header {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 8px 2px 8px;
+}
+
+.city-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--border-radius-sm);
+  font-size: 12px;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.city-dropdown-item:hover {
+  background: #FFF2F5;
+}
+
+.city-dropdown-item.active {
+  background: #FFE8EE;
+  border-left: 3px solid var(--myntra-crimson);
+}
+
+.city-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.city-item-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.city-item-climate {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.city-item-temp {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--myntra-crimson);
+}
+
+.btn-header-customize {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF0F4;
+  border: 1px solid var(--myntra-pink-border);
+  color: var(--myntra-crimson);
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+}
+
+.btn-header-customize:hover {
+  background: var(--myntra-crimson);
+  color: #FFFFFF;
 }
 
 /* Occasion Switcher Tabs */
 .stylestudio-occasion-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .occasion-tab-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -486,13 +625,13 @@
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   color: #535766;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: var(--border-radius-sm);
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   transition: all var(--transition-fast);
 }
 
@@ -511,28 +650,61 @@
 }
 
 .occasion-tab-pill i {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
 }
 
-/* Rule of 3 Unlocked Verified Badge */
+.btn-inline-add-occasion {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px dashed #D4D5D9;
+  background: #FFFFFF;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-inline-add-occasion:hover {
+  border-color: var(--myntra-crimson);
+  color: var(--myntra-crimson);
+  background: #FFF5F7;
+}
+
+/* Rule of 3 Unlocked Verified Badge & Weather Tag */
 .rule-of-three-badge-wrap {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .rule-of-three-pill {
   background-color: var(--status-green-bg);
   border: 1px solid var(--status-green-border);
   color: var(--status-green-text);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.4px;
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: var(--border-radius-pill);
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+.weather-adaptation-tag {
+  background: #F0F4F8;
+  border: 1px solid #D9E2EC;
+  color: #334E68;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-pill);
 }
 
 /* 2-Column Look Grid (Visual Canvas vs Breakdown Sidebar) */
@@ -2542,4 +2714,248 @@
   font-weight: 800;
   margin-top: 6px;
 }
+
+/* ==========================================================================
+   OCCASION CUSTOMIZER MODAL (IDEA E)
+   ========================================================================== */
+
+.customizer-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.customizer-modal-content {
+  background: #FFFFFF;
+  border-radius: var(--border-radius-lg);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.customizer-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 28px 16px 28px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-pre-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--myntra-crimson);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.modal-main-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin-top: 2px;
+}
+
+.modal-sub-title {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.btn-modal-close {
+  color: #7E818C;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.btn-modal-close:hover {
+  color: var(--text-primary);
+  background: #F5F5F6;
+}
+
+/* Presets Selection Grid */
+.customizer-presets-grid {
+  padding: 20px 28px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  max-height: 420px;
+}
+
+@media (max-width: 600px) {
+  .customizer-presets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.preset-select-card {
+  border: 1.5px solid #EAEAEC;
+  border-radius: var(--border-radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  background: #FFFFFF;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.preset-select-card:hover {
+  border-color: #F8B4C4;
+  background: #FFFDFE;
+  transform: translateY(-1px);
+}
+
+.preset-select-card.is-selected {
+  border-color: var(--myntra-crimson);
+  background: #FFF5F7;
+  box-shadow: 0 0 0 1px var(--myntra-crimson);
+}
+
+.preset-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preset-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #F5F5F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.preset-select-card.is-selected .preset-icon-badge {
+  background: var(--myntra-crimson);
+  color: #FFFFFF;
+}
+
+.preset-icon-badge i {
+  width: 17px;
+  height: 17px;
+}
+
+.preset-badge-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: #F0F0F2;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-pill);
+}
+
+.preset-select-card.is-selected .preset-badge-tag {
+  background: #FFE0E7;
+  color: var(--myntra-crimson);
+}
+
+.preset-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--myntra-crimson);
+  cursor: pointer;
+}
+
+.preset-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.preset-desc {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+/* Modal Footer */
+.customizer-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-top: 1px solid var(--border-subtle);
+  background: #FAFAFA;
+}
+
+.selection-counter-text {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.selection-counter-text strong {
+  color: var(--myntra-crimson);
+}
+
+.modal-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-modal-cancel {
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-modal-cancel:hover {
+  background: #EAEAEC;
+  color: var(--text-primary);
+}
+
+.btn-modal-apply {
+  background: var(--myntra-crimson);
+  color: #FFFFFF;
+  padding: 10px 22px;
+  border-radius: var(--border-radius-sm);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  transition: all var(--transition-fast);
+}
+
+.btn-modal-apply:hover:not(:disabled) {
+  background: #A30037;
+}
+
+.btn-modal-apply:disabled {
+  background: #D4D5D9;
+  cursor: not-allowed;
+}
+
 

@@ -1,10 +1,18 @@
 /**
  * StyleStudio Desktop Showcase Component
- * Dynamically styles ANY active hero product across 3 occasion pairings.
+ * Features:
+ * 1. Hyperlocal Weather & City Adaptation (Idea D)
+ * 2. Lifestyle & Occasion Customizer (Idea E)
+ * 3. Dynamic "Rule of 3" Occasion Matrix & Canvas Rendering
  */
 
 import { store } from '../state/store.js';
-import { getOccasionsForProduct, getPairingForProductAndOccasion } from '../data/pairingEngine.js';
+import { 
+  CITIES_WEATHER_DATA, 
+  OCCASION_PRESETS, 
+  getActiveOccasions, 
+  getPairingForProductAndOccasion 
+} from '../data/pairingEngine.js';
 import { showToast } from './Toast.js';
 
 export function renderStyleStudioDesktop() {
@@ -27,31 +35,77 @@ export function renderStyleStudioDesktop() {
     return;
   }
 
-  const occasions = getOccasionsForProduct(heroProduct);
-  const pairing = getPairingForProductAndOccasion(heroProduct.id, store.selectedOccasion);
+  const { selectedCity, selectedOccasion, selectedOccasionsList, isCityDropdownOpen, isCustomizerModalOpen } = store;
+  const currentCityData = CITIES_WEATHER_DATA[selectedCity] || CITIES_WEATHER_DATA.mumbai;
+  const activeOccasions = getActiveOccasions(selectedOccasionsList);
+  
+  // Ensure selected occasion is one of the active occasions
+  const currentOccasionKey = selectedOccasionsList.includes(selectedOccasion) ? selectedOccasion : selectedOccasionsList[0];
+  const pairing = getPairingForProductAndOccasion(heroProduct.id, currentOccasionKey, selectedCity);
 
   const heroName = heroProduct.title || heroProduct.name;
   const heroImage = heroProduct.image || heroProduct.imageUrl;
   const totalPrice = pairing?.totalPrice || heroProduct.price;
 
+  // Occasion names for the verified badge
+  const verifiedNamesText = activeOccasions.map(o => o.label).join(', ');
+
   container.innerHTML = `
     <section class="stylestudio-desktop-card" aria-label="Myntra StyleStudio">
       
-      <!-- Top Title & Subtitle Banner -->
+      <!-- Top Title & Controls Header -->
       <div class="stylestudio-card-header">
-        <div class="stylestudio-badge-label">
-          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-          <span>MYNTRA STYLESTUDIO</span>
+        <div class="header-left-col">
+          <div class="stylestudio-badge-label">
+            <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+            <span>MYNTRA STYLESTUDIO</span>
+          </div>
+          <h2 class="stylestudio-main-title">Style It 3 Ways</h2>
+          <p class="stylestudio-main-subtitle">"Versatility Engine: Personalized to your city & lifestyle"</p>
         </div>
-        <h2 class="stylestudio-main-title">Style It 3 Ways</h2>
-        <p class="stylestudio-main-subtitle">Solve Pairability Anxiety: Picture 3 Real Occasions</p>
+
+        <!-- Top Right: City Selector & Customize Occasions -->
+        <div class="stylestudio-header-actions">
+          
+          <!-- City / Weather Selector Dropdown -->
+          <div class="city-selector-dropdown-wrap">
+            <button class="btn-city-pill" data-action="toggle-city-dropdown" aria-label="Select City Weather">
+              <span class="city-pill-text">${currentCityData.pillText}</span>
+              <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div class="city-dropdown-menu ${isCityDropdownOpen ? 'show' : ''}">
+              <div class="city-dropdown-header">Hyperlocal Weather Adaptation</div>
+              ${Object.values(CITIES_WEATHER_DATA).map(c => `
+                <button 
+                  class="city-dropdown-item ${selectedCity === c.key ? 'active' : ''}" 
+                  data-action="select-city" 
+                  data-city="${c.key}"
+                >
+                  <div class="city-item-left">
+                    <span class="city-item-name">📍 ${c.name}</span>
+                    <span class="city-item-climate">${c.climate}</span>
+                  </div>
+                  <span class="city-item-temp">${c.temp}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Customize Lifestyle Button -->
+          <button class="btn-header-customize" data-action="open-customizer-modal" title="Customize Occasions">
+            <i data-lucide="settings" style="width: 14px; height: 14px;"></i>
+            <span>Customize</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Occasion Switcher Tabs -->
+      <!-- Occasion Switcher Tabs & Customize Button -->
       <div class="stylestudio-occasion-row">
         <div class="occasion-tab-group" role="tablist">
-          ${occasions.map(occ => {
-            const isSelected = (store.selectedOccasion === occ.key);
+          ${activeOccasions.map(occ => {
+            const isSelected = (currentOccasionKey === occ.key);
             return `
               <button 
                 class="occasion-tab-pill ${isSelected ? 'active' : ''}" 
@@ -66,13 +120,21 @@ export function renderStyleStudioDesktop() {
             `;
           }).join('')}
         </div>
+
+        <button class="btn-inline-add-occasion" data-action="open-customizer-modal" title="Change Lifestyle Occasions">
+          <i data-lucide="sliders-horizontal" style="width: 13px; height: 13px;"></i>
+          <span>Swap Occasions</span>
+        </button>
       </div>
 
       <!-- Rule of 3 Unlocked Verified Badge -->
       <div class="rule-of-three-badge-wrap">
         <div class="rule-of-three-pill">
-          <i data-lucide="check-circle-2" style="width: 15px; height: 15px;"></i>
-          <span>RULE OF 3 UNLOCKED: 3/3 OCCASIONS VERIFIED</span>
+          <i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #03A685;"></i>
+          <span>RULE OF 3 UNLOCKED: ${verifiedNamesText.toUpperCase()} VERIFIED ✓</span>
+        </div>
+        <div class="weather-adaptation-tag">
+          <span>${currentCityData.weatherTag}</span>
         </div>
       </div>
 
@@ -81,11 +143,12 @@ export function renderStyleStudioDesktop() {
         
         <!-- Left: Visual Outfit Canvas -->
         <div class="outfit-visual-canvas-card">
+          
           <!-- Top Box: Hero Garment -->
           <div class="canvas-box hero-canvas-box">
             <div class="hero-chip-badge">
               <span class="hero-dot">●</span>
-              <span>HERO</span>
+              <span>HERO PIECE</span>
             </div>
             <img 
               src="${pairing?.canvasHeroImage || heroImage}" 
@@ -95,19 +158,19 @@ export function renderStyleStudioDesktop() {
             />
           </div>
 
-          <!-- Bottom Box: Paired Items with Overlapping Shoes/Acc on Pattern Canvas -->
+          <!-- Bottom Box: Paired Items with Inset Shoes/Acc -->
           <div class="canvas-box pairing-canvas-box">
             <div class="canvas-pattern-bg"></div>
             <img 
               src="${pairing?.canvasBottomImage || 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80'}" 
-              alt="Pairing Piece" 
+              alt="Pairing Separates" 
               class="canvas-bottom-img"
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80';"
             />
             <div class="canvas-shoes-inset">
               <img 
                 src="${pairing?.canvasShoesImage || 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80'}" 
-                alt="Pairing Accent" 
+                alt="Pairing Footwear/Accessories" 
                 class="canvas-shoes-img"
                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80';"
               />
@@ -118,14 +181,16 @@ export function renderStyleStudioDesktop() {
         <!-- Right: Pro Styling Note & Pricing Breakdown -->
         <div class="outfit-details-sidebar">
           
-          <!-- Pro Styling Note Card -->
+          <!-- Pro Styling Note Card with Weather Advice -->
           <div class="pro-styling-note-card">
             <div class="styling-note-header">
-              <i data-lucide="lightbulb" class="bulb-icon"></i>
-              <span class="note-title">Pro Styling Note</span>
+              <div class="bulb-wrap">
+                <i data-lucide="sparkles" class="bulb-icon"></i>
+              </div>
+              <span class="note-title">AI Stylist & Climate Advisory</span>
             </div>
             <p class="styling-note-text">
-              ${pairing?.stylingTip || `Style this ${heroProduct.brand} piece with structured neutrals and sleek footwear for versatile occasion readiness.`}
+              ${pairing?.stylingTip}
             </p>
           </div>
 
@@ -145,14 +210,14 @@ export function renderStyleStudioDesktop() {
 
           <!-- Total Price Row -->
           <div class="complete-look-total-row">
-            <span class="total-label">Complete Look</span>
+            <span class="total-label">Complete Occasion Bundle</span>
             <span class="total-price">₹${totalPrice.toLocaleString('en-IN')}</span>
           </div>
 
           <!-- Action Buttons -->
           <div class="stylestudio-cta-group">
             <button class="btn-buy-complete-look" data-action="buy-complete-look">
-              <i data-lucide="shopping-bag" style="width: 17px; height: 17px;"></i>
+              <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
               <span>BUY COMPLETE LOOK (₹${totalPrice.toLocaleString('en-IN')})</span>
             </button>
 
@@ -166,22 +231,181 @@ export function renderStyleStudioDesktop() {
       </div>
 
     </section>
+
+    <!-- Occasion Customizer Modal Overlay (Idea E) -->
+    ${isCustomizerModalOpen ? `
+      <div class="customizer-modal-backdrop" id="customizer-modal-backdrop">
+        <div class="customizer-modal-content" role="dialog" aria-modal="true">
+          
+          <div class="customizer-modal-header">
+            <div>
+              <div class="modal-pre-title">PERSONALIZATION MATRIX</div>
+              <h3 class="modal-main-title">Personalize Your Rule of 3</h3>
+              <p class="modal-sub-title">Pick any 3 lifestyle occasions to configure your personal versatile wardrobe.</p>
+            </div>
+            <button class="btn-modal-close" data-action="close-customizer-modal" aria-label="Close modal">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+
+          <!-- Occasion Presets Selector Grid -->
+          <div class="customizer-presets-grid" id="customizer-presets-container">
+            ${OCCASION_PRESETS.map(preset => {
+              const isChecked = selectedOccasionsList.includes(preset.id);
+              return `
+                <div 
+                  class="preset-select-card ${isChecked ? 'is-selected' : ''}" 
+                  data-action="toggle-preset" 
+                  data-preset-id="${preset.id}"
+                >
+                  <div class="preset-card-top">
+                    <div class="preset-icon-badge">
+                      <i data-lucide="${preset.icon}"></i>
+                    </div>
+                    <span class="preset-badge-tag">${preset.badge}</span>
+                    <input 
+                      type="checkbox" 
+                      class="preset-checkbox" 
+                      ${isChecked ? 'checked' : ''} 
+                      tabindex="-1"
+                    />
+                  </div>
+                  <h4 class="preset-name">${preset.name}</h4>
+                  <p class="preset-desc">${preset.description}</p>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Modal Footer with Counter and Apply Button -->
+          <div class="customizer-modal-footer">
+            <div class="selection-counter-text">
+              <span id="customizer-counter-num">Selected: <strong>${selectedOccasionsList.length} of 3</strong></span>
+            </div>
+            <div class="modal-btn-row">
+              <button class="btn-modal-cancel" data-action="close-customizer-modal">Cancel</button>
+              <button 
+                class="btn-modal-apply" 
+                id="btn-apply-occasions" 
+                data-action="apply-occasions"
+                ${selectedOccasionsList.length === 3 ? '' : 'disabled'}
+              >
+                APPLY OCCASIONS
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    ` : ''}
   `;
 
   if (window.lucide) {
     window.lucide.createIcons();
   }
 
+  // Local state for modal selections before user clicks Apply
+  let currentSelections = [...selectedOccasionsList];
+
   // Setup Event Delegation
   container.onclick = (e) => {
-    // 1. Select occasion tab
+    // 1. Toggle City Dropdown
+    if (e.target.closest('[data-action="toggle-city-dropdown"]')) {
+      e.stopPropagation();
+      store.toggleCityDropdown();
+      return;
+    }
+
+    // 2. Select City
+    const cityBtn = e.target.closest('[data-action="select-city"]');
+    if (cityBtn) {
+      const cityKey = cityBtn.dataset.city;
+      store.setSelectedCity(cityKey);
+      const cData = CITIES_WEATHER_DATA[cityKey];
+      showToast(
+        `Weather Adapted: ${cData.name} 📍`,
+        `Styling layers and tips updated for ${cData.climate} (${cData.temp})`,
+        'success'
+      );
+      return;
+    }
+
+    // 3. Open Customizer Modal
+    if (e.target.closest('[data-action="open-customizer-modal"]')) {
+      store.toggleCityDropdown(false);
+      store.toggleCustomizerModal(true);
+      return;
+    }
+
+    // 4. Close Customizer Modal
+    if (e.target.closest('[data-action="close-customizer-modal"]') || e.target.id === 'customizer-modal-backdrop') {
+      store.toggleCustomizerModal(false);
+      return;
+    }
+
+    // 5. Toggle Preset selection inside modal
+    const presetCard = e.target.closest('[data-action="toggle-preset"]');
+    if (presetCard) {
+      const presetId = presetCard.dataset.presetId;
+      if (currentSelections.includes(presetId)) {
+        if (currentSelections.length > 1) {
+          currentSelections = currentSelections.filter(id => id !== presetId);
+        } else {
+          showToast('Select at least 1', 'Please keep at least 1 occasion selected', 'info');
+          return;
+        }
+      } else {
+        if (currentSelections.length < 3) {
+          currentSelections.push(presetId);
+        } else {
+          showToast('Limit Reached', 'You can pick up to 3 occasions. Uncheck one first to swap.', 'info');
+          return;
+        }
+      }
+
+      // Update UI cards
+      const allCards = container.querySelectorAll('.preset-select-card');
+      allCards.forEach(card => {
+        const id = card.dataset.presetId;
+        const isSel = currentSelections.includes(id);
+        card.classList.toggle('is-selected', isSel);
+        const chk = card.querySelector('.preset-checkbox');
+        if (chk) chk.checked = isSel;
+      });
+
+      // Update Counter & Button
+      const counterEl = container.querySelector('#customizer-counter-num');
+      if (counterEl) {
+        counterEl.innerHTML = `Selected: <strong>${currentSelections.length} of 3</strong>`;
+      }
+      const applyBtn = container.querySelector('#btn-apply-occasions');
+      if (applyBtn) {
+        applyBtn.disabled = (currentSelections.length !== 3);
+      }
+      return;
+    }
+
+    // 6. Apply Occasions from modal
+    if (e.target.closest('[data-action="apply-occasions"]')) {
+      if (currentSelections.length === 3) {
+        store.setSelectedOccasions(currentSelections);
+        showToast(
+          'Lifestyle Occasions Updated! ✨',
+          'Rule of 3 matrix refreshed with your custom occasions.',
+          'success'
+        );
+      }
+      return;
+    }
+
+    // 7. Select occasion tab
     const occBtn = e.target.closest('[data-action="select-occasion"]');
     if (occBtn) {
       store.setOccasion(occBtn.dataset.occasion);
       return;
     }
 
-    // 2. Buy complete look
+    // 8. Buy complete look
     if (e.target.closest('[data-action="buy-complete-look"]')) {
       const itemsToAdd = (pairing?.itemsBreakdown || []).map(bItem => {
         return {
@@ -202,11 +426,18 @@ export function renderStyleStudioDesktop() {
       return;
     }
 
-    // 3. Add hero only
+    // 9. Add hero only
     if (e.target.closest('[data-action="add-hero-only"]')) {
       store.addToBag(heroProduct);
       showToast('Hero Item Added! ✨', `${heroName} added to your bag (₹${heroProduct.price.toLocaleString('en-IN')})`, 'success');
       return;
+    }
+
+    // Close open dropdowns if clicked elsewhere
+    if (!e.target.closest('.city-selector-dropdown-wrap')) {
+      if (store.isCityDropdownOpen) {
+        store.toggleCityDropdown(false);
+      }
     }
   };
 }

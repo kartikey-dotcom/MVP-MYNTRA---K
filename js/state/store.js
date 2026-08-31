@@ -23,6 +23,14 @@ class StyleStudioStore {
     this.isBagOpen = false;
     this.isProfileDropdownOpen = false;
     
+    // Hyperlocal Weather & City Customization (Idea D)
+    this.selectedCity = 'mumbai';
+    this.isCityDropdownOpen = false;
+
+    // Lifestyle & Occasion Customizer (Idea E)
+    this.selectedOccasionsList = ['office', 'casual', 'evening'];
+    this.isCustomizerModalOpen = false;
+    
     // Active Tab in Profile View: 'overview' | 'orders' | 'addresses' | 'stylestudio-looks' | 'insider' | 'coupons'
     this.activeProfileTab = 'overview';
 
@@ -107,6 +115,41 @@ class StyleStudioStore {
     };
 
     this.listeners = new Set();
+  }
+
+  setSelectedCity(cityKey) {
+    this.selectedCity = cityKey;
+    this.isCityDropdownOpen = false;
+    this.notify();
+  }
+
+  toggleCityDropdown(isOpen) {
+    if (typeof isOpen === 'boolean') {
+      this.isCityDropdownOpen = isOpen;
+    } else {
+      this.isCityDropdownOpen = !this.isCityDropdownOpen;
+    }
+    this.notify();
+  }
+
+  setSelectedOccasions(newOccasions) {
+    if (Array.isArray(newOccasions) && newOccasions.length > 0) {
+      this.selectedOccasionsList = [...newOccasions];
+      if (!this.selectedOccasionsList.includes(this.selectedOccasion)) {
+        this.selectedOccasion = this.selectedOccasionsList[0];
+      }
+    }
+    this.isCustomizerModalOpen = false;
+    this.notify();
+  }
+
+  toggleCustomizerModal(isOpen) {
+    if (typeof isOpen === 'boolean') {
+      this.isCustomizerModalOpen = isOpen;
+    } else {
+      this.isCustomizerModalOpen = !this.isCustomizerModalOpen;
+    }
+    this.notify();
   }
 
   setProfileTab(tab) {
