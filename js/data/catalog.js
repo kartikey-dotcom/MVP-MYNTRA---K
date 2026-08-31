@@ -458,7 +458,7 @@ export const ALL_PRODUCTS = [
     discount: '28% OFF',
     rating: 4.4,
     ratingCount: 115,
-    image: 'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=800&auto=format&fit=crop&q=80',
     tags: ['Cargo', 'Olive', 'Tapered', 'Streetwear'],
     isHero: false
   },
