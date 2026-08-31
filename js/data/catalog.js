@@ -323,7 +323,7 @@ export const ALL_PRODUCTS = [
     discount: '30% OFF',
     rating: 4.5,
     ratingCount: 180,
-    image: 'https://images.unsplash.com/photo-1542272604-780c96856592?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1604176354204-9268737828e4?w=800&auto=format&fit=crop&q=80',
     tags: ['Denim', 'Black', 'Slim Fit', 'Selvedge'],
     isHero: false
   },
@@ -458,7 +458,7 @@ export const ALL_PRODUCTS = [
     discount: '28% OFF',
     rating: 4.4,
     ratingCount: 115,
-    image: 'https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=800&auto=format&fit=crop&q=80',
     tags: ['Cargo', 'Olive', 'Tapered', 'Streetwear'],
     isHero: false
   },
