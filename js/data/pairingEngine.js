@@ -1,16 +1,12 @@
 /**
- * Dynamic StyleStudio Pairing Engine
- * Resolves 3 structured occasions & pairings for ANY catalog product.
+ * Myntra StyleStudio Pairing Engine
+ * Implements the "Rule of 3" occasion styling matrix for any product.
  */
 
 import { ALL_PRODUCTS } from './catalog.js';
 
-const productMap = new Map(ALL_PRODUCTS.map(p => [p.id, p]));
-
 /**
- * Get available occasions for a given product
- * @param {Object} product
- * @returns {Array<{ key: string, label: string, icon: string }>}
+ * Returns the 3 occasion tab definitions tailored to the product's category.
  */
 export function getOccasionsForProduct(product) {
   if (!product) {
@@ -21,31 +17,19 @@ export function getOccasionsForProduct(product) {
     ];
   }
 
-  if (product.styleStudioConfig) {
-    const keys = Object.keys(product.styleStudioConfig);
-    return keys.map(k => {
-      const cfg = product.styleStudioConfig[k];
-      return {
-        key: k,
-        label: cfg.occasionName || k,
-        icon: cfg.icon || 'sparkles'
-      };
-    });
-  }
-
   if (product.category === 'BEAUTY') {
     return [
-      { key: 'office', label: 'Day Routine', icon: 'sun' },
-      { key: 'weekend', label: 'Night Routine', icon: 'moon' },
-      { key: 'evening', label: 'Glam & Party', icon: 'sparkles' }
+      { key: 'office', label: 'Daily Glow', icon: 'sun' },
+      { key: 'weekend', label: 'Weekend Natural', icon: 'coffee' },
+      { key: 'evening', label: 'Full Glam Night', icon: 'wine' }
     ];
   }
 
   if (product.category === 'HOME & LIVING') {
     return [
-      { key: 'office', label: 'Living Room Vibe', icon: 'home' },
+      { key: 'office', label: 'Living Room', icon: 'home' },
       { key: 'weekend', label: 'Bedroom Sanctuary', icon: 'moon' },
-      { key: 'evening', label: 'Balcony & Reading Nook', icon: 'sun' }
+      { key: 'evening', label: 'Cozy Corner', icon: 'sun' }
     ];
   }
 
@@ -53,10 +37,11 @@ export function getOccasionsForProduct(product) {
     return [
       { key: 'office', label: 'School & Assembly', icon: 'briefcase' },
       { key: 'weekend', label: 'Playground & Park', icon: 'coffee' },
-      { key: 'evening', label: 'Birthday Parties', icon: 'wine' }
+      { key: 'evening', label: 'Birthday Parties', icon: 'sparkles' }
     ];
   }
 
+  // Default Apparel (WOMEN, MEN)
   return [
     { key: 'office', label: 'Office & Smart', icon: 'briefcase' },
     { key: 'weekend', label: 'Weekend Casual', icon: 'coffee' },
@@ -65,86 +50,88 @@ export function getOccasionsForProduct(product) {
 }
 
 /**
- * Resolves a hydrated pairing for a product and occasion
- * @param {string} productId
- * @param {string} occasionKey
+ * Resolves the 3-piece look for a given product and selected occasion key.
  */
 export function getPairingForProductAndOccasion(productId, occasionKey = 'office') {
-  const product = productMap.get(productId) || ALL_PRODUCTS[0];
+  const product = ALL_PRODUCTS.find(p => p.id === productId) || ALL_PRODUCTS[0];
   if (!product) return null;
 
-  // Normalize occasion key
-  let normalizedKey = occasionKey.toLowerCase().trim();
-  if (normalizedKey.includes('office') || normalizedKey.includes('day') || normalizedKey.includes('school') || normalizedKey.includes('living')) {
-    normalizedKey = 'office';
-  } else if (normalizedKey.includes('weekend') || normalizedKey.includes('night') || normalizedKey.includes('playground') || normalizedKey.includes('bedroom')) {
-    normalizedKey = 'weekend';
-  } else {
-    normalizedKey = 'evening';
-  }
+  const validKey = ['office', 'weekend', 'evening'].includes(occasionKey) ? occasionKey : 'office';
 
-  const config = product.styleStudioConfig && product.styleStudioConfig[normalizedKey];
+  // 1. Check if product has explicit styleStudioConfig for this occasion
+  if (product.styleStudioConfig && product.styleStudioConfig[validKey]) {
+    const config = product.styleStudioConfig[validKey];
+    const heroImage = product.image || product.imageUrl;
 
-  if (config) {
-    const heroPrice = product.price;
-    const itemsBreakdown = [
+    const breakdown = [
       {
         id: product.id,
-        name: `${product.brand} ${product.title} (Hero)`,
-        price: heroPrice,
+        name: `${product.brand} ${product.title || product.name} (Hero)`,
+        price: product.price,
         isHero: true,
-        image: product.image
+        image: heroImage
       },
-      ...config.pairings.map(p => ({
-        id: p.id || `pair-${p.title.replace(/\s+/g, '-').toLowerCase()}`,
-        name: `${p.brand} ${p.title}`,
-        price: p.price,
+      ...(config.pairings || []).map(pair => ({
+        id: pair.id,
+        name: `${pair.brand} ${pair.title || pair.name}`,
+        price: pair.price,
         isHero: false,
-        image: p.image
+        image: pair.image
       }))
     ];
 
-    const totalPrice = itemsBreakdown.reduce((sum, item) => sum + item.price, 0);
+    const totalPrice = breakdown.reduce((sum, item) => sum + item.price, 0);
 
     return {
       occasionName: config.occasionName,
       icon: config.icon,
       stylingTip: config.stylingTip,
-      canvasHeroImage: config.canvasHeroImage || product.image,
-      canvasBottomImage: config.canvasBottomImage,
-      canvasShoesImage: config.canvasShoesImage,
-      itemsBreakdown,
-      totalPrice
+      canvasHeroImage: config.canvasHeroImage || heroImage,
+      canvasBottomImage: config.canvasBottomImage || (config.pairings?.[0]?.image || heroImage),
+      canvasShoesImage: config.canvasShoesImage || (config.pairings?.[1]?.image || heroImage),
+      itemsBreakdown: breakdown,
+      totalPrice: totalPrice
     };
   }
 
-  // Deterministic fallback for any other item
-  const fallbackPairings = ALL_PRODUCTS.filter(p => p.id !== product.id && p.category === product.category).slice(0, 2);
-  const itemsBreakdown = [
+  // 2. Deterministic Fallback Pairing Generator based on category & subcategory
+  const heroImage = product.image || product.imageUrl;
+  const categoryProducts = ALL_PRODUCTS.filter(p => p.category === product.category && p.id !== product.id);
+  const otherItems = categoryProducts.length >= 2 ? categoryProducts.slice(0, 2) : ALL_PRODUCTS.slice(0, 2);
+
+  const breakdown = [
     {
       id: product.id,
-      name: `${product.brand} ${product.title} (Hero)`,
+      name: `${product.brand} ${product.title || product.name} (Hero)`,
       price: product.price,
       isHero: true,
-      image: product.image
+      image: heroImage
     },
-    ...fallbackPairings.map(p => ({
-      id: p.id,
-      name: `${p.brand} ${p.title}`,
-      price: p.price,
+    ...otherItems.map(item => ({
+      id: item.id,
+      name: `${item.brand} ${item.title || item.name}`,
+      price: item.price,
       isHero: false,
-      image: p.image
+      image: item.image || item.imageUrl
     }))
   ];
 
+  const totalPrice = breakdown.reduce((sum, item) => sum + item.price, 0);
+
+  const occasionMetaMap = {
+    office: { name: 'Office & Smart', icon: 'briefcase' },
+    weekend: { name: 'Weekend Casual', icon: 'coffee' },
+    evening: { name: 'Evening Out', icon: 'wine' }
+  };
+
   return {
-    occasionName: 'Curated Ensemble',
-    icon: 'sparkles',
-    stylingTip: `Style this ${product.brand} piece with complementary textures and tonal accessories for an effortless curated look.`,
-    canvasHeroImage: product.image,
-    canvasBottomImage: fallbackPairings[0]?.image || product.image,
-    canvasShoesImage: fallbackPairings[1]?.image || product.image,
-    itemsBreakdown,
-    totalPrice: itemsBreakdown.reduce((sum, i) => sum + i.price, 0)
+    occasionName: occasionMetaMap[validKey].name,
+    icon: occasionMetaMap[validKey].icon,
+    stylingTip: `Style this ${product.brand} piece with complementary textures and balanced footwear for complete occasion confidence.`,
+    canvasHeroImage: heroImage,
+    canvasBottomImage: otherItems[0]?.image || heroImage,
+    canvasShoesImage: otherItems[1]?.image || heroImage,
+    itemsBreakdown: breakdown,
+    totalPrice: totalPrice
   };
 }

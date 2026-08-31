@@ -18,7 +18,7 @@ class StyleStudioStore {
     this.currentView = 'WOMEN'; 
     
     // Active Hero SKU powering StyleStudio
-    this.activeHeroSkuId = this.wishlistItems[0]?.id || 'prod-mango-hero';
+    this.activeHeroSkuId = this.wishlistItems[0]?.id || 'prod-w-mango-blouse';
     this.selectedOccasion = 'office';
     this.isBagOpen = false;
     
@@ -159,6 +159,7 @@ class StyleStudioStore {
     const item = this.wishlistItems.find(i => i.id === productId);
     if (item) {
       this.addToBag(item);
+      this.removeFromWishlist(productId);
     }
   }
 
@@ -216,6 +217,10 @@ class StyleStudioStore {
       this.persistBag();
       this.notify();
     }
+  }
+
+  updateBagItemQty(itemId, delta) {
+    this.updateBagQty(itemId, delta);
   }
 
   getBagTotal() {
