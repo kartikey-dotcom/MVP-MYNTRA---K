@@ -1,6 +1,6 @@
 /**
- * Pairing Logic Engine for StyleStudio MVP
- * Resolves curated outfit combinations and handles edge cases gracefully.
+ * Pairing Logic Engine for StyleStudio Desktop
+ * Resolves curated outfit combinations for the active hero garment and selected occasion.
  */
 
 import { ALL_CATALOG_ITEMS } from './catalog.js';
@@ -9,46 +9,57 @@ import { OUTFIT_PAIRINGS } from './pairings.js';
 const catalogMap = new Map(ALL_CATALOG_ITEMS.map(item => [item.id, item]));
 
 /**
- * Retrieves hydrated outfit pairings for a given anchor item.
+ * Retrieves hydrated outfit pairings for a given anchor item and occasion.
  * @param {string} anchorItemId - Target anchor item ID
- * @param {string} [occasionFilter='Daily Look'] - Optional occasion filter
- * @returns {Array<import('../types/index.js').OutfitPairing & { complementaryItems: import('../types/index.js').CatalogItem[] }>}
+ * @param {string} [occasionFilter='Office & Smart'] - Occasion
+ * @returns {import('../types/index.js').OutfitPairing | null}
  */
-export function getPairingsForAnchor(anchorItemId, occasionFilter = 'Daily Look') {
-  if (!anchorItemId) return [];
+export function getPairingForAnchorAndOccasion(anchorItemId, occasionFilter = 'Office & Smart') {
+  if (!anchorItemId) return null;
 
-  // 1. Fetch raw pairings for anchor item
+  // 1. Fetch pairings for anchor item
   let rawPairings = OUTFIT_PAIRINGS.filter(p => p.anchorItemId === anchorItemId);
 
-  // If no specific pairings found for this anchor, fallback to generic styling from STARK
+  // If no pairings found, fallback to mango hero
   if (rawPairings.length === 0) {
-    rawPairings = OUTFIT_PAIRINGS.filter(p => p.anchorItemId === 'anchor-stark-blazer');
+    rawPairings = OUTFIT_PAIRINGS.filter(p => p.anchorItemId === 'prod-mango-hero');
   }
 
-  // 2. Filter by occasion if not 'All'
-  let filtered = rawPairings;
-  if (occasionFilter && occasionFilter !== 'All') {
-    const matched = rawPairings.filter(p => p.occasion.toLowerCase() === occasionFilter.toLowerCase() || p.occasion.includes(occasionFilter));
-    if (matched.length > 0) {
-      // In Daily Look or other views, if there's multiple matching or we want to show 2 looks like Screenshot 2:
-      filtered = matched;
-      // If only 1 matches the filter, include the complementary pairings so the user always sees 2 complete cards as in Screenshot 2
-      if (filtered.length < 2) {
-        const others = rawPairings.filter(p => p.id !== filtered[0].id);
-        filtered = [...filtered, ...others];
-      }
-    }
+  // 2. Find matching occasion
+  let matched = rawPairings.find(p => p.occasion.toLowerCase() === occasionFilter.toLowerCase());
+  if (!matched) {
+    matched = rawPairings[0];
   }
 
-  // 3. Hydrate complementary items
-  return filtered.map(pairing => {
-    const complementaryItems = (pairing.complementaryItemIds || [])
-      .map(id => catalogMap.get(id))
-      .filter(Boolean);
+  if (!matched) return null;
 
-    return {
-      ...pairing,
-      complementaryItems
-    };
-  });
+  // Hydrate complementary items
+  const complementaryItems = (matched.complementaryItemIds || [])
+    .map(id => catalogMap.get(id))
+    .filter(Boolean);
+
+  return {
+    ...matched,
+    complementaryItems
+  };
+}
+
+/**
+ * Get all available occasions for an anchor item
+ * @param {string} anchorItemId
+ */
+export function getAvailableOccasions(anchorItemId) {
+  const pairings = OUTFIT_PAIRINGS.filter(p => p.anchorItemId === anchorItemId);
+  if (pairings.length > 0) {
+    return pairings.map(p => ({
+      key: p.occasion,
+      label: p.occasion,
+      icon: p.occasionIcon || 'sparkles'
+    }));
+  }
+  return [
+    { key: 'Office & Smart', label: 'Office & Smart', icon: 'briefcase' },
+    { key: 'Weekend Casual', label: 'Weekend Casual', icon: 'coffee' },
+    { key: 'Evening', label: 'Evening', icon: 'wine' }
+  ];
 }

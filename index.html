@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Myntra StyleStudio — Wishlist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Shopping for Women, Men, Kids Fashion & Lifestyle - Myntra StyleStudio</title>
   
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,47 +20,34 @@
 </head>
 <body>
 
-  <!-- Desktop Stage Frame Wrapper -->
-  <div class="desktop-stage">
-    
-    <!-- Mobile Viewport Shell (Max 430px) -->
-    <main class="mobile-frame" id="app">
-      
-      <!-- Myntra Header (Component) -->
-      <header class="myntra-header" id="header-container">
-        <div class="header-left">
-          <button class="icon-btn" aria-label="Go Back">
-            <i data-lucide="chevron-left" style="width: 22px; height: 22px;"></i>
-          </button>
-          <div class="header-title-container">
-            <span class="header-title">WISHLIST</span>
-            <span class="header-subtitle" id="wishlist-count-badge">3 ITEMS</span>
-          </div>
-        </div>
-        <div class="header-right">
-          <button class="icon-btn" aria-label="Search">
-            <i data-lucide="search" style="width: 20px; height: 20px;"></i>
-          </button>
-          <button class="icon-btn" aria-label="Shopping Bag">
-            <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
-          </button>
-        </div>
-      </header>
+  <!-- Top Desktop Navigation Header Container -->
+  <div id="header-container"></div>
 
-      <!-- Wishlist Grid Viewport -->
-      <section class="wishlist-viewport" id="wishlist-container" aria-label="Myntra Wishlist Items">
-        <!-- Wishlist items will be dynamically mounted here -->
+  <!-- Main Desktop 2-Column Stage -->
+  <main class="desktop-main-wrapper" id="app">
+    <div class="desktop-content-container">
+      
+      <!-- Left Column: Wishlist -->
+      <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist">
+        <!-- Dynamic wishlist cards mounted here -->
       </section>
 
-      <!-- StyleStudio Bottom Sheet Drawer Container -->
-      <div id="drawer-root"></div>
+      <!-- Right Column: StyleStudio Showcase -->
+      <section class="stylestudio-column-section" id="stylestudio-column-container" aria-label="StyleStudio Showcase">
+        <!-- Dynamic StyleStudio look mounted here -->
+      </section>
 
-      <!-- Notification Toast Container -->
-      <div id="toast-root"></div>
+    </div>
+  </main>
 
-    </main>
+  <!-- Shopping Bag Slide-Over Drawer Container -->
+  <div id="bag-drawer-root"></div>
 
-  </div>
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-root"></div>
 
   <!-- Main JavaScript Entry -->
   <script type="module" src="js/app.js"></script>

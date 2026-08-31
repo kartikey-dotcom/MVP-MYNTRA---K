@@ -1,10 +1,97 @@
 /**
- * Master Fashion Catalog for Browse & Wishlist Screens
- * Strictly zero pricing / monetary data included.
+ * Master Fashion Catalog for Myntra Desktop Wishlist & StyleStudio
+ * Matches the Stitch Desktop layout & mock data perfectly.
  */
 
-/** @type {import('../types/index.js').WishlistItem[]} */
 export const INITIAL_WISHLIST_ITEMS = [
+  {
+    id: 'prod-mango-hero',
+    brand: 'MANGO',
+    name: 'Drape Satin Blouse - Espresso Brown',
+    category: 'Topwear',
+    subCategory: 'Satin Blouse',
+    color: 'Espresso Brown',
+    price: 2490,
+    originalPrice: 4150,
+    discount: '40% OFF',
+    imageUrl: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'MANGO Drape Satin Blouse in Espresso Brown',
+    tags: ['Satin', 'Cowl Neck', 'Espresso', 'Hero'],
+    isAnchor: true,
+    isHero: true,
+    addedAt: '2026-08-30',
+    stylable: true
+  },
+  {
+    id: 'prod-zara-trousers',
+    brand: 'ZARA',
+    name: 'Pleated Wide-Leg Trousers',
+    subCategory: 'Tailored Trousers',
+    category: 'Bottomwear',
+    color: 'Charcoal Grey',
+    price: 2990,
+    originalPrice: 4590,
+    discount: '35% OFF',
+    imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'ZARA Pleated Wide-Leg Trousers',
+    tags: ['Tailored', 'Pleated', 'Charcoal', 'Corporate'],
+    isAnchor: true,
+    isHero: false,
+    addedAt: '2026-08-29',
+    stylable: true
+  },
+  {
+    id: 'prod-hm-skirt',
+    brand: 'H&M',
+    name: 'Satin Midi Skirt',
+    subCategory: 'Midi Skirt',
+    category: 'Bottomwear',
+    color: 'Champagne Cream',
+    price: 1999,
+    originalPrice: 2499,
+    discount: '20% OFF',
+    imageUrl: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'H&M Satin Midi Skirt in Champagne',
+    tags: ['Satin', 'Midi Skirt', 'Champagne', 'Chic'],
+    isAnchor: true,
+    isHero: false,
+    addedAt: '2026-08-28',
+    stylable: true
+  },
+  {
+    id: 'prod-ck-pumps',
+    brand: 'Charles & Keith',
+    name: 'Classic Nude Pumps',
+    subCategory: 'Heeled Pumps',
+    category: 'Footwear',
+    color: 'Classic Nude',
+    price: 4200,
+    originalPrice: 4990,
+    discount: '15% OFF',
+    imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Charles & Keith Classic Nude Pumps',
+    tags: ['Heels', 'Pumps', 'Nude', 'Formal'],
+    isAnchor: true,
+    isHero: false,
+    addedAt: '2026-08-27',
+    stylable: true
+  }
+];
+
+export const ALL_BROWSE_PRODUCTS = [
+  ...INITIAL_WISHLIST_ITEMS,
+  {
+    id: 'prod-neutral-trouser',
+    brand: 'ZARA',
+    name: 'Pleated Fluid Sand Trousers',
+    category: 'Bottomwear',
+    subCategory: 'Trousers',
+    color: 'Sand Beige',
+    price: 2990,
+    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Neutral Tailored Trousers',
+    tags: ['Tailored', 'Neutral', 'Wide-Leg']
+  },
   {
     id: 'prod-stark-blazer',
     brand: 'STARK & CO.',
@@ -12,147 +99,34 @@ export const INITIAL_WISHLIST_ITEMS = [
     category: 'Outerwear / Layer',
     subCategory: 'Navy Blazer',
     color: 'Navy Blue',
+    price: 4990,
     imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'STARK & CO. Structured Navy Blazer',
-    tags: ['Tailored', 'Structured', 'Navy', 'Corporate'],
-    isAnchor: true,
-    addedAt: '2026-08-28',
-    stylable: true
-  },
-  {
-    id: 'prod-lumiere-dress',
-    brand: 'LUMIÈRE',
-    name: 'Emerald Silk Midi Dress',
-    category: 'Topwear',
-    subCategory: 'Silk Dress',
-    color: 'Emerald Green',
-    imageUrl: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'LUMIÈRE Emerald Silk Midi Dress',
-    tags: ['Silk', 'Emerald', 'Evening', 'Midi'],
-    isAnchor: true,
-    addedAt: '2026-08-27',
-    stylable: true
+    imageAlt: 'STARK Structured Navy Blazer',
+    tags: ['Tailored', 'Navy', 'Corporate']
   },
   {
     id: 'prod-aeris-sneakers',
     brand: 'AERIS',
-    name: 'Chunky Platform Sneakers',
+    name: 'Chunky Platform Clean Sneakers',
     category: 'Footwear',
     subCategory: 'Platform Sneakers',
     color: 'Clean White',
+    price: 2200,
     imageUrl: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'AERIS Chunky Platform Sneakers in White',
-    tags: ['Platform', 'Sneakers', 'Streetwear', 'White'],
-    isAnchor: true,
-    addedAt: '2026-08-26',
-    stylable: true
+    imageAlt: 'Platform Sneakers',
+    tags: ['Platform', 'Sneakers', 'Streetwear']
   },
   {
-    id: 'prod-nordic-trousers',
-    brand: 'NORDIC',
-    name: 'Wide-Leg Tailored Trousers',
-    category: 'Bottomwear',
-    subCategory: 'Tailored Trousers',
-    color: 'Sand Beige',
-    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'NORDIC Wide-Leg Tailored Trousers in Beige',
-    tags: ['Wide-Leg', 'Tailored', 'Beige', 'Contemporary'],
-    isAnchor: true,
-    addedAt: '2026-08-25',
-    stylable: true
-  }
-];
-
-/** @type {import('../types/index.js').CatalogItem[]} */
-export const ALL_BROWSE_PRODUCTS = [
-  ...INITIAL_WISHLIST_ITEMS,
-  {
-    id: 'prod-mango-rust-blazer',
+    id: 'prod-gold-accessories',
     brand: 'MANGO',
-    name: 'Relaxed-Fit Linen Blazer',
-    category: 'Outerwear / Layer',
-    subCategory: 'Linen Blazer',
-    color: 'Rust Brown',
-    imageUrl: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Mango Relaxed-Fit Rust Linen Blazer',
-    tags: ['Linen', 'Blazer', 'Smart-Casual']
-  },
-  {
-    id: 'prod-zara-poplin',
-    brand: 'ZARA',
-    name: 'Cropped Structured Poplin Shirt',
-    category: 'Topwear',
-    subCategory: 'Poplin Shirt',
-    color: 'Optic White',
-    imageUrl: 'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Zara Poplin Shirt',
-    tags: ['Poplin', 'Shirt', 'Minimalist']
-  },
-  {
-    id: 'prod-hm-olive-trousers',
-    brand: 'H&M PREMIUM',
-    name: 'High-Waisted Olive Tailored Trousers',
-    category: 'Bottomwear',
-    subCategory: 'Tailored Trousers',
-    color: 'Olive Green',
-    imageUrl: 'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'H&M Olive Tailored Trousers',
-    tags: ['Tailored', 'Trousers', 'Olive']
-  },
-  {
-    id: 'prod-massimo-skirt',
-    brand: 'MASSIMO DUTTI',
-    name: 'Bias-Cut Slip Satin Midi Skirt',
-    category: 'Bottomwear',
-    subCategory: 'Midi Skirt',
-    color: 'Champagne Gold',
-    imageUrl: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Massimo Dutti Satin Skirt',
-    tags: ['Satin', 'Midi Skirt', 'Evening']
-  },
-  {
-    id: 'prod-levis-vintage',
-    brand: 'LEVI\'S',
-    name: '501 Straight-Leg Vintage Denim',
-    category: 'Bottomwear',
-    subCategory: 'Jeans',
-    color: 'Vintage Indigo',
-    imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Levi\'s 501 Straight Denim',
-    tags: ['Denim', 'Jeans', 'Classic']
-  },
-  {
-    id: 'prod-cos-knitwear',
-    brand: 'COS',
-    name: 'Fine Ribbed Mock-Neck Knit',
-    category: 'Topwear',
-    subCategory: 'Knitwear',
-    color: 'Ivory Cream',
-    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'COS Fine Ribbed Mock-Neck Knit',
-    tags: ['Knitwear', 'Cream', 'Neutral']
-  },
-  {
-    id: 'prod-aldo-loafers',
-    brand: 'ALDO',
-    name: 'Pointed Black Leather Penny Loafers',
-    category: 'Footwear',
-    subCategory: 'Loafers',
-    color: 'Black',
-    imageUrl: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Aldo Pointed Black Loafers',
-    tags: ['Loafers', 'Leather', 'Formal']
-  },
-  {
-    id: 'prod-steve-madden-mules',
-    brand: 'STEVE MADDEN',
-    name: 'Sculpted Strap Heeled Mules',
-    category: 'Footwear',
-    subCategory: 'Heeled Mules',
-    color: 'Warm Taupe',
-    imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
-    imageAlt: 'Steve Madden Taupe Heeled Mules',
-    tags: ['Heels', 'Mules', 'Evening']
+    name: 'Sculpted Golden Drop Earrings',
+    category: 'Accessories',
+    subCategory: 'Earrings',
+    color: 'Warm Gold',
+    price: 990,
+    imageUrl: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Golden Earrings',
+    tags: ['Jewelry', 'Gold', 'Evening']
   }
 ];
 

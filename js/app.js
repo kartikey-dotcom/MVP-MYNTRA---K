@@ -1,55 +1,39 @@
 /**
- * Myntra StyleStudio — Main Application Entry Point
- * Coordinates dynamic routing across all 5 navigation screens.
+ * Myntra StyleStudio — Main Desktop Application Entry Point
+ * Coordinates Header, Wishlist Grid, StyleStudio Showcase, Shopping Bag Drawer, and Footer.
  */
 
 import { renderHeader } from './components/MyntraHeader.js';
-import { renderWishlistGrid, renderBottomNavBar } from './components/WishlistGrid.js';
-import { renderBrowseView } from './components/BrowseView.js';
-import { renderHomeView } from './components/HomeView.js';
-import { renderProfileView } from './components/ProfileView.js';
-import { renderStyleDrawer } from './components/StyleDrawer.js';
+import { renderWishlistGrid } from './components/WishlistGrid.js';
+import { renderStyleStudioDesktop } from './components/StyleStudioDesktop.js';
+import { renderShoppingBagDrawer } from './components/ShoppingBagDrawer.js';
+import { renderFooter } from './components/Footer.js';
 import { store } from './state/store.js';
 
 function renderApp() {
-  // 1. Render Header
+  // 1. Render Desktop Header
   renderHeader();
 
-  // 2. Render Active Screen
-  switch (store.activeTab) {
-    case 'home':
-      renderHomeView();
-      break;
-    case 'explore':
-      renderBrowseView();
-      break;
-    case 'wishlist':
-      renderWishlistGrid();
-      break;
-    case 'profile':
-      renderProfileView();
-      break;
-    case 'studio':
-      renderWishlistGrid();
-      break;
-    default:
-      renderBrowseView();
-  }
+  // 2. Render Left Column: Wishlist Grid
+  renderWishlistGrid();
 
-  // 3. Render Bottom Navigation Bar
-  renderBottomNavBar();
+  // 3. Render Right Column: StyleStudio Showcase
+  renderStyleStudioDesktop();
 
-  // 4. Render StyleStudio AI Bottom Sheet Drawer
-  renderStyleDrawer();
+  // 4. Render Shopping Bag Slide-Over Drawer
+  renderShoppingBagDrawer();
+
+  // 5. Render Desktop Footer
+  renderFooter();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderApp();
 
-  // Subscribe to reactive store changes
+  // Subscribe to reactive store state changes
   store.subscribe(() => {
     renderApp();
   });
 
-  console.log('✨ Myntra StyleStudio 5-Tab Navigation initialized.');
+  console.log('✨ Myntra StyleStudio Desktop View initialized.');
 });

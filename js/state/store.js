@@ -1,22 +1,24 @@
 /**
- * StyleStudio Global Reactive Store
- * Manages Wishlist, Browse Products, Navigation Tabs, Drawer, and Saved Looks.
+ * StyleStudio Global Reactive Store (Desktop View)
+ * Manages Wishlist, Active Hero Item, Occasions, Shopping Bag, and UI State.
  */
 
 import { INITIAL_WISHLIST_ITEMS, ALL_BROWSE_PRODUCTS } from '../data/catalog.js';
 
-const STORAGE_KEY_WISHLIST = 'myntra_stylestudio_wishlist_items';
-const STORAGE_KEY_SAVED_LOOKS = 'myntra_stylestudio_saved_pairings';
+const STORAGE_KEY_WISHLIST = 'myntra_desktop_wishlist_items';
+const STORAGE_KEY_BAG = 'myntra_desktop_bag_items';
+const STORAGE_KEY_SAVED_LOOKS = 'myntra_desktop_saved_looks';
 
 class StyleStudioStore {
   constructor() {
     this.browseProducts = [...ALL_BROWSE_PRODUCTS];
     this.wishlistItems = this.loadWishlist();
-    this.activeTab = 'explore'; // 'explore', 'wishlist', 'home', 'studio', 'profile'
-    this.selectedBrowseCategory = 'All';
-    this.activeAnchorItem = null;
-    this.isDrawerOpen = false;
-    this.selectedOccasionFilter = 'Daily Look';
+    this.bagItems = this.loadBag();
+    this.activeCategory = 'STUDIO'; // MEN, WOMEN, KIDS, HOME & LIVING, BEAUTY, STUDIO
+    this.activeHeroItem = this.wishlistItems.find(i => i.isHero) || this.wishlistItems[0] || null;
+    this.selectedOccasion = 'Office & Smart';
+    this.isBagOpen = false;
+    this.searchQuery = '';
     this.savedPairingIds = this.loadSavedPairings();
     this.listeners = new Set();
   }
@@ -35,6 +37,23 @@ class StyleStudioStore {
       localStorage.setItem(STORAGE_KEY_WISHLIST, JSON.stringify(this.wishlistItems));
     } catch (e) {
       console.warn('Failed to persist wishlist:', e);
+    }
+  }
+
+  loadBag() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_BAG);
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  persistBag() {
+    try {
+      localStorage.setItem(STORAGE_KEY_BAG, JSON.stringify(this.bagItems));
+    } catch (e) {
+      console.warn('Failed to persist bag:', e);
     }
   }
 
@@ -64,93 +83,121 @@ class StyleStudioStore {
     this.listeners.forEach(listener => listener(this));
   }
 
-  setActiveTab(tab) {
-    this.activeTab = tab;
+  setActiveCategory(category) {
+    this.activeCategory = category;
     this.notify();
   }
 
-  setBrowseCategory(category) {
-    this.selectedBrowseCategory = category;
-    this.notify();
-  }
-
-  /**
-   * Toggles an item in the Wishlist
-   * @param {import('../types/index.js').CatalogItem} product
-   * @returns {boolean} True if now added, False if removed
-   */
-  toggleWishlist(product) {
-    if (!product) return false;
-    const existsIndex = this.wishlistItems.findIndex(item => item.id === product.id);
-    let isNowWishlisted = false;
-
-    if (existsIndex >= 0) {
-      // Remove from wishlist
-      this.wishlistItems.splice(existsIndex, 1);
-      isNowWishlisted = false;
-      if (this.activeAnchorItem && this.activeAnchorItem.id === product.id) {
-        this.closeDrawer();
-      }
-    } else {
-      // Add to wishlist
-      this.wishlistItems.unshift({
-        ...product,
-        isAnchor: true,
-        stylable: true,
-        addedAt: new Date().toISOString()
-      });
-      isNowWishlisted = true;
-    }
-
-    this.persistWishlist();
-    this.notify();
-    return isNowWishlisted;
-  }
-
-  /**
-   * Checks if an item is currently in the wishlist
-   * @param {string} productId
-   * @returns {boolean}
-   */
-  isItemInWishlist(productId) {
-    return this.wishlistItems.some(item => item.id === productId);
-  }
-
-  openDrawer(item) {
+  setActiveHeroItem(item) {
     if (!item) return;
-    this.activeAnchorItem = item;
-    this.isDrawerOpen = true;
-    this.selectedOccasionFilter = 'Daily Look';
-    document.body.classList.add('drawer-open');
+    this.activeHeroItem = item;
+    this.selectedOccasion = 'Office & Smart';
     this.notify();
   }
 
-  closeDrawer() {
-    this.isDrawerOpen = false;
-    document.body.classList.remove('drawer-open');
+  setOccasion(occasion) {
+    this.selectedOccasion = occasion;
     this.notify();
   }
 
-  toggleSavePairing(pairingId) {
-    if (!pairingId) return false;
-    const isCurrentlySaved = Boolean(this.savedPairingIds[pairingId]);
-    if (isCurrentlySaved) {
-      delete this.savedPairingIds[pairingId];
+  setSearchQuery(q) {
+    this.searchQuery = q;
+    this.notify();
+  }
+
+  toggleBag(isOpen) {
+    if (typeof isOpen === 'boolean') {
+      this.isBagOpen = isOpen;
     } else {
-      this.savedPairingIds[pairingId] = true;
+      this.isBagOpen = !this.isBagOpen;
     }
-    this.persistSavedPairings();
     this.notify();
-    return !isCurrentlySaved;
   }
 
-  isPairingSaved(pairingId) {
-    return Boolean(this.savedPairingIds[pairingId]);
+  /**
+   * Add a single item or array of items to the shopping bag
+   * @param {Object | Object[]} itemOrItems
+   */
+  addToBag(itemOrItems) {
+    const itemsToAdd = Array.isArray(itemOrItems) ? itemOrItems : [itemOrItems];
+
+    itemsToAdd.forEach(newItem => {
+      if (!newItem) return;
+      const existing = this.bagItems.find(item => item.id === newItem.id);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        this.bagItems.push({
+          id: newItem.id,
+          name: newItem.name,
+          brand: newItem.brand || 'MYNTRA',
+          price: newItem.price || 0,
+          originalPrice: newItem.originalPrice || newItem.price,
+          imageUrl: newItem.imageUrl || 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+          qty: 1
+        });
+      }
+    });
+
+    this.persistBag();
+    this.isBagOpen = true; // Auto open bag drawer on add
+    this.notify();
   }
 
-  setOccasionFilter(occasion) {
-    this.selectedOccasionFilter = occasion;
+  removeFromBag(itemId) {
+    this.bagItems = this.bagItems.filter(item => item.id !== itemId);
+    this.persistBag();
     this.notify();
+  }
+
+  updateBagItemQty(itemId, delta) {
+    const item = this.bagItems.find(i => i.id === itemId);
+    if (!item) return;
+    item.qty = (item.qty || 1) + delta;
+    if (item.qty <= 0) {
+      this.removeFromBag(itemId);
+    } else {
+      this.persistBag();
+      this.notify();
+    }
+  }
+
+  getBagTotal() {
+    return this.bagItems.reduce((total, item) => total + (item.price * (item.qty || 1)), 0);
+  }
+
+  getBagCount() {
+    return this.bagItems.reduce((total, item) => total + (item.qty || 1), 0);
+  }
+
+  /**
+   * Removes an item from the Wishlist
+   * @param {string} itemId
+   */
+  removeFromWishlist(itemId) {
+    const index = this.wishlistItems.findIndex(i => i.id === itemId);
+    if (index >= 0) {
+      const wasHero = this.activeHeroItem?.id === itemId;
+      this.wishlistItems.splice(index, 1);
+      if (wasHero && this.wishlistItems.length > 0) {
+        this.activeHeroItem = this.wishlistItems[0];
+      } else if (this.wishlistItems.length === 0) {
+        this.activeHeroItem = null;
+      }
+      this.persistWishlist();
+      this.notify();
+    }
+  }
+
+  /**
+   * Move item from wishlist directly to bag
+   * @param {string} itemId
+   */
+  moveFromWishlistToBag(itemId) {
+    const item = this.wishlistItems.find(i => i.id === itemId);
+    if (item) {
+      this.addToBag(item);
+    }
   }
 }
 

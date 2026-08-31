@@ -1,191 +1,248 @@
 /**
- * Curated Outfit Pairings matching StyleStudio Specifications
+ * Curated Outfit Pairings for StyleStudio Desktop
+ * Matches the Stitch design: 3 Real Occasions for each item in the Wishlist.
  */
 
-/** @type {import('../types/index.js').OutfitPairing[]} */
 export const OUTFIT_PAIRINGS = [
   // ==========================================
-  // STARK & CO. - Structured Navy Blazer
+  // MANGO - Drape Satin Blouse (Espresso Brown) [STITCH HERO]
   // ==========================================
   {
-    id: 'pairing-stark-daily',
-    anchorItemId: 'prod-stark-blazer',
-    occasion: 'Daily Look',
-    title: 'Effortless Linen Mix',
-    subtitle: 'Crisp White Shirt + Beige Trousers',
-    complementaryItemIds: ['prod-zara-poplin', 'prod-nordic-trousers'],
+    id: 'pairing-mango-office',
+    anchorItemId: 'prod-mango-hero',
+    occasion: 'Office & Smart',
+    occasionIcon: 'briefcase',
+    title: 'Executive Tailored Drape',
+    subtitle: 'Neutral Trousers + Nude Pumps',
+    complementaryItemIds: ['prod-zara-trousers', 'prod-ck-pumps'],
+    proStylingNote: 'Tuck neatly into tailored neutral trousers for a sharp silhouette. The nude pumps elongate the leg while maintaining a professional palette.',
     isPerfectMatch: true,
-    stylingRationale: 'Layering this structured navy blazer over a crisp poplin shirt and fluid sand beige trousers creates an effortlessly balanced silhouette for daily meetings and lunches.',
-    styleConfidence: 'Curated Look'
+    canvasHeroImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Mango Blouse (Hero)', price: 2490, isHero: true, id: 'prod-mango-hero' },
+      { name: 'Zara Trousers', price: 2990, isHero: false, id: 'prod-zara-trousers' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
   },
   {
-    id: 'pairing-stark-datenight',
-    anchorItemId: 'prod-stark-blazer',
-    occasion: 'Date Night',
-    title: 'Casual Knit Comfort',
-    subtitle: 'Soft Grey Knit + Dark Indigo Denim',
-    complementaryItemIds: ['prod-cos-knitwear', 'prod-levis-vintage'],
-    isPerfectMatch: false,
-    stylingRationale: 'Pairing the sharp lapels with a soft heather grey crewneck knit and deep indigo denim dresses down the blazer for an elevated, relaxed evening aesthetic.',
-    styleConfidence: 'Trending Match'
+    id: 'pairing-mango-weekend',
+    anchorItemId: 'prod-mango-hero',
+    occasion: 'Weekend Casual',
+    occasionIcon: 'coffee',
+    title: 'Fluid Satin Brunch Edit',
+    subtitle: 'Champagne Midi Skirt + Clean Sneakers',
+    complementaryItemIds: ['prod-hm-skirt', 'prod-aeris-sneakers'],
+    proStylingNote: 'Wear loosely draped over a fluid champagne midi skirt paired with clean platform sneakers for an elevated, effortless weekend gallery or brunch look.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Mango Blouse (Hero)', price: 2490, isHero: true, id: 'prod-mango-hero' },
+      { name: 'H&M Satin Skirt', price: 1999, isHero: false, id: 'prod-hm-skirt' },
+      { name: 'Aeris Platform Sneakers', price: 2200, isHero: false, id: 'prod-aeris-sneakers' }
+    ]
   },
   {
-    id: 'pairing-stark-officesharp',
-    anchorItemId: 'prod-stark-blazer',
-    occasion: 'Office Sharp',
-    title: 'Corporate Power Duo',
-    subtitle: 'Crisp White Shirt + Black Loafers',
-    complementaryItemIds: ['prod-zara-poplin', 'prod-aldo-loafers'],
-    isPerfectMatch: false,
-    stylingRationale: 'Sharp contrasting proportions with polished pointed penny loafers provide clean lines and authoritative elegance for high-stakes office days.',
-    styleConfidence: 'Classic Pairing'
+    id: 'pairing-mango-evening',
+    anchorItemId: 'prod-mango-hero',
+    occasion: 'Evening',
+    occasionIcon: 'wine',
+    title: 'Candlelight Luminescence',
+    subtitle: 'Pleated Trousers + Nude Stilettos + Gold Accents',
+    complementaryItemIds: ['prod-zara-trousers', 'prod-ck-pumps', 'prod-gold-accessories'],
+    proStylingNote: 'Let the cowl drape shine against sharp charcoal tailoring and towering nude pumps. Accentuate with warm gold jewelry for understated evening radiance.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Mango Blouse (Hero)', price: 2490, isHero: true, id: 'prod-mango-hero' },
+      { name: 'Zara Trousers', price: 2990, isHero: false, id: 'prod-zara-trousers' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
   },
 
   // ==========================================
-  // LUMIÈRE - Emerald Silk Midi Dress
+  // ZARA - Pleated Wide-Leg Trousers
   // ==========================================
   {
-    id: 'pairing-lumiere-daily',
-    anchorItemId: 'prod-lumiere-dress',
-    occasion: 'Daily Look',
-    title: 'Daytime Minimalist Layer',
-    subtitle: 'Soft Grey Knit + Minimalist Sneakers',
-    complementaryItemIds: ['prod-cos-knitwear', 'prod-aeris-sneakers'],
-    isPerfectMatch: true,
-    stylingRationale: 'Throw a relaxed grey crewneck over the emerald slip dress to transform evening glamour into an effortless daytime layered skirt look.',
-    styleConfidence: 'Curated Look'
-  },
-  {
-    id: 'pairing-lumiere-datenight',
-    anchorItemId: 'prod-lumiere-dress',
-    occasion: 'Date Night',
-    title: 'Satin Radiance Edit',
-    subtitle: 'Champagne Satin + Sculpted Mules',
-    complementaryItemIds: ['prod-steve-madden-mules'],
-    isPerfectMatch: false,
-    stylingRationale: 'Lustrous emerald silk catches evening ambient light, elevated by sculpted strap mules for romantic dinner settings.',
-    styleConfidence: 'Classic Pairing'
-  },
-  {
-    id: 'pairing-lumiere-officesharp',
-    anchorItemId: 'prod-lumiere-dress',
-    occasion: 'Office Sharp',
-    title: 'Modern Executive Slip',
-    subtitle: 'Pointed Loafers + Structured Outerwear',
-    complementaryItemIds: ['prod-aldo-loafers', 'prod-stark-blazer'],
-    isPerfectMatch: false,
-    stylingRationale: 'Grounding fluid silk with structured footwear makes the dress office-appropriate and sophisticated.',
-    styleConfidence: 'Curated Look'
-  },
-
-  // ==========================================
-  // AERIS - Chunky Platform Sneakers
-  // ==========================================
-  {
-    id: 'pairing-aeris-daily',
-    anchorItemId: 'prod-aeris-sneakers',
-    occasion: 'Daily Look',
-    title: 'Off-Duty Gallery Stroll',
-    subtitle: 'Crisp White Shirt + Indigo Denim',
-    complementaryItemIds: ['prod-zara-poplin', 'prod-levis-vintage'],
-    isPerfectMatch: true,
-    stylingRationale: 'Clean white sneakers ground dark denim and a classic button-down for timeless weekend streetwear.',
-    styleConfidence: 'Curated Look'
-  },
-  {
-    id: 'pairing-aeris-datenight',
-    anchorItemId: 'prod-aeris-sneakers',
-    occasion: 'Date Night',
-    title: 'Edgy High-Low Contrast',
-    subtitle: 'Silk Slip Skirt + Grey Cashmere',
-    complementaryItemIds: ['prod-massimo-skirt', 'prod-cos-knitwear'],
-    isPerfectMatch: false,
-    stylingRationale: 'Juxtaposing feminine champagne satin with chunky platform footwear creates a trendy downtown date night edge.',
-    styleConfidence: 'Trending Match'
-  },
-  {
-    id: 'pairing-aeris-officesharp',
-    anchorItemId: 'prod-aeris-sneakers',
-    occasion: 'Office Sharp',
-    title: 'Smart-Casual Tailored Commute',
-    subtitle: 'Beige Trousers + Crisp White Shirt',
-    complementaryItemIds: ['prod-nordic-trousers', 'prod-zara-poplin'],
-    isPerfectMatch: false,
-    stylingRationale: 'Wide-leg pleated beige trousers drape smoothly over chunky white platforms for a modern creative office uniform.',
-    styleConfidence: 'Classic Pairing'
-  },
-
-  // ==========================================
-  // NORDIC - Wide-Leg Tailored Trousers
-  // ==========================================
-  {
-    id: 'pairing-nordic-daily',
-    anchorItemId: 'prod-nordic-trousers',
-    occasion: 'Daily Look',
-    title: 'Effortless Linen Mix',
-    subtitle: 'Crisp White Shirt + Beige Trousers',
-    complementaryItemIds: ['prod-zara-poplin'],
-    isPerfectMatch: true,
-    stylingRationale: 'Tucking a crisp white button-down into high-waisted sand beige trousers elongates the silhouette for versatile daytime elegance.',
-    styleConfidence: 'Curated Look'
-  },
-  {
-    id: 'pairing-nordic-datenight',
-    anchorItemId: 'prod-nordic-trousers',
-    occasion: 'Date Night',
-    title: 'Dusk Bistro Tailoring',
-    subtitle: 'Sculpted Mules + Evening Satin Accent',
-    complementaryItemIds: ['prod-steve-madden-mules'],
-    isPerfectMatch: false,
-    stylingRationale: 'Adding sculpted heel height creates dramatic movement and flow in wide-leg tailoring for evening cocktails.',
-    styleConfidence: 'Classic Pairing'
-  },
-  {
-    id: 'pairing-nordic-officesharp',
-    anchorItemId: 'prod-nordic-trousers',
-    occasion: 'Office Sharp',
+    id: 'pairing-zara-office',
+    anchorItemId: 'prod-zara-trousers',
+    occasion: 'Office & Smart',
+    occasionIcon: 'briefcase',
     title: 'Architectural Boardroom Edit',
-    subtitle: 'Pointed Loafers + Structured Poplin',
-    complementaryItemIds: ['prod-aldo-loafers', 'prod-zara-poplin'],
-    isPerfectMatch: false,
-    stylingRationale: 'Clean pleats over polished black leather loafers create a powerful, refined tailored foundation.',
-    styleConfidence: 'Curated Look'
+    subtitle: 'Espresso Satin Blouse + Nude Pumps',
+    complementaryItemIds: ['prod-mango-hero', 'prod-ck-pumps'],
+    proStylingNote: 'Balance the voluminous drape of these charcoal pleated trousers with a fluid satin cowl blouse and nude pointed pumps for structured elegance.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Zara Trousers (Hero)', price: 2990, isHero: true, id: 'prod-zara-trousers' },
+      { name: 'Mango Satin Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
+  },
+  {
+    id: 'pairing-zara-weekend',
+    anchorItemId: 'prod-zara-trousers',
+    occasion: 'Weekend Casual',
+    occasionIcon: 'coffee',
+    title: 'Relaxed Tailored Streetwear',
+    subtitle: 'Chunky Sneakers + Casual Knit',
+    complementaryItemIds: ['prod-aeris-sneakers'],
+    proStylingNote: 'Dress down wide-leg pleats with chunky platform sneakers and a casual tee or knit for an effortlessly cool city weekend silhouette.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Zara Trousers (Hero)', price: 2990, isHero: true, id: 'prod-zara-trousers' },
+      { name: 'Aeris Platform Sneakers', price: 2200, isHero: false, id: 'prod-aeris-sneakers' }
+    ]
+  },
+  {
+    id: 'pairing-zara-evening',
+    anchorItemId: 'prod-zara-trousers',
+    occasion: 'Evening',
+    occasionIcon: 'wine',
+    title: 'Monochrome Cocktail Stature',
+    subtitle: 'Drape Top + Statement Pumps',
+    complementaryItemIds: ['prod-mango-hero', 'prod-ck-pumps'],
+    proStylingNote: 'High-waisted charcoal trousers offer high-impact visual height when paired with slender stiletto pumps and lustrous evening tops.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'Zara Trousers (Hero)', price: 2990, isHero: true, id: 'prod-zara-trousers' },
+      { name: 'Mango Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
   },
 
   // ==========================================
-  // MANGO - Relaxed-Fit Linen Blazer
+  // H&M - Satin Midi Skirt
   // ==========================================
   {
-    id: 'pairing-mango-daily',
-    anchorItemId: 'prod-mango-rust-blazer',
-    occasion: 'Daily Look',
-    title: 'Earthy Tailored Minimalist',
-    subtitle: 'Black Trousers + Pointed Loafers',
-    complementaryItemIds: ['prod-nordic-trousers', 'prod-aldo-loafers'],
+    id: 'pairing-hm-office',
+    anchorItemId: 'prod-hm-skirt',
+    occasion: 'Office & Smart',
+    occasionIcon: 'briefcase',
+    title: 'Polished Silk Silhouette',
+    subtitle: 'Structured Blazer + Pointed Heels',
+    complementaryItemIds: ['prod-stark-blazer', 'prod-ck-pumps'],
+    proStylingNote: 'Pair champagne satin with a structured blazer to introduce corporate firmness while preserving fluid femininity.',
     isPerfectMatch: true,
-    stylingRationale: 'Structured trousers balance relaxed rust linen drape for sharp corporate versatility.',
-    styleConfidence: 'Curated Look'
+    canvasHeroImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'H&M Satin Skirt (Hero)', price: 1999, isHero: true, id: 'prod-hm-skirt' },
+      { name: 'Stark Navy Blazer', price: 4990, isHero: false, id: 'prod-stark-blazer' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
   },
   {
-    id: 'pairing-mango-datenight',
-    anchorItemId: 'prod-mango-rust-blazer',
-    occasion: 'Date Night',
-    title: 'Satin Sunset Glow',
-    subtitle: 'Champagne Slip Skirt + Heeled Mules',
-    complementaryItemIds: ['prod-massimo-skirt', 'prod-steve-madden-mules'],
-    isPerfectMatch: false,
-    stylingRationale: 'Matte rust linen against lustrous champagne satin creates high-dimension evening drama.',
-    styleConfidence: 'Trending Match'
+    id: 'pairing-hm-weekend',
+    anchorItemId: 'prod-hm-skirt',
+    occasion: 'Weekend Casual',
+    occasionIcon: 'coffee',
+    title: 'Easy Sunday Stroll',
+    subtitle: 'Platform Sneakers + Cowl Top',
+    complementaryItemIds: ['prod-aeris-sneakers', 'prod-mango-hero'],
+    proStylingNote: 'The ultimate smart-casual pairing: combine fluid bias-cut satin with chunky sneakers for day-long comfort.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'H&M Satin Skirt (Hero)', price: 1999, isHero: true, id: 'prod-hm-skirt' },
+      { name: 'Mango Satin Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' },
+      { name: 'Aeris Platform Sneakers', price: 2200, isHero: false, id: 'prod-aeris-sneakers' }
+    ]
   },
   {
-    id: 'pairing-mango-officesharp',
-    anchorItemId: 'prod-mango-rust-blazer',
-    occasion: 'Office Sharp',
-    title: 'Corporate Rust Statement',
-    subtitle: 'Poplin Shirt + Structured Loafers',
-    complementaryItemIds: ['prod-zara-poplin', 'prod-aldo-loafers'],
-    isPerfectMatch: false,
-    stylingRationale: 'Clean lines and warm tailoring create a polished, commanding presence in any boardroom.',
-    styleConfidence: 'Classic Pairing'
+    id: 'pairing-hm-evening',
+    anchorItemId: 'prod-hm-skirt',
+    occasion: 'Evening',
+    occasionIcon: 'wine',
+    title: 'Golden Hour Slip Glamour',
+    subtitle: 'Espresso Satin Top + Nude Stilettos',
+    complementaryItemIds: ['prod-mango-hero', 'prod-ck-pumps'],
+    proStylingNote: 'Lustrous champagne silk catches low candlelight for an unforgettable dinner party look.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'H&M Satin Skirt (Hero)', price: 1999, isHero: true, id: 'prod-hm-skirt' },
+      { name: 'Mango Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' },
+      { name: 'C&K Pumps', price: 4200, isHero: false, id: 'prod-ck-pumps' }
+    ]
+  },
+
+  // ==========================================
+  // CHARLES & KEITH - Classic Nude Pumps
+  // ==========================================
+  {
+    id: 'pairing-ck-office',
+    anchorItemId: 'prod-ck-pumps',
+    occasion: 'Office & Smart',
+    occasionIcon: 'briefcase',
+    title: 'Corporate Precision Footwear',
+    subtitle: 'Charcoal Trousers + Drape Blouse',
+    complementaryItemIds: ['prod-zara-trousers', 'prod-mango-hero'],
+    proStylingNote: 'Nude pointed pumps visually lengthen the leg when framing wide-leg pleated trousers.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'C&K Pumps (Hero)', price: 4200, isHero: true, id: 'prod-ck-pumps' },
+      { name: 'Zara Trousers', price: 2990, isHero: false, id: 'prod-zara-trousers' },
+      { name: 'Mango Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' }
+    ]
+  },
+  {
+    id: 'pairing-ck-weekend',
+    anchorItemId: 'prod-ck-pumps',
+    occasion: 'Weekend Casual',
+    occasionIcon: 'coffee',
+    title: 'Smart Daytime High-Low',
+    subtitle: 'Champagne Skirt + Neutral Knit',
+    complementaryItemIds: ['prod-hm-skirt'],
+    proStylingNote: 'Classic pumps elevate fluid satin midi skirts for festive daywear and art openings.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'C&K Pumps (Hero)', price: 4200, isHero: true, id: 'prod-ck-pumps' },
+      { name: 'H&M Satin Skirt', price: 1999, isHero: false, id: 'prod-hm-skirt' }
+    ]
+  },
+  {
+    id: 'pairing-ck-evening',
+    anchorItemId: 'prod-ck-pumps',
+    occasion: 'Evening',
+    occasionIcon: 'wine',
+    title: 'Starlight Stiletto Height',
+    subtitle: 'Espresso Drape + Evening Skirt',
+    complementaryItemIds: ['prod-mango-hero', 'prod-hm-skirt'],
+    proStylingNote: 'The indispensable neutral heel grounding satin textures and warm ambient candlelight.',
+    isPerfectMatch: true,
+    canvasHeroImage: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
+    canvasBottomImage: 'https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80',
+    canvasShoesImage: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
+    itemsBreakdown: [
+      { name: 'C&K Pumps (Hero)', price: 4200, isHero: true, id: 'prod-ck-pumps' },
+      { name: 'Mango Blouse', price: 2490, isHero: false, id: 'prod-mango-hero' },
+      { name: 'H&M Satin Skirt', price: 1999, isHero: false, id: 'prod-hm-skirt' }
+    ]
   }
 ];
