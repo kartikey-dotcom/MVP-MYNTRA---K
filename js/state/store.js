@@ -436,8 +436,13 @@ class StyleStudioStore {
 
   getSearchSuggestions(query) {
     if (!query || query.trim().length === 0) {
+      // Grounded strictly in brands and tags present in our dataset
+      const datasetBrands = [...new Set(this.allProducts.map(p => p.brand))].filter(Boolean).slice(0, 5);
+      const datasetTags = [...new Set(this.allProducts.flatMap(p => p.tags || []))].filter(Boolean).slice(0, 4);
+      const trendingTerms = [...new Set([...datasetBrands, ...datasetTags])].slice(0, 8);
+
       return {
-        trending: ['Satin Blouse', 'Linen Shirt', 'Tailored Trousers', 'Watch', 'Retro Sneakers', 'Lip Mask', 'Ceramic Vase'],
+        trending: trendingTerms,
         items: []
       };
     }

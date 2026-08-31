@@ -2,10 +2,10 @@
  * Myntra StyleStudio AI Stylist & Recommendation Engine
  * Features:
  * 1. Strict Schema Enforcement (PairedItem, OccasionLook, StyleStudioResponse)
- * 2. Catalog Grounding (Zero hallucinated IDs or prices)
+ * 2. Strict Catalog Grounding (Only picks valid, existing items from ALL_PRODUCTS)
  * 3. Cost-Per-Wear (CPW) Justification Engine
- * 4. Hyperlocal Climate Adaptation
- * 5. In-Memory Caching for sub-millisecond responses
+ * 4. Hyperlocal Climate & Weather Adaptation
+ * 5. In-Memory Caching for instant responses
  */
 
 import { ALL_PRODUCTS } from './catalog.js';
@@ -40,64 +40,55 @@ export function getAIStylistRecommendation(heroProduct, cityKey = 'mumbai', occa
     return AI_STYLIST_CACHE.get(cacheKey);
   }
 
-  // Calculate Versatility Score (based on fabric versatility & occasion range)
+  // Calculate Versatility Score
   const versatilityScore = Math.min(98, Math.max(88, 90 + (occasionKeys.length * 2)));
-
   const heroImage = heroProduct.image || heroProduct.imageUrl;
 
+  // Filter available candidate items from the same category
+  const sameCategoryPool = ALL_PRODUCTS.filter(p => p.category === heroProduct.category && p.id !== heroProduct.id);
+  const globalPool = ALL_PRODUCTS.filter(p => p.id !== heroProduct.id);
+
   // Build occasion looks matching the strict schema
-  const occasions = occasionKeys.slice(0, 3).map(occId => {
+  const occasions = occasionKeys.slice(0, 3).map((occId, index) => {
     const preset = OCCASION_PRESETS.find(p => p.id === occId) || OCCASION_PRESETS[0];
     const wearInfo = OCCASION_WEARS_MAP[occId] || OCCASION_WEARS_MAP.office;
 
-    // Ground pairings from catalog
-    const bottomCandidates = ALL_PRODUCTS.filter(p => 
-      p.id !== heroProduct.id && 
-      (p.title.toLowerCase().includes('trouser') || 
-       p.title.toLowerCase().includes('skirt') || 
-       p.title.toLowerCase().includes('jeans') || 
-       p.title.toLowerCase().includes('pant') ||
-       p.category === heroProduct.category)
-    );
-
-    const chosenBottom = bottomCandidates[0] || ALL_PRODUCTS[1];
-    const chosenShoes = ALL_PRODUCTS.find(p => p.id !== heroProduct.id && p.id !== chosenBottom.id) || ALL_PRODUCTS[2];
-
-    const bottomImage = chosenBottom.image || chosenBottom.imageUrl;
-    const shoesImage = chosenShoes.image || chosenShoes.imageUrl;
+    // Pick 2 companion items strictly from ALL_PRODUCTS
+    const pool = sameCategoryPool.length >= 2 ? sameCategoryPool : globalPool;
+    const item1 = pool[(index * 2) % pool.length] || pool[0];
+    const item2 = pool[(index * 2 + 1) % pool.length] || pool[1] || item1;
 
     const pairings = [
       {
-        skuId: chosenBottom.id,
-        brand: chosenBottom.brand,
-        title: chosenBottom.title,
-        category: 'Bottomwear',
+        skuId: item1.id,
+        brand: item1.brand,
+        title: item1.title,
+        category: item1.subCategory || 'Bottomwear',
         color: 'Curated Tone',
-        price: chosenBottom.price,
-        originalPrice: chosenBottom.originalPrice || chosenBottom.price,
-        image: bottomImage,
+        price: item1.price,
+        originalPrice: item1.originalPrice || item1.price,
+        image: item1.image || item1.imageUrl,
         stylingRole: wearInfo.roleBottom
       },
       {
-        skuId: chosenShoes.id,
-        brand: chosenShoes.brand,
-        title: chosenShoes.title,
-        category: 'Footwear',
+        skuId: item2.id,
+        brand: item2.brand,
+        title: item2.title,
+        category: item2.subCategory || 'Footwear',
         color: 'Accent Tone',
-        price: chosenShoes.price,
-        originalPrice: chosenShoes.originalPrice || chosenShoes.price,
-        image: shoesImage,
+        price: item2.price,
+        originalPrice: item2.originalPrice || item2.price,
+        image: item2.image || item2.imageUrl,
         stylingRole: wearInfo.roleShoes
       }
     ];
 
-    const totalBundlePrice = heroProduct.price + chosenBottom.price + chosenShoes.price;
+    const totalBundlePrice = heroProduct.price + item1.price + item2.price;
     const estimatedWears = wearInfo.wears;
     const calculatedCPW = Math.round(totalBundlePrice / estimatedWears);
 
     // Weather adjustment calculation
-    let weatherAdjustment = `Adapted for ${city.name} (${city.temp}): ${city.weatherTip}`;
-
+    const weatherAdjustment = `Adapted for ${city.name} (${city.temp}): ${city.weatherTip}`;
     const stylingTip = `${preset.description} ${weatherAdjustment}`;
 
     return {
@@ -116,8 +107,8 @@ export function getAIStylistRecommendation(heroProduct, cityKey = 'mumbai', occa
       pairings: pairings,
       totalLookPrice: totalBundlePrice,
       canvasHeroImage: heroImage,
-      canvasBottomImage: bottomImage,
-      canvasShoesImage: shoesImage
+      canvasBottomImage: item1.image || item1.imageUrl,
+      canvasShoesImage: item2.image || item2.imageUrl
     };
   });
 
