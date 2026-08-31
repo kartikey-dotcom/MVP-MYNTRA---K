@@ -242,18 +242,11 @@ export function renderHeader() {
       return;
     }
 
-    // 4. Select suggested product directly from search
+    // 4. Select suggested product directly from search -> Open Product Details Modal
     const suggestRow = e.target.closest('[data-action="select-suggested-product"]');
     if (suggestRow) {
       const pId = suggestRow.dataset.productId;
-      const targetP = store.allProducts.find(p => p.id === pId);
-      if (targetP) {
-        if (!store.isItemWishlisted(pId)) {
-          store.toggleWishlist(targetP);
-        }
-        store.setActiveHeroSku(pId);
-        store.setCurrentView('WISHLIST');
-      }
+      store.openProductDetails(pId);
       return;
     }
 

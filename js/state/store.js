@@ -34,6 +34,11 @@ class StyleStudioStore {
     // Active Tab in Profile View: 'overview' | 'orders' | 'addresses' | 'stylestudio-looks' | 'insider' | 'coupons'
     this.activeProfileTab = 'overview';
 
+    // Product Details Modal / PDP View
+    this.selectedProductDetails = null;
+    this.selectedProductSize = 'M';
+    this.deliveryPincode = '560038';
+
     // User Profile Data
     this.userProfile = {
       fullName: 'Krishna Sharma',
@@ -254,6 +259,34 @@ class StyleStudioStore {
    */
   setCurrentView(view) {
     this.currentView = view;
+    this.selectedProductDetails = null; // Close PDP on view switch
+    this.notify();
+  }
+
+  openProductDetails(productOrId) {
+    if (!productOrId) return;
+    if (typeof productOrId === 'string') {
+      const found = this.allProducts.find(p => p.id === productOrId) || this.wishlistItems.find(p => p.id === productOrId);
+      this.selectedProductDetails = found || null;
+    } else {
+      this.selectedProductDetails = productOrId;
+    }
+    this.selectedProductSize = 'M';
+    this.notify();
+  }
+
+  closeProductDetails() {
+    this.selectedProductDetails = null;
+    this.notify();
+  }
+
+  setSelectedProductSize(size) {
+    this.selectedProductSize = size;
+    this.notify();
+  }
+
+  setDeliveryPincode(pin) {
+    this.deliveryPincode = pin;
     this.notify();
   }
 

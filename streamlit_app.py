@@ -57,6 +57,7 @@ wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
 stylestudio_desktop_js = read_file("js/components/StyleStudioDesktop.js")
 shopping_bag_drawer_js = read_file("js/components/ShoppingBagDrawer.js")
+pdp_modal_js = read_file("js/components/ProductDetailsModal.js")
 footer_js = read_file("js/components/Footer.js")
 toast_js = read_file("js/components/Toast.js")
 
@@ -84,6 +85,7 @@ wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
 stylestudio_desktop_clean = clean_js(stylestudio_desktop_js)
 shopping_bag_drawer_clean = clean_js(shopping_bag_drawer_js)
+pdp_modal_clean = clean_js(pdp_modal_js)
 footer_clean = clean_js(footer_js)
 toast_clean = clean_js(toast_js)
 
@@ -113,6 +115,7 @@ all_scripts = "\n\n".join([
     wishlist_grid_clean,
     stylestudio_desktop_clean,
     shopping_bag_drawer_clean,
+    pdp_modal_clean,
     footer_clean,
     toast_clean,
     """
@@ -137,6 +140,7 @@ all_scripts = "\n\n".join([
             }
         }
 
+        renderProductDetailsModal();
         renderShoppingBagDrawer();
         renderFooter();
 
@@ -179,6 +183,9 @@ __STYLES_PLACEHOLDER__
   <!-- Dynamic Main Workspace (PLP or Wishlist + StyleStudio) -->
   <main class="desktop-main-wrapper" id="main-workspace-container">
   </main>
+
+  <!-- Product Details Modal Container (Myntra PDP Inspection) -->
+  <div id="product-details-modal-container"></div>
 
   <!-- Shopping Bag Slide-Over Drawer Container -->
   <div id="bag-drawer-root"></div>

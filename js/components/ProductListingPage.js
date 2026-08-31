@@ -141,12 +141,14 @@ export function renderProductListingPage() {
               ${products.map(product => {
                 const isWishlisted = store.isItemWishlisted(product.id);
                 return `
-                  <article class="plp-product-card" data-product-id="${product.id}">
-                    <div class="plp-card-image-wrap">
+                  <article class="plp-product-card" data-action="open-product-details" data-product-id="${product.id}">
+                    
+                    <!-- Media Wrap -->
+                    <div class="plp-media-wrap">
                       <img 
-                        src="${product.image}" 
+                        src="${product.image || product.imageUrl}" 
                         alt="${product.title}" 
-                        class="plp-card-img"
+                        class="plp-product-image"
                         loading="lazy"
                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80';"
                       />
@@ -248,7 +250,15 @@ export function renderProductListingPage() {
       return;
     }
 
-    // 3. Brand Filter selection
+    // 3. Open Product Details View (PDP Modal)
+    const card = e.target.closest('[data-action="open-product-details"]');
+    if (card) {
+      const pId = card.dataset.productId;
+      store.openProductDetails(pId);
+      return;
+    }
+
+    // 4. Brand Filter selection
     const brandRadio = e.target.closest('[data-action="filter-brand"]');
     if (brandRadio) {
       store.setFilterBrand(brandRadio.value);

@@ -10,6 +10,7 @@ import { renderProfilePage } from './components/ProfilePage.js';
 import { renderWishlistGrid } from './components/WishlistGrid.js';
 import { renderStyleStudioDesktop } from './components/StyleStudioDesktop.js';
 import { renderShoppingBagDrawer } from './components/ShoppingBagDrawer.js';
+import { renderProductDetailsModal } from './components/ProductDetailsModal.js';
 import { renderFooter } from './components/Footer.js';
 import { store } from './state/store.js';
 
@@ -34,15 +35,18 @@ function renderApp() {
       renderWishlistGrid();
       renderStyleStudioDesktop();
     } else {
-      // Category Product Listing Page (WOMEN, MEN, KIDS, BEAUTY, HOME & LIVING)
+      // Category Product Listing Page (WOMEN, MEN, KIDS, BEAUTY, HOME & LIVING, SEARCH)
       renderProductListingPage();
     }
   }
 
-  // 3. Render Shopping Bag Drawer
+  // 3. Render Product Details Modal (PDP View)
+  renderProductDetailsModal();
+
+  // 4. Render Shopping Bag Drawer
   renderShoppingBagDrawer();
 
-  // 4. Render Footer
+  // 5. Render Footer
   renderFooter();
 
   if (window.lucide) {
