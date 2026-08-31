@@ -15,7 +15,7 @@ export function renderHeader() {
   const cursorStart = activeInput ? activeInput.selectionStart : null;
   const cursorEnd = activeInput ? activeInput.selectionEnd : null;
 
-  const categories = ['MEN', 'WOMEN', 'KIDS', 'HOME & LIVING', 'BEAUTY', 'STUDIO'];
+  const categories = ['MEN', 'WOMEN', 'KIDS', 'HOME & LIVING', 'BEAUTY'];
   const { currentView, wishlistItems, userProfile, isProfileDropdownOpen } = store;
   const bagCount = store.getBagCount();
   const wishlistCount = wishlistItems.length;
@@ -33,7 +33,7 @@ export function renderHeader() {
 
         <nav class="desktop-nav-menu" aria-label="Main Navigation">
           ${categories.map(cat => {
-            const isActive = (currentView === cat) || (cat === 'STUDIO' && currentView === 'WISHLIST');
+            const isActive = (currentView === cat);
             return `
               <button 
                 class="nav-menu-link ${isActive ? 'active' : ''}" 
@@ -177,7 +177,7 @@ export function renderHeader() {
 
         <!-- Wishlist Button -->
         <button 
-          class="user-action-btn ${currentView === 'WISHLIST' || currentView === 'STUDIO' ? 'active-link' : ''}" 
+          class="user-action-btn ${currentView === 'WISHLIST' ? 'active-link' : ''}" 
           data-action="nav-category" 
           data-category="WISHLIST" 
           aria-label="Wishlist"
@@ -224,11 +224,7 @@ export function renderHeader() {
       const targetCat = navBtn.dataset.category;
       store.toggleProfileDropdown(false);
       store.clearSearchQuery();
-      if (targetCat === 'STUDIO') {
-        store.setCurrentView('WISHLIST');
-      } else {
-        store.setCurrentView(targetCat);
-      }
+      store.setCurrentView(targetCat);
       return;
     }
 

@@ -123,7 +123,7 @@ all_scripts = "\n\n".join([
         if (workspace) {
             if (store.currentView === 'PROFILE') {
                 renderProfilePage();
-            } else if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+            } else if (store.currentView === 'WISHLIST') {
                 workspace.innerHTML = `
                     <div class="desktop-content-container">
                         <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist"></section>

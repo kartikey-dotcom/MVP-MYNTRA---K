@@ -23,7 +23,7 @@ function renderApp() {
     if (store.currentView === 'PROFILE') {
       // Full Profile Account Page
       renderProfilePage();
-    } else if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+    } else if (store.currentView === 'WISHLIST') {
       // Wishlist + StyleStudio Split Screen Layout
       workspace.innerHTML = `
         <div class="desktop-content-container">
