@@ -3,11 +3,11 @@ import streamlit.components.v1 as components
 import os
 import re
 
-# Streamlit Page Configuration
+# Streamlit Page Configuration - Wide desktop layout
 st.set_page_config(
-    page_title="Myntra StyleStudio — Fashion App",
-    page_icon="✨",
-    layout="centered",
+    page_title="Myntra StyleStudio — Desktop Experience",
+    page_icon="🛍️",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
@@ -25,7 +25,8 @@ hide_streamlit_style = """
         max-width: 100% !important;
     }
     iframe {
-        border-radius: 16px;
+        width: 100% !important;
+        border: none !important;
     }
 </style>
 """
@@ -52,21 +53,19 @@ store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
 wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
-browse_card_js = read_file("js/components/BrowseCard.js")
-browse_view_js = read_file("js/components/BrowseView.js")
-home_view_js = read_file("js/components/HomeView.js")
-profile_view_js = read_file("js/components/ProfileView.js")
-drawer_header_js = read_file("js/components/DrawerHeader.js")
-occasion_nav_js = read_file("js/components/OccasionNav.js")
-pairing_card_js = read_file("js/components/PairingCard.js")
+stylestudio_desktop_js = read_file("js/components/StyleStudioDesktop.js")
+shopping_bag_drawer_js = read_file("js/components/ShoppingBagDrawer.js")
+footer_js = read_file("js/components/Footer.js")
 toast_js = read_file("js/components/Toast.js")
 
 # Clean JS code for browser inline execution
 def clean_js(code):
     code = re.sub(r'import\s+.*?from\s+[\'"].*?[\'"];?', '', code)
+    code = re.sub(r'import\s+[\'"].*?[\'"];?', '', code)
     code = re.sub(r'\bexport\s+const\s+', 'const ', code)
     code = re.sub(r'\bexport\s+function\s+', 'function ', code)
     code = re.sub(r'\bexport\s+let\s+', 'let ', code)
+    code = re.sub(r'\bexport\s+class\s+', 'class ', code)
     code = re.sub(r'\bexport\s+default\s+', '', code)
     code = re.sub(r'\bexport\s*\{[^}]*\};?', '', code)
     return code
@@ -78,13 +77,9 @@ store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
 wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
-browse_card_clean = clean_js(browse_card_js)
-browse_view_clean = clean_js(browse_view_js)
-home_view_clean = clean_js(home_view_js)
-profile_view_clean = clean_js(profile_view_js)
-drawer_header_clean = clean_js(drawer_header_js)
-occasion_nav_clean = clean_js(occasion_nav_js)
-pairing_card_clean = clean_js(pairing_card_js)
+stylestudio_desktop_clean = clean_js(stylestudio_desktop_js)
+shopping_bag_drawer_clean = clean_js(shopping_bag_drawer_js)
+footer_clean = clean_js(footer_js)
 toast_clean = clean_js(toast_js)
 
 all_styles = "\n".join([
@@ -95,13 +90,8 @@ all_styles = "\n".join([
     html, body {
         margin: 0;
         padding: 0;
-        background-color: transparent;
+        background-color: #FFFFFF;
         overflow-x: hidden;
-    }
-    .desktop-stage {
-        min-height: 100vh;
-        background: transparent;
-        padding: 10px 0;
     }
     """
 ])
@@ -114,93 +104,17 @@ all_scripts = "\n\n".join([
     header_clean,
     wishlist_card_clean,
     wishlist_grid_clean,
-    browse_card_clean,
-    browse_view_clean,
-    home_view_clean,
-    profile_view_clean,
-    drawer_header_clean,
-    occasion_nav_clean,
-    pairing_card_clean,
+    stylestudio_desktop_clean,
+    shopping_bag_drawer_clean,
+    footer_clean,
     toast_clean,
     """
-    function renderStyleDrawer() {
-        const drawerRoot = document.getElementById('drawer-root');
-        if (!drawerRoot) return;
-
-        const { isDrawerOpen, activeAnchorItem, selectedOccasionFilter } = store;
-        if (!activeAnchorItem) {
-            drawerRoot.innerHTML = '';
-            return;
-        }
-
-        const pairings = getPairingsForAnchor(activeAnchorItem.id, selectedOccasionFilter);
-
-        drawerRoot.innerHTML = `
-            <div class="drawer-backdrop ${isDrawerOpen ? 'active' : ''}" id="style-drawer-backdrop" data-action="close-drawer"></div>
-            <div class="drawer-container ${isDrawerOpen ? 'open' : ''}" id="style-drawer-body" role="dialog" aria-modal="true">
-                ${renderDrawerHeaderHTML(activeAnchorItem)}
-                ${renderOccasionNavHTML(activeAnchorItem.id, selectedOccasionFilter)}
-                <div class="drawer-content-scroll" id="drawer-pairing-list">
-                    ${pairings.map(p => renderPairingCardHTML(p, activeAnchorItem)).join('')}
-                </div>
-            </div>
-        `;
-
-        if (window.lucide) window.lucide.createIcons();
-        setupDrawerEvents(drawerRoot);
-    }
-
-    function setupDrawerEvents(drawerRoot) {
-        drawerRoot.onclick = (e) => {
-            if (e.target.closest('[data-action="close-drawer"]')) {
-                store.closeDrawer();
-                return;
-            }
-            const filterBtn = e.target.closest('[data-action="filter-occasion"]');
-            if (filterBtn) {
-                const occasion = filterBtn.dataset.occasion;
-                if (occasion) store.setOccasionFilter(occasion);
-                return;
-            }
-            const saveBtn = e.target.closest('[data-action="toggle-save-pairing"]');
-            if (saveBtn) {
-                const pairingId = saveBtn.dataset.pairingId;
-                if (pairingId && store.activeAnchorItem) {
-                    const isNowSaved = store.toggleSavePairing(pairingId);
-                    if (isNowSaved) {
-                        showToast('Look saved!', 'Added to your saved styling looks ✨', 'success');
-                    } else {
-                        showToast('Look removed from saved', '', 'info');
-                    }
-                }
-                return;
-            }
-        };
-    }
-
     function renderApp() {
         renderHeader();
-        switch (store.activeTab) {
-            case 'home':
-                renderHomeView();
-                break;
-            case 'explore':
-                renderBrowseView();
-                break;
-            case 'wishlist':
-                renderWishlistGrid();
-                break;
-            case 'profile':
-                renderProfileView();
-                break;
-            case 'studio':
-                renderWishlistGrid();
-                break;
-            default:
-                renderBrowseView();
-        }
-        renderBottomNavBar();
-        renderStyleDrawer();
+        renderWishlistGrid();
+        renderStyleStudioDesktop();
+        renderShoppingBagDrawer();
+        renderFooter();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -219,12 +133,12 @@ html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Myntra StyleStudio — Fashion App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Shopping for Women, Men, Kids Fashion & Lifestyle - Myntra StyleStudio</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -232,14 +146,33 @@ __STYLES_PLACEHOLDER__
   </style>
 </head>
 <body>
-  <div class="desktop-stage">
-    <main class="mobile-frame" id="app">
-      <header class="myntra-header" id="header-container"></header>
-      <section class="wishlist-viewport" id="wishlist-container" aria-label="Fashion App Viewport"></section>
-      <div id="drawer-root"></div>
-      <div id="toast-root"></div>
-    </main>
-  </div>
+
+  <!-- Top Desktop Navigation Header Container -->
+  <div id="header-container"></div>
+
+  <!-- Main Desktop 2-Column Stage -->
+  <main class="desktop-main-wrapper" id="app">
+    <div class="desktop-content-container">
+      
+      <!-- Left Column: Wishlist -->
+      <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist">
+      </section>
+
+      <!-- Right Column: StyleStudio Showcase -->
+      <section class="stylestudio-column-section" id="stylestudio-column-container" aria-label="StyleStudio Showcase">
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shopping Bag Slide-Over Drawer Container -->
+  <div id="bag-drawer-root"></div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-root"></div>
 
   <script>
 __SCRIPTS_PLACEHOLDER__
@@ -250,4 +183,4 @@ __SCRIPTS_PLACEHOLDER__
 
 final_html = html_template.replace("__STYLES_PLACEHOLDER__", all_styles).replace("__SCRIPTS_PLACEHOLDER__", all_scripts)
 
-components.html(final_html, height=890, scrolling=True)
+components.html(final_html, height=1100, scrolling=True)
