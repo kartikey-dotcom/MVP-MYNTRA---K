@@ -1866,7 +1866,8 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-.plp-card-image-wrap {
+.plp-card-image-wrap,
+.plp-media-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1.3;
@@ -1875,15 +1876,18 @@
   overflow: hidden;
 }
 
-.plp-card-img {
+.plp-card-img,
+.plp-product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
   transition: transform var(--transition-smooth);
+  display: block;
 }
 
-.plp-product-card:hover .plp-card-img {
+.plp-product-card:hover .plp-card-img,
+.plp-product-card:hover .plp-product-image {
   transform: scale(1.04);
 }
 

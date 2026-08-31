@@ -144,11 +144,11 @@ export function renderProductListingPage() {
                   <article class="plp-product-card" data-action="open-product-details" data-product-id="${product.id}">
                     
                     <!-- Media Wrap -->
-                    <div class="plp-media-wrap">
+                    <div class="plp-card-image-wrap">
                       <img 
                         src="${product.image || product.imageUrl}" 
                         alt="${product.title}" 
-                        class="plp-product-image"
+                        class="plp-card-img"
                         loading="lazy"
                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80';"
                       />
