@@ -6,6 +6,7 @@
 
 import { renderHeader } from './components/MyntraHeader.js';
 import { renderProductListingPage } from './components/ProductListingPage.js';
+import { renderProfilePage } from './components/ProfilePage.js';
 import { renderWishlistGrid } from './components/WishlistGrid.js';
 import { renderStyleStudioDesktop } from './components/StyleStudioDesktop.js';
 import { renderShoppingBagDrawer } from './components/ShoppingBagDrawer.js';
@@ -19,7 +20,10 @@ function renderApp() {
   // 2. Render Dynamic Main Workspace
   const workspace = document.getElementById('main-workspace-container');
   if (workspace) {
-    if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+    if (store.currentView === 'PROFILE') {
+      // Full Profile Account Page
+      renderProfilePage();
+    } else if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
       // Wishlist + StyleStudio Split Screen Layout
       workspace.innerHTML = `
         <div class="desktop-content-container">

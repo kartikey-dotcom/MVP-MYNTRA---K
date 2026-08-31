@@ -21,6 +21,81 @@ class StyleStudioStore {
     this.activeHeroSkuId = this.wishlistItems[0]?.id || 'prod-w-mango-blouse';
     this.selectedOccasion = 'office';
     this.isBagOpen = false;
+    this.isProfileDropdownOpen = false;
+    
+    // Active Tab in Profile View: 'overview' | 'orders' | 'addresses' | 'stylestudio-looks' | 'insider' | 'coupons'
+    this.activeProfileTab = 'overview';
+
+    // User Profile Data
+    this.userProfile = {
+      fullName: 'Krishna Sharma',
+      email: 'krishna.sharma@example.com',
+      mobile: '+91 98765 43210',
+      gender: 'Female',
+      dob: '1996-08-15',
+      location: 'Bengaluru, Karnataka',
+      insiderPoints: 850,
+      insiderTier: 'Select Member',
+      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'
+    };
+
+    // User Saved Orders History
+    this.orders = [
+      {
+        orderId: 'MYN-98421049',
+        orderDate: '28 Aug 2026',
+        status: 'Delivered',
+        statusColor: '#03A685',
+        totalAmount: 9680,
+        items: [
+          { name: 'MANGO Drape Satin Blouse (Espresso)', brand: 'MANGO', price: 2490, image: 'https://images.unsplash.com/photo-1551163943-3f6a855d1153?w=800&auto=format&fit=crop&q=80', size: 'M' },
+          { name: 'ZARA High-Waist Tailored Trousers', brand: 'ZARA', price: 2990, image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&auto=format&fit=crop&q=80', size: '28' },
+          { name: 'Charles & Keith Pointed Stiletto Pumps', brand: 'Charles & Keith', price: 4200, image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&auto=format&fit=crop&q=80', size: 'UK 5' }
+        ]
+      },
+      {
+        orderId: 'MYN-87651230',
+        orderDate: '15 Aug 2026',
+        status: 'Delivered',
+        statusColor: '#03A685',
+        totalAmount: 7495,
+        items: [
+          { name: 'FOSSIL Minimalist Chronograph Watch', brand: 'FOSSIL', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', size: 'Onesize' }
+        ]
+      }
+    ];
+
+    // Saved Delivery Addresses
+    this.addresses = [
+      {
+        id: 'addr-1',
+        name: 'Krishna Sharma',
+        type: 'HOME',
+        isDefault: true,
+        addressLine: 'Flat 402, Skyline Heights, 100ft Road, Indiranagar',
+        city: 'Bengaluru',
+        state: 'Karnataka',
+        pincode: '560038',
+        mobile: '+91 98765 43210'
+      },
+      {
+        id: 'addr-2',
+        name: 'Krishna Sharma',
+        type: 'WORK',
+        isDefault: false,
+        addressLine: 'Level 5, Embassy Tech Village, Outer Ring Road',
+        city: 'Bengaluru',
+        state: 'Karnataka',
+        pincode: '560103',
+        mobile: '+91 98765 43210'
+      }
+    ];
+
+    // Available Coupons
+    this.coupons = [
+      { code: 'STYLESTUDIO500', discount: 'Flat ₹500 OFF', desc: 'On Complete Look Bundles above ₹3,000', expiry: '30 Sep 2026' },
+      { code: 'MYNTRAINSIDER15', discount: '15% Extra OFF', desc: 'Exclusive VIP Member Perk across all brands', expiry: '15 Oct 2026' }
+    ];
     
     // PLP Filter & Sort State
     this.filters = {
@@ -32,6 +107,49 @@ class StyleStudioStore {
     };
 
     this.listeners = new Set();
+  }
+
+  setProfileTab(tab) {
+    this.activeProfileTab = tab;
+    this.notify();
+  }
+
+  toggleProfileDropdown(isOpen) {
+    if (typeof isOpen === 'boolean') {
+      this.isProfileDropdownOpen = isOpen;
+    } else {
+      this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+    }
+    this.notify();
+  }
+
+  updateUserProfile(updatedFields) {
+    this.userProfile = { ...this.userProfile, ...updatedFields };
+    this.notify();
+  }
+
+  addAddress(address) {
+    this.addresses.push({
+      id: `addr-${Date.now()}`,
+      isDefault: this.addresses.length === 0,
+      ...address
+    });
+    this.notify();
+  }
+
+  setDefaultAddress(addressId) {
+    this.addresses.forEach(addr => {
+      addr.isDefault = (addr.id === addressId);
+    });
+    this.notify();
+  }
+
+  deleteAddress(addressId) {
+    this.addresses = this.addresses.filter(a => a.id !== addressId);
+    if (this.addresses.length > 0 && !this.addresses.some(a => a.isDefault)) {
+      this.addresses[0].isDefault = true;
+    }
+    this.notify();
   }
 
   loadWishlist() {

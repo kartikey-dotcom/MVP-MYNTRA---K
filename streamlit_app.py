@@ -51,6 +51,7 @@ pairing_engine_js = read_file("js/data/pairingEngine.js")
 store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
 plp_js = read_file("js/components/ProductListingPage.js")
+profile_js = read_file("js/components/ProfilePage.js")
 wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
 stylestudio_desktop_js = read_file("js/components/StyleStudioDesktop.js")
@@ -75,6 +76,7 @@ pairing_engine_clean = clean_js(pairing_engine_js)
 store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
 plp_clean = clean_js(plp_js)
+profile_clean = clean_js(profile_js)
 wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
 stylestudio_desktop_clean = clean_js(stylestudio_desktop_js)
@@ -102,6 +104,7 @@ all_scripts = "\n\n".join([
     store_clean,
     header_clean,
     plp_clean,
+    profile_clean,
     wishlist_card_clean,
     wishlist_grid_clean,
     stylestudio_desktop_clean,
@@ -114,7 +117,9 @@ all_scripts = "\n\n".join([
 
         const workspace = document.getElementById('main-workspace-container');
         if (workspace) {
-            if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+            if (store.currentView === 'PROFILE') {
+                renderProfilePage();
+            } else if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
                 workspace.innerHTML = `
                     <div class="desktop-content-container">
                         <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist"></section>

@@ -1,7 +1,7 @@
 /**
  * Myntra Desktop Header Component
  * Handles Category Navigation (MEN, WOMEN, KIDS, HOME & LIVING, BEAUTY, STUDIO),
- * Search Bar, Profile, Wishlist button, and Bag drawer.
+ * Search Bar, Profile Dropdown, Wishlist button, and Bag drawer.
  */
 
 import { store } from '../state/store.js';
@@ -11,7 +11,7 @@ export function renderHeader() {
   if (!container) return;
 
   const categories = ['MEN', 'WOMEN', 'KIDS', 'HOME & LIVING', 'BEAUTY', 'STUDIO'];
-  const { currentView, wishlistItems } = store;
+  const { currentView, wishlistItems, userProfile, isProfileDropdownOpen } = store;
   const bagCount = store.getBagCount();
   const wishlistCount = wishlistItems.length;
 
@@ -54,11 +54,63 @@ export function renderHeader() {
 
       <!-- Right: User Actions (Profile, Wishlist, Bag) -->
       <div class="header-user-actions">
-        <button class="user-action-btn" data-action="toggle-profile" aria-label="User Profile">
-          <i data-lucide="user"></i>
-          <span class="action-label">Profile</span>
-        </button>
+        
+        <!-- Profile Button & Dropdown -->
+        <div class="profile-dropdown-anchor">
+          <button 
+            class="user-action-btn ${currentView === 'PROFILE' ? 'active-link' : ''}" 
+            data-action="toggle-profile" 
+            aria-label="User Profile"
+          >
+            <i data-lucide="user"></i>
+            <span class="action-label">Profile</span>
+          </button>
 
+          <!-- Desktop Profile Popover / Dropdown Menu -->
+          <div class="header-profile-popover ${isProfileDropdownOpen ? 'show' : ''}" id="header-profile-popover">
+            <div class="popover-user-card">
+              <div class="popover-greeting">Welcome</div>
+              <div class="popover-user-name">${userProfile.fullName}</div>
+              <div class="popover-insider-badge">
+                <i data-lucide="sparkles" style="width: 11px; height: 11px; fill: #D5A118; color: #D5A118;"></i>
+                <span>${userProfile.insiderTier}</span>
+              </div>
+            </div>
+
+            <div class="popover-menu-divider"></div>
+
+            <div class="popover-links-list">
+              <button class="popover-link-item" data-action="open-profile-tab" data-tab="orders">
+                <i data-lucide="package"></i>
+                <span>Orders & Returns</span>
+              </button>
+              <button class="popover-link-item" data-action="open-profile-tab" data-tab="stylestudio-looks">
+                <i data-lucide="sparkles"></i>
+                <span>StyleStudio Looks</span>
+              </button>
+              <button class="popover-link-item" data-action="open-profile-tab" data-tab="addresses">
+                <i data-lucide="map-pin"></i>
+                <span>Saved Addresses</span>
+              </button>
+              <button class="popover-link-item" data-action="open-profile-tab" data-tab="coupons">
+                <i data-lucide="ticket"></i>
+                <span>Coupons & Perks</span>
+              </button>
+              <button class="popover-link-item" data-action="open-profile-tab" data-tab="insider">
+                <i data-lucide="crown"></i>
+                <span>Myntra Insider (${userProfile.insiderPoints} pts)</span>
+              </button>
+            </div>
+
+            <div class="popover-menu-divider"></div>
+
+            <button class="btn-popover-profile" data-action="open-profile-tab" data-tab="overview">
+              <span>VIEW FULL PROFILE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Wishlist Button -->
         <button 
           class="user-action-btn ${currentView === 'WISHLIST' || currentView === 'STUDIO' ? 'active-link' : ''}" 
           data-action="nav-category" 
@@ -72,6 +124,7 @@ export function renderHeader() {
           <span class="action-label">Wishlist</span>
         </button>
 
+        <!-- Shopping Bag Button -->
         <button class="user-action-btn" data-action="toggle-bag" aria-label="Shopping Bag">
           <div class="action-icon-wrap">
             <i data-lucide="shopping-bag"></i>
@@ -93,6 +146,7 @@ export function renderHeader() {
     const navBtn = e.target.closest('[data-action="nav-category"]');
     if (navBtn) {
       const targetCat = navBtn.dataset.category;
+      store.toggleProfileDropdown(false);
       if (targetCat === 'STUDIO') {
         store.setCurrentView('WISHLIST');
       } else {
@@ -101,8 +155,28 @@ export function renderHeader() {
       return;
     }
 
-    // 2. Toggle Bag Drawer
+    // 2. Toggle Profile Dropdown or Navigate to Profile
+    if (e.target.closest('[data-action="toggle-profile"]')) {
+      if (store.currentView === 'PROFILE') {
+        store.toggleProfileDropdown();
+      } else {
+        store.setCurrentView('PROFILE');
+      }
+      return;
+    }
+
+    // 3. Open Specific Profile Tab
+    const tabLink = e.target.closest('[data-action="open-profile-tab"]');
+    if (tabLink) {
+      store.setProfileTab(tabLink.dataset.tab);
+      store.setCurrentView('PROFILE');
+      store.toggleProfileDropdown(false);
+      return;
+    }
+
+    // 4. Toggle Bag Drawer
     if (e.target.closest('[data-action="toggle-bag"]')) {
+      store.toggleProfileDropdown(false);
       store.toggleBag();
       return;
     }
