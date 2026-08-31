@@ -116,16 +116,14 @@ export function renderStyleStudioDesktop() {
         </button>
       </div>
 
-      <!-- Rule of 3 Unlocked Verified Badge + Versatility Score -->
-      <div class="rule-of-three-badge-wrap">
-        <div class="rule-of-three-pill">
-          <i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #03A685;"></i>
-          <span>RULE OF 3: ${aiPayload.versatilityScore}% VERSATILITY SCORE VERIFIED ✓</span>
+      <!-- Climate / Weather Adaptation Tag -->
+      ${activeLook.weatherAdjustmentNote ? `
+        <div class="rule-of-three-badge-wrap">
+          <div class="weather-adaptation-tag">
+            <span>🌤️ ${activeLook.weatherAdjustmentNote}</span>
+          </div>
         </div>
-        <div class="weather-adaptation-tag">
-          <span>🌤️ ${activeLook.weatherAdjustmentNote}</span>
-        </div>
-      </div>
+      ` : ''}
 
       <!-- Outfit Presentation Section (Canvas + Breakdown) -->
       <div class="stylestudio-look-grid">
