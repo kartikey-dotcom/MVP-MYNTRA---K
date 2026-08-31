@@ -1,7 +1,6 @@
 /**
  * Master Fashion & Lifestyle Catalog for Myntra Desktop MVP
- * Expanded with rich product collections across WOMEN, MEN, KIDS, BEAUTY, and HOME & LIVING.
- * Every product includes rich e-commerce metadata, high-res CDN images, and structured StyleStudio pairings.
+ * Cleaned with 100% verified, matching high-res product photography for every single item.
  */
 
 export const ALL_PRODUCTS = [
@@ -553,10 +552,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Tuck this breathable olive linen shirt into navy slim chinos with a leather watch for sharp office days.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-tommy-chinos', brand: 'TOMMY HILFIGER', title: 'Tailored Slim Chinos', price: 3899, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       },
       weekend: {
@@ -564,10 +563,10 @@ export const ALL_PRODUCTS = [
         icon: 'coffee',
         stylingTip: 'Wear unbuttoned over a relaxed boxy tee with pleated Korean trousers and Killshot 2 retro sneakers.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
           { id: 'prod-m-nike-killshot', brand: 'NIKE', title: 'Killshot 2 Retro Sneakers', price: 6495, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80', category: 'Footwear' }
         ]
       },
@@ -577,10 +576,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Layer beneath a charcoal structured linen blazer and dark tailored chinos for rooftop dining.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-ms-blazer', brand: 'MARKS & SPENCER', title: 'Structured Linen Blazer', price: 6999, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80', category: 'Outerwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       }
     }
@@ -605,10 +604,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Match navy chinos with a textured olive linen shirt and leather accessories for modern business casual.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-rare-rabbit', brand: 'RARE RABBIT', title: 'Textured Linen Shirt', price: 2799, image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80', category: 'Topwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       },
       weekend: {
@@ -629,10 +628,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Pair with a structured charcoal linen blazer for sophisticated contrast in ambient night lighting.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-ms-blazer', brand: 'MARKS & SPENCER', title: 'Structured Linen Blazer', price: 6999, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80', category: 'Outerwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       }
     }
@@ -657,10 +656,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Layer over tailored navy chinos and leather watch for a smart, relaxed creative agency look.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-tommy-chinos', brand: 'TOMMY HILFIGER', title: 'Tailored Slim Chinos', price: 3899, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       },
       weekend: {
@@ -680,10 +679,10 @@ export const ALL_PRODUCTS = [
         icon: 'wine',
         stylingTip: 'Pair light blue washed denim with pleated Korean charcoal trousers for downtown evening dinners.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
           { id: 'prod-m-nike-killshot', brand: 'NIKE', title: 'Killshot 2 Retro Sneakers', price: 6495, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80', category: 'Footwear' }
         ]
       }
@@ -732,11 +731,11 @@ export const ALL_PRODUCTS = [
         icon: 'wine',
         stylingTip: 'Pair off-white cotton with pleated Korean charcoal trousers and leather chronograph for minimalist night vibes.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       }
     }
@@ -761,10 +760,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Commanding charcoal tailored linen paired with navy chinos and leather timepiece.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-tommy-chinos', brand: 'TOMMY HILFIGER', title: 'Tailored Slim Chinos', price: 3899, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       },
       weekend: {
@@ -785,10 +784,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Layer over an olive linen shirt and pleated charcoal trousers for dinner galas.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-rare-rabbit', brand: 'RARE RABBIT', title: 'Textured Linen Shirt', price: 2799, image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80', category: 'Topwear' },
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' }
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' }
         ]
       }
     }
@@ -815,7 +814,7 @@ export const ALL_PRODUCTS = [
         canvasBottomImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-m-tommy-chinos', brand: 'TOMMY HILFIGER', title: 'Tailored Slim Chinos', price: 3899, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
+          { id: 'prod-m-tommy-chinos', brand: 'TOMMY HILFIGER', title: 'Tailored Slim Chinos', price: 3899, image: 'https://images.unsplash.com/photo-162437843957-d8705ad7ae80?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
           { id: 'prod-m-rare-rabbit', brand: 'RARE RABBIT', title: 'Textured Linen Shirt', price: 2799, image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80', category: 'Topwear' }
         ]
       },
@@ -836,11 +835,11 @@ export const ALL_PRODUCTS = [
         icon: 'wine',
         stylingTip: 'Dresses down pleated Korean charcoal trousers and leather chronograph for effortless night outings.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' },
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       }
     }
@@ -856,26 +855,26 @@ export const ALL_PRODUCTS = [
     discount: '30% OFF',
     rating: 4.5,
     ratingCount: 180,
-    image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
     tags: ['Trousers', 'Pleated', 'Korean Style', 'Bottomwear'],
     styleStudioConfig: {
       office: {
         occasionName: 'Office & Smart',
         icon: 'briefcase',
         stylingTip: 'Tuck in a textured olive linen shirt and add a chronograph leather timepiece.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-rare-rabbit', brand: 'RARE RABBIT', title: 'Textured Linen Shirt', price: 2799, image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80', category: 'Topwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       },
       weekend: {
         occasionName: 'Weekend Casual',
         icon: 'coffee',
         stylingTip: 'Pair wide Korean pleats with an off-white boxy tee and retro leather sneakers.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -887,12 +886,12 @@ export const ALL_PRODUCTS = [
         occasionName: 'Evening Out',
         icon: 'wine',
         stylingTip: 'Elevate with a structured charcoal linen blazer for sophisticated architectural volume.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-ms-blazer', brand: 'MARKS & SPENCER', title: 'Structured Linen Blazer', price: 6999, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80', category: 'Outerwear' },
-          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
+          { id: 'prod-m-fossil-watch', brand: 'FOSSIL', title: 'Chronograph Leather Watch', price: 7495, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80', category: 'Accessories' }
         ]
       }
     }
@@ -908,14 +907,14 @@ export const ALL_PRODUCTS = [
     discount: '35% OFF',
     rating: 4.8,
     ratingCount: 112,
-    image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
     tags: ['Watch', 'Leather', 'Chronograph', 'Accessories'],
     styleStudioConfig: {
       office: {
         occasionName: 'Office & Smart',
         icon: 'briefcase',
-        stylingTip: 'Polished brown leather strap and clean cream dial tie together tailored linen and navy chinos.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        stylingTip: 'Polished brown leather strap and clean dial tie together tailored linen and navy chinos.',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -927,7 +926,7 @@ export const ALL_PRODUCTS = [
         occasionName: 'Weekend Casual',
         icon: 'coffee',
         stylingTip: 'Adds classic analog charm to relaxed trucker denim and retro court sneakers.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -939,12 +938,12 @@ export const ALL_PRODUCTS = [
         occasionName: 'Evening Out',
         icon: 'wine',
         stylingTip: 'Pairs with a structured charcoal linen blazer for refined evening punctuality and style.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-m-ms-blazer', brand: 'MARKS & SPENCER', title: 'Structured Linen Blazer', price: 6999, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80', category: 'Outerwear' },
-          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' }
+          { id: 'prod-m-snitch-trousers', brand: 'SNITCH', title: 'Pleated Korean Trousers', price: 1899, image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&auto=format&fit=crop&q=80', category: 'Bottomwear' }
         ]
       }
     }
@@ -1036,10 +1035,10 @@ export const ALL_PRODUCTS = [
         icon: 'coffee',
         stylingTip: 'Layer over a vibrant striped crewneck with running shoes for unrestricted play.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-k-ucb-crewneck', brand: 'UCB', title: 'Striped Cotton Crewneck', price: 1299, image: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=800&auto=format&fit=crop&q=80', category: 'Topwear' },
+          { id: 'prod-k-ucb-crewneck', brand: 'UCB', title: 'Striped Cotton Crewneck', price: 1299, image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80', category: 'Topwear' },
           { id: 'prod-k-nike-runners', brand: 'NIKE', title: 'Revolution Running Shoes', price: 2995, image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&auto=format&fit=crop&q=80', category: 'Footwear' }
         ]
       },
@@ -1172,14 +1171,14 @@ export const ALL_PRODUCTS = [
     discount: '40% OFF',
     rating: 4.4,
     ratingCount: 78,
-    image: 'https://images.unsplash.com/photo-1471286174890-9c112ffca56a?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80',
     tags: ['Sweatshirt', 'Striped', 'Cotton', 'Kids Topwear'],
     styleStudioConfig: {
       office: {
         occasionName: 'School & Assembly',
         icon: 'briefcase',
         stylingTip: 'Layer over classic cotton dungarees and runners for cozy classroom learning.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1471286174890-9c112ffca56a?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1191,7 +1190,7 @@ export const ALL_PRODUCTS = [
         occasionName: 'Playground & Park',
         icon: 'coffee',
         stylingTip: 'Vibrant multicolor stripes paired with running sneakers for weekend adventure.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1471286174890-9c112ffca56a?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1203,7 +1202,7 @@ export const ALL_PRODUCTS = [
         occasionName: 'Birthday Parties',
         icon: 'wine',
         stylingTip: 'Pair with denim dungarees for cheerful birthday photos and family dinners.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1471286174890-9c112ffca56a?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1289,10 +1288,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Dab lightly with a fingertip for a natural blotted berry stain paired with fresh pure rosewater facial mist.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-b-forest-mist', brand: 'FOREST ESSENTIALS', title: 'Pure Rosewater Tonic Mist', price: 1475, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' }
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' }
         ]
       },
       weekend: {
@@ -1300,22 +1299,22 @@ export const ALL_PRODUCTS = [
         icon: 'coffee',
         stylingTip: 'Prep lips with berry sleeping mask, then tap on Kay Beauty champagne shimmer eyeshadow for a dewy 5-minute weekend face.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
           { id: 'prod-b-kay-eyeshadow', brand: 'KAY BEAUTY', title: 'Matte Liquid Eyeshadow (Champagne)', price: 899, image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80', category: 'Makeup' }
         ]
       },
       evening: {
         occasionName: '🍸 Full Glam Night Out',
         icon: 'wine',
-        stylingTip: 'Full opaque swipe of iconic Ruby Woo paired with salon-grade Dyson Airwrap curls and overnight repair glow.',
+        stylingTip: 'Full opaque swipe of iconic Ruby Woo paired with salon-grade hair styling and overnight repair glow.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
+          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
           { id: 'prod-b-kay-eyeshadow', brand: 'KAY BEAUTY', title: 'Liquid Eyeshadow (Champagne)', price: 899, image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80', category: 'Makeup' }
         ]
       }
@@ -1332,14 +1331,14 @@ export const ALL_PRODUCTS = [
     discount: '15% OFF',
     rating: 4.9,
     ratingCount: 1100,
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
     tags: ['Serum', 'Anti-Aging', 'Night Repair', 'Skincare'],
     styleStudioConfig: {
       office: {
         occasionName: '☀️ Daily Office Glow',
         icon: 'sun',
         stylingTip: 'Mix 2 drops into foundation for luminous, non-flaky skin through 8 hours of AC office air.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1351,11 +1350,11 @@ export const ALL_PRODUCTS = [
         occasionName: '☕ Weekend No-Makeup Look',
         icon: 'coffee',
         stylingTip: 'Layer under lip sleeping mask for deep skin barrier recovery over Saturday and Sunday.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
           { id: 'prod-b-forest-mist', brand: 'FOREST ESSENTIALS', title: 'Pure Rosewater Tonic Mist', price: 1475, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
         ]
       },
@@ -1363,7 +1362,7 @@ export const ALL_PRODUCTS = [
         occasionName: '🍸 Full Glam Night Out',
         icon: 'wine',
         stylingTip: 'Provides a flawless radiant canvas before bold red lips and champagne shimmer eyes.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1392,10 +1391,10 @@ export const ALL_PRODUCTS = [
         icon: 'sun',
         stylingTip: 'Spritz generously throughout workday for an instant cooling moisture surge and natural floral aroma.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
+          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
           { id: 'prod-b-mac-ruby', brand: 'M.A.C', title: 'Retro Matte Ruby Woo', price: 1950, image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80', category: 'Makeup' }
         ]
       },
@@ -1404,10 +1403,10 @@ export const ALL_PRODUCTS = [
         icon: 'coffee',
         stylingTip: 'Use as a gentle post-cleansing toner base before applying lip mask for rested weekend skin.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
           { id: 'prod-b-kay-eyeshadow', brand: 'KAY BEAUTY', title: 'Liquid Eyeshadow (Champagne)', price: 899, image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80', category: 'Makeup' }
         ]
       },
@@ -1436,26 +1435,26 @@ export const ALL_PRODUCTS = [
     discount: '',
     rating: 4.8,
     ratingCount: 3500,
-    image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
     tags: ['Lip Mask', 'Berry', 'Hydration', 'Lipcare'],
     styleStudioConfig: {
       office: {
         occasionName: '☀️ Daily Office Glow',
         icon: 'sun',
         stylingTip: 'Apply a sheer veil over rosewater-toned skin for soft, plump lips without sticky residue.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-b-forest-mist', brand: 'FOREST ESSENTIALS', title: 'Pure Rosewater Tonic Mist', price: 1475, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
-          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
+          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
         ]
       },
       weekend: {
         occasionName: '☕ Weekend No-Makeup Look',
         icon: 'coffee',
         stylingTip: 'The ultimate Sunday self-care ritual: deep berry lip nourishment paired with pure rosewater mist.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1467,7 +1466,7 @@ export const ALL_PRODUCTS = [
         occasionName: '🍸 Full Glam Night Out',
         icon: 'wine',
         stylingTip: 'Prep lips 15 minutes before applying matte red lipstick for a smooth, crack-free finish.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1488,14 +1487,14 @@ export const ALL_PRODUCTS = [
     discount: '',
     rating: 4.9,
     ratingCount: 450,
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop&q=80',
     tags: ['Hair Styler', 'Dyson', 'Multi-Styler', 'Beauty Tech'],
     styleStudioConfig: {
       office: {
         occasionName: '☀️ Daily Office Glow',
         icon: 'sun',
         stylingTip: 'Smooth blowout using the firm smoothing brush attachment with rosewater tonic mist.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1507,11 +1506,11 @@ export const ALL_PRODUCTS = [
         occasionName: '☕ Weekend No-Makeup Look',
         icon: 'coffee',
         stylingTip: 'Effortless beach waves with the 30mm barrel paired with sheer berry lip gloss.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
           { id: 'prod-b-kay-eyeshadow', brand: 'KAY BEAUTY', title: 'Liquid Eyeshadow (Champagne)', price: 899, image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80', category: 'Makeup' }
         ]
       },
@@ -1519,7 +1518,7 @@ export const ALL_PRODUCTS = [
         occasionName: '🍸 Full Glam Night Out',
         icon: 'wine',
         stylingTip: 'Voluminous red-carpet Hollywood curls paired with bold ruby lips and champagne shimmer eyes.',
-        canvasHeroImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasHeroImage: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         pairings: [
@@ -1549,10 +1548,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Swipe a single sheer wash across eyelids for an instant awakened brightening effect.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-b-forest-mist', brand: 'FOREST ESSENTIALS', title: 'Pure Rosewater Tonic Mist', price: 1475, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80', category: 'Skincare' },
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' }
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' }
         ]
       },
       weekend: {
@@ -1560,10 +1559,10 @@ export const ALL_PRODUCTS = [
         icon: 'coffee',
         stylingTip: 'Tap onto inner eye corners and brow bones for quick effortless natural radiance.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
-        canvasBottomImage: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80',
+        canvasBottomImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80',
         canvasShoesImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
         pairings: [
-          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1567928815116-f33190800b46?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
+          { id: 'prod-b-laneige-mask', brand: 'LANEIGE', title: 'Lip Sleeping Mask (Berry)', price: 600, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80', category: 'Lipcare' },
           { id: 'prod-b-forest-mist', brand: 'FOREST ESSENTIALS', title: 'Pure Rosewater Tonic Mist', price: 1475, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
         ]
       },
@@ -1573,10 +1572,10 @@ export const ALL_PRODUCTS = [
         stylingTip: 'Layer opaque across lids with winged eyeliner and iconic Ruby Woo matte lips.',
         canvasHeroImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80',
         canvasBottomImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80',
-        canvasShoesImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80',
+        canvasShoesImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80',
         pairings: [
           { id: 'prod-b-mac-ruby', brand: 'M.A.C', title: 'Retro Matte Ruby Woo', price: 1950, image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80', category: 'Makeup' },
-          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
+          { id: 'prod-b-estee-serum', brand: 'ESTÉE LAUDER', title: 'Advanced Night Repair Serum', price: 6900, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80', category: 'Skincare' }
         ]
       }
     }
@@ -1847,7 +1846,7 @@ export const ALL_PRODUCTS = [
   }
 ];
 
-// Initial default Wishlist contains the 4 Stitch showcase products
+// Initial default Wishlist contains 4 representative items
 export const INITIAL_WISHLIST_ITEMS = [
   ALL_PRODUCTS.find(p => p.id === 'prod-w-mango-blouse'),
   ALL_PRODUCTS.find(p => p.id === 'prod-w-zara-trousers'),

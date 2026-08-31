@@ -8,7 +8,7 @@ import { store } from '../state/store.js';
 
 export function renderWishlistCardHTML(item) {
   const isCurrentHero = store.activeHeroSkuId === item.id;
-  const originalPriceHtml = item.originalPrice 
+  const originalPriceHtml = (item.originalPrice && item.originalPrice > item.price)
     ? `<span class="price-original">₹${item.originalPrice.toLocaleString('en-IN')}</span>` 
     : '';
   const discountHtml = item.discount 

@@ -175,7 +175,7 @@ export function renderProductListingPage() {
                       
                       <div class="plp-price-row">
                         <span class="plp-price-current">₹${product.price.toLocaleString('en-IN')}</span>
-                        ${product.originalPrice ? `<span class="plp-price-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                        ${product.originalPrice && product.originalPrice > product.price ? `<span class="plp-price-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>` : ''}
                         ${product.discount ? `<span class="plp-price-discount">(${product.discount})</span>` : ''}
                       </div>
                     </div>

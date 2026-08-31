@@ -37,7 +37,17 @@ class StyleStudioStore {
   loadWishlist() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY_WISHLIST);
-      return stored ? JSON.parse(stored) : [...INITIAL_WISHLIST_ITEMS];
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Re-hydrate with latest catalog data so updated image URLs apply immediately
+          return parsed.map(item => {
+            const fresh = ALL_PRODUCTS.find(p => p.id === item.id);
+            return fresh ? { ...fresh, addedAt: item.addedAt } : item;
+          });
+        }
+      }
+      return [...INITIAL_WISHLIST_ITEMS];
     } catch (e) {
       return [...INITIAL_WISHLIST_ITEMS];
     }
