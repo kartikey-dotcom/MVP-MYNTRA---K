@@ -1,6 +1,6 @@
 /**
- * WishlistGrid Component (Desktop Left Column)
- * Renders the "MY WISHLIST (X items)" header and 2-column card grid.
+ * WishlistGrid Component (Desktop Left Column in Wishlist View)
+ * Displays all saved wishlist items, active hero selection, and empty state.
  */
 
 import { renderWishlistCardHTML } from './WishlistCard.js';
@@ -24,10 +24,10 @@ export function renderWishlistGrid() {
           <i data-lucide="heart" style="width: 32px; height: 32px; color: var(--myntra-crimson);"></i>
         </div>
         <h3>Your Wishlist is Empty</h3>
-        <p>Browse our collection and add items to your wishlist to style them here.</p>
-        <button class="btn-restore-defaults" data-action="restore-defaults">
-          <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i>
-          <span>Restore Sample Items</span>
+        <p>Browse our catalog categories and tap the heart icon on any product to unlock 3 curated occasion pairings in StyleStudio.</p>
+        <button class="btn-restore-defaults" data-action="explore-women">
+          <i data-lucide="compass" style="width: 15px; height: 15px;"></i>
+          <span>Explore Catalog</span>
         </button>
       </div>
     `;
@@ -57,7 +57,7 @@ export function renderWishlistGrid() {
       const targetItem = store.wishlistItems.find(i => i.id === itemId);
       store.removeFromWishlist(itemId);
       if (targetItem) {
-        showToast('Removed from Wishlist', targetItem.name, 'info');
+        showToast('Removed from Wishlist', targetItem.title || targetItem.name, 'info');
       }
       return;
     }
@@ -69,8 +69,8 @@ export function renderWishlistGrid() {
       const itemId = moveBagBtn.dataset.itemId;
       const targetItem = store.wishlistItems.find(i => i.id === itemId);
       if (targetItem) {
-        store.moveFromWishlistToBag(itemId);
-        showToast('Moved to Bag', `${targetItem.name} added to your bag! 🛍️`, 'success');
+        store.moveWishlistToBag(itemId);
+        showToast('Moved to Bag 🛍️', `${targetItem.title || targetItem.name} added to your bag!`, 'success');
       }
       return;
     }
@@ -79,17 +79,18 @@ export function renderWishlistGrid() {
     const selectHeroTarget = e.target.closest('[data-action="select-hero"]');
     if (selectHeroTarget) {
       const itemId = selectHeroTarget.dataset.itemId;
-      const targetItem = store.wishlistItems.find(i => i.id === itemId);
+      store.setActiveHeroSku(itemId);
+      const targetItem = store.getActiveHeroProduct();
       if (targetItem) {
-        store.setActiveHeroItem(targetItem);
+        showToast('StyleStudio Updated ✨', `Now styling: ${targetItem.brand} ${targetItem.title || targetItem.name}`, 'success');
       }
       return;
     }
 
-    // 4. Restore Defaults
-    if (e.target.closest('[data-action="restore-defaults"]')) {
-      localStorage.removeItem('myntra_desktop_wishlist_items');
-      location.reload();
+    // 4. Explore Catalog
+    if (e.target.closest('[data-action="explore-women"]')) {
+      store.setCurrentView('WOMEN');
+      return;
     }
   };
 }

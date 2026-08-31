@@ -1216,3 +1216,447 @@
   color: #D4D5D9;
   font-weight: 400;
 }
+
+/* ==========================================================================
+   PRODUCT LISTING PAGE (PLP) STYLES
+   ========================================================================== */
+
+.plp-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Breadcrumbs & Title Bar */
+.plp-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.plp-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.plp-breadcrumbs a {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.plp-breadcrumbs a:hover {
+  color: var(--myntra-crimson);
+}
+
+.crumb-separator {
+  color: #D4D5D9;
+}
+
+.crumb-active {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.plp-title-sort-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.plp-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.plp-category-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.plp-item-count {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Sort Dropdown */
+.plp-sort-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-label {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.plp-sort-select {
+  border: 1px solid #D4D5D9;
+  border-radius: var(--border-radius-sm);
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  background-color: #FFFFFF;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.plp-sort-select:focus {
+  border-color: var(--myntra-crimson);
+}
+
+/* PLP Main Layout: Sidebar + Grid */
+.plp-main-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .plp-main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Filter Sidebar */
+.plp-filter-sidebar {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-md);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.filter-clear-btn {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--myntra-crimson);
+  cursor: pointer;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-group-heading {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--text-primary);
+}
+
+.filter-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filter-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.filter-checkbox-label input {
+  accent-color: var(--myntra-crimson);
+  cursor: pointer;
+}
+
+.filter-checkbox-label:hover {
+  color: var(--text-primary);
+}
+
+/* StyleStudio Discovery Banner in Sidebar */
+.stylestudio-discovery-card {
+  background: linear-gradient(135deg, #FFF0F4 0%, #FFE4EB 100%);
+  border: 1px solid var(--myntra-pink-border);
+  border-radius: var(--border-radius-md);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.stylestudio-discovery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(225, 27, 83, 0.12);
+}
+
+.discovery-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--myntra-crimson);
+  letter-spacing: 0.6px;
+}
+
+.discovery-text {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #3E4152;
+}
+
+.btn-discovery-action {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--myntra-crimson);
+  text-align: left;
+  padding: 0;
+}
+
+/* 4-Column Product Grid */
+.plp-product-grid-container {
+  flex: 1;
+}
+
+.plp-4col-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 16px;
+}
+
+@media (max-width: 1200px) {
+  .plp-4col-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .plp-4col-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* PLP Product Card */
+.plp-product-card {
+  background: #FFFFFF;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.plp-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.plp-card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.3;
+  background-color: #F5F5F6;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.plp-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--transition-smooth);
+}
+
+.plp-product-card:hover .plp-card-img {
+  transform: scale(1.04);
+}
+
+/* Rating Badge Overlay */
+.plp-rating-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(2px);
+  border-radius: 2px;
+  padding: 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rating-divider {
+  color: #D4D5D9;
+}
+
+.rating-count {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Wishlist Heart Button Overlay */
+.plp-wishlist-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #535766;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-fast);
+  z-index: 5;
+}
+
+.plp-wishlist-btn:hover {
+  transform: scale(1.12);
+  color: var(--myntra-crimson);
+}
+
+.plp-wishlist-btn.wishlisted {
+  color: var(--myntra-crimson);
+}
+
+.plp-wishlist-btn i {
+  width: 16px;
+  height: 16px;
+}
+
+/* Quick Style CTA (Hover appearance on card) */
+.plp-quick-style-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(194, 0, 66, 0.94);
+  backdrop-filter: blur(3px);
+  color: #FFFFFF;
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all var(--transition-fast);
+  z-index: 4;
+}
+
+.plp-product-card:hover .plp-quick-style-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PLP Card Metadata */
+.plp-card-info {
+  padding: 10px 4px 6px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.plp-brand-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+}
+
+.plp-product-title {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+.plp-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.plp-price-current {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.plp-price-original {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.plp-price-discount {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-discount);
+}
+
+/* Empty State */
+.plp-empty-state {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--border-radius-md);
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-reset-filters {
+  background: var(--myntra-crimson);
+  color: #FFFFFF;
+  padding: 8px 18px;
+  border-radius: var(--border-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+}

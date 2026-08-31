@@ -47,10 +47,10 @@ base_css = read_file("css/base.css")
 stylestudio_css = read_file("css/stylestudio.css")
 
 catalog_js = read_file("js/data/catalog.js")
-pairings_js = read_file("js/data/pairings.js")
 pairing_engine_js = read_file("js/data/pairingEngine.js")
 store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
+plp_js = read_file("js/components/ProductListingPage.js")
 wishlist_card_js = read_file("js/components/WishlistCard.js")
 wishlist_grid_js = read_file("js/components/WishlistGrid.js")
 stylestudio_desktop_js = read_file("js/components/StyleStudioDesktop.js")
@@ -71,10 +71,10 @@ def clean_js(code):
     return code
 
 catalog_clean = clean_js(catalog_js)
-pairings_clean = clean_js(pairings_js)
 pairing_engine_clean = clean_js(pairing_engine_js)
 store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
+plp_clean = clean_js(plp_js)
 wishlist_card_clean = clean_js(wishlist_card_js)
 wishlist_grid_clean = clean_js(wishlist_grid_js)
 stylestudio_desktop_clean = clean_js(stylestudio_desktop_js)
@@ -98,10 +98,10 @@ all_styles = "\n".join([
 
 all_scripts = "\n\n".join([
     catalog_clean,
-    pairings_clean,
     pairing_engine_clean,
     store_clean,
     header_clean,
+    plp_clean,
     wishlist_card_clean,
     wishlist_grid_clean,
     stylestudio_desktop_clean,
@@ -111,10 +111,27 @@ all_scripts = "\n\n".join([
     """
     function renderApp() {
         renderHeader();
-        renderWishlistGrid();
-        renderStyleStudioDesktop();
+
+        const workspace = document.getElementById('main-workspace-container');
+        if (workspace) {
+            if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+                workspace.innerHTML = `
+                    <div class="desktop-content-container">
+                        <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist"></section>
+                        <section class="stylestudio-column-section" id="stylestudio-column-container" aria-label="StyleStudio Showcase"></section>
+                    </div>
+                `;
+                renderWishlistGrid();
+                renderStyleStudioDesktop();
+            } else {
+                renderProductListingPage();
+            }
+        }
+
         renderShoppingBagDrawer();
         renderFooter();
+
+        if (window.lucide) window.lucide.createIcons();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -150,19 +167,8 @@ __STYLES_PLACEHOLDER__
   <!-- Top Desktop Navigation Header Container -->
   <div id="header-container"></div>
 
-  <!-- Main Desktop 2-Column Stage -->
-  <main class="desktop-main-wrapper" id="app">
-    <div class="desktop-content-container">
-      
-      <!-- Left Column: Wishlist -->
-      <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist">
-      </section>
-
-      <!-- Right Column: StyleStudio Showcase -->
-      <section class="stylestudio-column-section" id="stylestudio-column-container" aria-label="StyleStudio Showcase">
-      </section>
-
-    </div>
+  <!-- Dynamic Main Workspace (PLP or Wishlist + StyleStudio) -->
+  <main class="desktop-main-wrapper" id="main-workspace-container">
   </main>
 
   <!-- Shopping Bag Slide-Over Drawer Container -->
@@ -183,4 +189,4 @@ __SCRIPTS_PLACEHOLDER__
 
 final_html = html_template.replace("__STYLES_PLACEHOLDER__", all_styles).replace("__SCRIPTS_PLACEHOLDER__", all_scripts)
 
-components.html(final_html, height=1100, scrolling=True)
+components.html(final_html, height=1200, scrolling=True)

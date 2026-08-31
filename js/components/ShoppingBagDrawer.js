@@ -46,7 +46,7 @@ export function renderShoppingBagDrawer() {
             ${bagItems.map(item => `
               <div class="bag-item-row" data-item-id="${item.id}">
                 <img 
-                  src="${item.imageUrl}" 
+                  src="${item.image || item.imageUrl}" 
                   alt="${item.name}" 
                   class="bag-item-thumb"
                   onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80';"

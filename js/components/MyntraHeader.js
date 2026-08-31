@@ -1,6 +1,7 @@
 /**
  * Myntra Desktop Header Component
- * Matches the Stitch desktop navigation: Logo, Categories, Search bar, Profile, Wishlist, Bag.
+ * Handles Category Navigation (MEN, WOMEN, KIDS, HOME & LIVING, BEAUTY, STUDIO),
+ * Search Bar, Profile, Wishlist button, and Bag drawer.
  */
 
 import { store } from '../state/store.js';
@@ -10,7 +11,7 @@ export function renderHeader() {
   if (!container) return;
 
   const categories = ['MEN', 'WOMEN', 'KIDS', 'HOME & LIVING', 'BEAUTY', 'STUDIO'];
-  const { activeCategory, wishlistItems } = store;
+  const { currentView, wishlistItems } = store;
   const bagCount = store.getBagCount();
   const wishlistCount = wishlistItems.length;
 
@@ -18,20 +19,23 @@ export function renderHeader() {
     <header class="desktop-header">
       <!-- Left: Logo & Categories -->
       <div class="header-brand-group">
-        <a href="#" class="brand-logo" data-action="logo-click" aria-label="Myntra Home">
+        <a href="#" class="brand-logo" data-action="nav-category" data-category="WOMEN" aria-label="Myntra Home">
           <span class="brand-logo-text">MYNTRA</span>
         </a>
 
         <nav class="desktop-nav-menu" aria-label="Main Navigation">
-          ${categories.map(cat => `
-            <button 
-              class="nav-menu-link ${activeCategory === cat ? 'active' : ''}" 
-              data-action="select-category" 
-              data-category="${cat}"
-            >
-              <span>${cat}</span>
-            </button>
-          `).join('')}
+          ${categories.map(cat => {
+            const isActive = (currentView === cat) || (cat === 'STUDIO' && currentView === 'WISHLIST');
+            return `
+              <button 
+                class="nav-menu-link ${isActive ? 'active' : ''}" 
+                data-action="nav-category" 
+                data-category="${cat}"
+              >
+                <span>${cat}</span>
+              </button>
+            `;
+          }).join('')}
         </nav>
       </div>
 
@@ -42,7 +46,7 @@ export function renderHeader() {
           type="text" 
           class="search-input" 
           placeholder="Search for products, brands and more" 
-          value="${store.searchQuery || ''}"
+          value="${store.filters.searchQuery || ''}"
           id="header-search-input"
           aria-label="Search"
         />
@@ -55,9 +59,14 @@ export function renderHeader() {
           <span class="action-label">Profile</span>
         </button>
 
-        <button class="user-action-btn ${activeCategory === 'STUDIO' ? 'active-link' : ''}" data-action="toggle-wishlist-view" aria-label="Wishlist">
+        <button 
+          class="user-action-btn ${currentView === 'WISHLIST' || currentView === 'STUDIO' ? 'active-link' : ''}" 
+          data-action="nav-category" 
+          data-category="WISHLIST" 
+          aria-label="Wishlist"
+        >
           <div class="action-icon-wrap">
-            <i data-lucide="heart" class="wishlist-header-icon"></i>
+            <i data-lucide="heart" class="wishlist-header-icon" style="${wishlistCount > 0 ? 'fill: var(--myntra-crimson); color: var(--myntra-crimson);' : ''}"></i>
             ${wishlistCount > 0 ? `<span class="action-badge">${wishlistCount}</span>` : ''}
           </div>
           <span class="action-label">Wishlist</span>
@@ -78,30 +87,28 @@ export function renderHeader() {
     window.lucide.createIcons();
   }
 
-  // Setup Event Delegation for Header
+  // Event delegation
   container.onclick = (e) => {
-    // 1. Select category
-    const catBtn = e.target.closest('[data-action="select-category"]');
-    if (catBtn) {
-      store.setActiveCategory(catBtn.dataset.category);
+    // 1. Category or Wishlist Navigation
+    const navBtn = e.target.closest('[data-action="nav-category"]');
+    if (navBtn) {
+      const targetCat = navBtn.dataset.category;
+      if (targetCat === 'STUDIO') {
+        store.setCurrentView('WISHLIST');
+      } else {
+        store.setCurrentView(targetCat);
+      }
       return;
     }
 
     // 2. Toggle Bag Drawer
-    const bagBtn = e.target.closest('[data-action="toggle-bag"]');
-    if (bagBtn) {
+    if (e.target.closest('[data-action="toggle-bag"]')) {
       store.toggleBag();
-      return;
-    }
-
-    // 3. Logo click
-    if (e.target.closest('[data-action="logo-click"]')) {
-      store.setActiveCategory('STUDIO');
       return;
     }
   };
 
-  // Search input change handler
+  // Search input handler
   const searchInput = container.querySelector('#header-search-input');
   if (searchInput) {
     searchInput.oninput = (e) => {

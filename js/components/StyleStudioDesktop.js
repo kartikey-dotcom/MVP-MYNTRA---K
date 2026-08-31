@@ -1,44 +1,38 @@
 /**
  * StyleStudio Desktop Showcase Component
- * Matches the Stitch design: Header, 3 Occasions, Rule of 3 badge, Visual Canvas, Pro Styling Note, Breakdown, and Dual CTAs.
+ * Dynamically styles ANY active hero product across 3 occasion pairings.
  */
 
 import { store } from '../state/store.js';
-import { getPairingForAnchorAndOccasion, getAvailableOccasions } from '../data/pairingEngine.js';
+import { getOccasionsForProduct, getPairingForProductAndOccasion } from '../data/pairingEngine.js';
 import { showToast } from './Toast.js';
 
 export function renderStyleStudioDesktop() {
   const container = document.getElementById('stylestudio-column-container');
   if (!container) return;
 
-  const { activeHeroItem, selectedOccasion } = store;
+  const heroProduct = store.getActiveHeroProduct();
 
-  if (!activeHeroItem) {
+  if (!heroProduct) {
     container.innerHTML = `
       <div class="stylestudio-empty-placeholder">
         <div class="empty-sparkle-bubble">
           <i data-lucide="sparkles" style="width: 32px; height: 32px; color: var(--myntra-crimson);"></i>
         </div>
         <h3>Select a Garment to Style</h3>
-        <p>Click on any item in your wishlist to unlock 3 curated occasion pairings.</p>
+        <p>Click on any item in your wishlist or catalog to unlock 3 curated occasion pairings.</p>
       </div>
     `;
     if (window.lucide) window.lucide.createIcons();
     return;
   }
 
-  const occasions = getAvailableOccasions(activeHeroItem.id);
-  const pairing = getPairingForAnchorAndOccasion(activeHeroItem.id, selectedOccasion);
+  const occasions = getOccasionsForProduct(heroProduct);
+  const pairing = getPairingForProductAndOccasion(heroProduct.id, store.selectedOccasion);
 
-  // Compute total price
-  const totalPrice = pairing?.itemsBreakdown?.reduce((sum, item) => sum + item.price, 0) || activeHeroItem.price;
-
-  // Occasion icons map
-  const occasionIcons = {
-    'Office & Smart': 'briefcase',
-    'Weekend Casual': 'coffee',
-    'Evening': 'wine'
-  };
+  const heroName = heroProduct.title || heroProduct.name;
+  const heroImage = heroProduct.image || heroProduct.imageUrl;
+  const totalPrice = pairing?.totalPrice || heroProduct.price;
 
   container.innerHTML = `
     <section class="stylestudio-desktop-card" aria-label="Myntra StyleStudio">
@@ -49,7 +43,7 @@ export function renderStyleStudioDesktop() {
           <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
           <span>MYNTRA STYLESTUDIO</span>
         </div>
-        <h1 class="stylestudio-main-title">Style It 3 Ways</h1>
+        <h2 class="stylestudio-main-title">Style It 3 Ways</h2>
         <p class="stylestudio-main-subtitle">Solve Pairability Anxiety: Picture 3 Real Occasions</p>
       </div>
 
@@ -57,8 +51,7 @@ export function renderStyleStudioDesktop() {
       <div class="stylestudio-occasion-row">
         <div class="occasion-tab-group" role="tablist">
           ${occasions.map(occ => {
-            const isSelected = (selectedOccasion.toLowerCase().trim() === occ.key.toLowerCase().trim());
-            const iconName = occasionIcons[occ.key] || occ.icon || 'sparkles';
+            const isSelected = (store.selectedOccasion === occ.key);
             return `
               <button 
                 class="occasion-tab-pill ${isSelected ? 'active' : ''}" 
@@ -67,7 +60,7 @@ export function renderStyleStudioDesktop() {
                 role="tab"
                 aria-selected="${isSelected}"
               >
-                <i data-lucide="${iconName}"></i>
+                <i data-lucide="${occ.icon || 'sparkles'}"></i>
                 <span>${occ.label}</span>
               </button>
             `;
@@ -95,26 +88,26 @@ export function renderStyleStudioDesktop() {
               <span>HERO</span>
             </div>
             <img 
-              src="${pairing?.canvasHeroImage || activeHeroItem.imageUrl}" 
-              alt="${activeHeroItem.name}" 
+              src="${pairing?.canvasHeroImage || heroImage}" 
+              alt="${heroName}" 
               class="canvas-hero-img"
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80';"
             />
           </div>
 
-          <!-- Bottom Box: Paired Items with Overlapping Shoes on Pattern Canvas -->
+          <!-- Bottom Box: Paired Items with Overlapping Shoes/Acc on Pattern Canvas -->
           <div class="canvas-box pairing-canvas-box">
             <div class="canvas-pattern-bg"></div>
             <img 
               src="${pairing?.canvasBottomImage || 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80'}" 
-              alt="Pairing Bottom" 
+              alt="Pairing Piece" 
               class="canvas-bottom-img"
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80';"
             />
             <div class="canvas-shoes-inset">
               <img 
                 src="${pairing?.canvasShoesImage || 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80'}" 
-                alt="Pairing Footwear" 
+                alt="Pairing Accent" 
                 class="canvas-shoes-img"
                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80';"
               />
@@ -132,14 +125,14 @@ export function renderStyleStudioDesktop() {
               <span class="note-title">Pro Styling Note</span>
             </div>
             <p class="styling-note-text">
-              ${pairing?.proStylingNote || 'Tuck neatly into tailored neutral trousers for a sharp silhouette. The nude pumps elongate the leg while maintaining a professional palette.'}
+              ${pairing?.stylingTip || `Style this ${heroProduct.brand} piece with structured neutrals and sleek footwear for versatile occasion readiness.`}
             </p>
           </div>
 
           <!-- Itemized Breakdown List -->
           <div class="itemized-price-list">
             ${(pairing?.itemsBreakdown || [
-              { name: `${activeHeroItem.brand} ${activeHeroItem.name} (Hero)`, price: activeHeroItem.price, isHero: true }
+              { name: `${heroProduct.brand} ${heroName} (Hero)`, price: heroProduct.price, isHero: true }
             ]).map(item => `
               <div class="price-breakdown-row">
                 <span class="item-name ${item.isHero ? 'is-hero-name' : ''}">
@@ -163,8 +156,8 @@ export function renderStyleStudioDesktop() {
               <span>BUY COMPLETE LOOK (₹${totalPrice.toLocaleString('en-IN')})</span>
             </button>
 
-            <button class="btn-add-top-only" data-action="add-top-only">
-              <span>ADD TOP ONLY (₹${activeHeroItem.price.toLocaleString('en-IN')})</span>
+            <button class="btn-add-top-only" data-action="add-hero-only">
+              <span>ADD HERO ITEM ONLY (₹${heroProduct.price.toLocaleString('en-IN')})</span>
             </button>
           </div>
 
@@ -184,10 +177,7 @@ export function renderStyleStudioDesktop() {
     // 1. Select occasion tab
     const occBtn = e.target.closest('[data-action="select-occasion"]');
     if (occBtn) {
-      const occasion = occBtn.dataset.occasion;
-      if (occasion) {
-        store.setOccasion(occasion);
-      }
+      store.setOccasion(occBtn.dataset.occasion);
       return;
     }
 
@@ -195,27 +185,27 @@ export function renderStyleStudioDesktop() {
     if (e.target.closest('[data-action="buy-complete-look"]')) {
       const itemsToAdd = (pairing?.itemsBreakdown || []).map(bItem => {
         return {
-          id: bItem.id || `${activeHeroItem.id}-${bItem.name.replace(/\s+/g, '-').toLowerCase()}`,
+          id: bItem.id || `${heroProduct.id}-${bItem.name.replace(/\s+/g, '-').toLowerCase()}`,
           name: bItem.name,
-          brand: bItem.isHero ? activeHeroItem.brand : 'STYLESTUDIO PAIRING',
+          brand: bItem.isHero ? heroProduct.brand : 'STYLESTUDIO PAIRING',
           price: bItem.price,
-          imageUrl: bItem.isHero ? activeHeroItem.imageUrl : (pairing?.canvasBottomImage || activeHeroItem.imageUrl)
+          image: bItem.image || (bItem.isHero ? heroImage : (pairing?.canvasBottomImage || heroImage))
         };
       });
 
       if (itemsToAdd.length === 0) {
-        itemsToAdd.push(activeHeroItem);
+        itemsToAdd.push(heroProduct);
       }
 
       store.addToBag(itemsToAdd);
-      showToast('Complete Look Added! 🛍️', `3 items added to your shopping bag (₹${totalPrice.toLocaleString('en-IN')})`, 'success');
+      showToast('Complete Look Added! 🛍️', `3 items added to your bag (Total: ₹${totalPrice.toLocaleString('en-IN')})`, 'success');
       return;
     }
 
-    // 3. Add top only
-    if (e.target.closest('[data-action="add-top-only"]')) {
-      store.addToBag(activeHeroItem);
-      showToast('Top Added to Bag! ✨', `${activeHeroItem.name} added to your bag (₹${activeHeroItem.price.toLocaleString('en-IN')})`, 'success');
+    // 3. Add hero only
+    if (e.target.closest('[data-action="add-hero-only"]')) {
+      store.addToBag(heroProduct);
+      showToast('Hero Item Added! ✨', `${heroName} added to your bag (₹${heroProduct.price.toLocaleString('en-IN')})`, 'success');
       return;
     }
   };

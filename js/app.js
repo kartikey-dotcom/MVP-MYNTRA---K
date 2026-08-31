@@ -1,9 +1,11 @@
 /**
- * Myntra StyleStudio — Main Desktop Application Entry Point
- * Coordinates Header, Wishlist Grid, StyleStudio Showcase, Shopping Bag Drawer, and Footer.
+ * Myntra StyleStudio — Main Application Entry Point
+ * Manages Dynamic View Routing (Product Listing Pages vs Wishlist + StyleStudio),
+ * Header, Shopping Bag Drawer, and Footer.
  */
 
 import { renderHeader } from './components/MyntraHeader.js';
+import { renderProductListingPage } from './components/ProductListingPage.js';
 import { renderWishlistGrid } from './components/WishlistGrid.js';
 import { renderStyleStudioDesktop } from './components/StyleStudioDesktop.js';
 import { renderShoppingBagDrawer } from './components/ShoppingBagDrawer.js';
@@ -11,29 +13,46 @@ import { renderFooter } from './components/Footer.js';
 import { store } from './state/store.js';
 
 function renderApp() {
-  // 1. Render Desktop Header
+  // 1. Render Header
   renderHeader();
 
-  // 2. Render Left Column: Wishlist Grid
-  renderWishlistGrid();
+  // 2. Render Dynamic Main Workspace
+  const workspace = document.getElementById('main-workspace-container');
+  if (workspace) {
+    if (['WISHLIST', 'STUDIO'].includes(store.currentView)) {
+      // Wishlist + StyleStudio Split Screen Layout
+      workspace.innerHTML = `
+        <div class="desktop-content-container">
+          <section class="wishlist-column-section" id="wishlist-column-container" aria-label="My Wishlist"></section>
+          <section class="stylestudio-column-section" id="stylestudio-column-container" aria-label="StyleStudio Showcase"></section>
+        </div>
+      `;
+      renderWishlistGrid();
+      renderStyleStudioDesktop();
+    } else {
+      // Category Product Listing Page (WOMEN, MEN, KIDS, BEAUTY, HOME & LIVING)
+      renderProductListingPage();
+    }
+  }
 
-  // 3. Render Right Column: StyleStudio Showcase
-  renderStyleStudioDesktop();
-
-  // 4. Render Shopping Bag Slide-Over Drawer
+  // 3. Render Shopping Bag Drawer
   renderShoppingBagDrawer();
 
-  // 5. Render Desktop Footer
+  // 4. Render Footer
   renderFooter();
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderApp();
 
-  // Subscribe to reactive store state changes
+  // Subscribe to reactive store changes
   store.subscribe(() => {
     renderApp();
   });
 
-  console.log('✨ Myntra StyleStudio Desktop View initialized.');
+  console.log('✨ Myntra StyleStudio Multi-Category Desktop App initialized.');
 });
