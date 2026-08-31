@@ -1,13 +1,15 @@
 /**
  * StyleStudio Desktop Showcase Component
- * Features:
- * 1. Hyperlocal Weather & City Adaptation (Idea D)
- * 2. Lifestyle & Occasion Customizer (Idea E)
- * 3. Dynamic "Rule of 3" Occasion Matrix & Canvas Rendering
+ * Powered by LLM-Driven AI Stylist Engine with:
+ * 1. Schema Validation & Catalog Grounding
+ * 2. Hyperlocal Climate & Weather Adaptation
+ * 3. Cost-Per-Wear (CPW) Intelligence & Versatility Score
+ * 4. Dynamic Canvas with Styling Role Badges & 1-Click Multi-Item Bag
  */
 
 import { store } from '../state/store.js';
-import { CITIES_WEATHER_DATA, OCCASION_PRESETS, getActiveOccasions, getPairingForProductAndOccasion } from '../data/pairingEngine.js';
+import { CITIES_WEATHER_DATA, OCCASION_PRESETS } from '../data/pairingEngine.js';
+import { getAIStylistRecommendation } from '../data/aiStylistEngine.js';
 import { showToast } from './Toast.js';
 
 export function renderStyleStudioDesktop() {
@@ -23,7 +25,7 @@ export function renderStyleStudioDesktop() {
           <i data-lucide="sparkles" style="width: 32px; height: 32px; color: var(--myntra-crimson);"></i>
         </div>
         <h3>Select a Garment to Style</h3>
-        <p>Click on any item in your wishlist or catalog to unlock 3 curated occasion pairings.</p>
+        <p>Click on any item in your wishlist or catalog to unlock AI-powered occasion styling.</p>
       </div>
     `;
     if (window.lucide) window.lucide.createIcons();
@@ -32,18 +34,17 @@ export function renderStyleStudioDesktop() {
 
   const { selectedCity, selectedOccasion, selectedOccasionsList, isCityDropdownOpen, isCustomizerModalOpen } = store;
   const currentCityData = CITIES_WEATHER_DATA[selectedCity] || CITIES_WEATHER_DATA.mumbai;
-  const activeOccasions = getActiveOccasions(selectedOccasionsList);
-  
-  // Ensure selected occasion is one of the active occasions
-  const currentOccasionKey = selectedOccasionsList.includes(selectedOccasion) ? selectedOccasion : selectedOccasionsList[0];
-  const pairing = getPairingForProductAndOccasion(heroProduct.id, currentOccasionKey, selectedCity);
 
+  // Generate AI Stylist Recommendation
+  const aiPayload = getAIStylistRecommendation(heroProduct, selectedCity, selectedOccasionsList);
+  const occasions = aiPayload?.occasions || [];
+
+  // Active Look
+  const activeLook = occasions.find(o => o.occasionId === selectedOccasion) || occasions[0] || {};
   const heroName = heroProduct.title || heroProduct.name;
   const heroImage = heroProduct.image || heroProduct.imageUrl;
-  const totalPrice = pairing?.totalPrice || heroProduct.price;
-
-  // Occasion names for the verified badge
-  const verifiedNamesText = activeOccasions.map(o => o.label).join(', ');
+  const totalLookPrice = activeLook.totalLookPrice || heroProduct.price;
+  const cpw = activeLook.costPerWear || { calculatedCostPerWear: Math.round(totalLookPrice / 25), justificationText: 'Based on seasonal rotations' };
 
   container.innerHTML = `
     <section class="stylestudio-desktop-card" aria-label="Myntra StyleStudio">
@@ -53,7 +54,7 @@ export function renderStyleStudioDesktop() {
         <div class="header-left-col">
           <div class="stylestudio-badge-label">
             <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
-            <span>MYNTRA STYLESTUDIO</span>
+            <span>AI STYLESTUDIO ENGINE</span>
           </div>
           <h2 class="stylestudio-main-title">Style It 3 Ways</h2>
           <p class="stylestudio-main-subtitle">"Versatility Engine: Personalized to your city & lifestyle"</p>
@@ -99,18 +100,18 @@ export function renderStyleStudioDesktop() {
       <!-- Occasion Switcher Tabs & Customize Button -->
       <div class="stylestudio-occasion-row">
         <div class="occasion-tab-group" role="tablist">
-          ${activeOccasions.map(occ => {
-            const isSelected = (currentOccasionKey === occ.key);
+          ${occasions.map(occ => {
+            const isSelected = (activeLook.occasionId === occ.occasionId);
             return `
               <button 
                 class="occasion-tab-pill ${isSelected ? 'active' : ''}" 
                 data-action="select-occasion" 
-                data-occasion="${occ.key}"
+                data-occasion="${occ.occasionId}"
                 role="tab"
                 aria-selected="${isSelected}"
               >
-                <i data-lucide="${occ.icon || 'sparkles'}"></i>
-                <span>${occ.label}</span>
+                <i data-lucide="${occ.iconName ? occ.iconName.toLowerCase() : 'sparkles'}"></i>
+                <span>${occ.shortName || occ.occasionName}</span>
               </button>
             `;
           }).join('')}
@@ -122,14 +123,14 @@ export function renderStyleStudioDesktop() {
         </button>
       </div>
 
-      <!-- Rule of 3 Unlocked Verified Badge -->
+      <!-- Rule of 3 Unlocked Verified Badge + Versatility Score -->
       <div class="rule-of-three-badge-wrap">
         <div class="rule-of-three-pill">
           <i data-lucide="check-circle-2" style="width: 14px; height: 14px; color: #03A685;"></i>
-          <span>RULE OF 3 UNLOCKED: ${verifiedNamesText.toUpperCase()} VERIFIED ✓</span>
+          <span>RULE OF 3: ${aiPayload.versatilityScore}% VERSATILITY SCORE VERIFIED ✓</span>
         </div>
         <div class="weather-adaptation-tag">
-          <span>${currentCityData.weatherTag}</span>
+          <span>🌤️ ${activeLook.weatherAdjustmentNote}</span>
         </div>
       </div>
 
@@ -146,7 +147,7 @@ export function renderStyleStudioDesktop() {
               <span>HERO PIECE</span>
             </div>
             <img 
-              src="${pairing?.canvasHeroImage || heroImage}" 
+              src="${activeLook.canvasHeroImage || heroImage}" 
               alt="${heroName}" 
               class="canvas-hero-img"
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=80';"
@@ -157,14 +158,14 @@ export function renderStyleStudioDesktop() {
           <div class="canvas-box pairing-canvas-box">
             <div class="canvas-pattern-bg"></div>
             <img 
-              src="${pairing?.canvasBottomImage || 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80'}" 
+              src="${activeLook.canvasBottomImage || 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80'}" 
               alt="Pairing Separates" 
               class="canvas-bottom-img"
               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=700&q=80';"
             />
             <div class="canvas-shoes-inset">
               <img 
-                src="${pairing?.canvasShoesImage || 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80'}" 
+                src="${activeLook.canvasShoesImage || 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80'}" 
                 alt="Pairing Footwear/Accessories" 
                 class="canvas-shoes-img"
                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80';"
@@ -173,31 +174,54 @@ export function renderStyleStudioDesktop() {
           </div>
         </div>
 
-        <!-- Right: Pro Styling Note & Pricing Breakdown -->
+        <!-- Right: Pro Styling Note, CPW, & Pricing Breakdown -->
         <div class="outfit-details-sidebar">
           
-          <!-- Pro Styling Note Card with Weather Advice -->
+          <!-- AI Stylist Advisory Card -->
           <div class="pro-styling-note-card">
             <div class="styling-note-header">
               <div class="bulb-wrap">
                 <i data-lucide="sparkles" class="bulb-icon"></i>
               </div>
-              <span class="note-title">AI Stylist & Climate Advisory</span>
+              <span class="note-title">AI Fashion Director's Note</span>
             </div>
             <p class="styling-note-text">
-              ${pairing?.stylingTip}
+              ${activeLook.stylingTip}
             </p>
           </div>
 
-          <!-- Itemized Breakdown List -->
+          <!-- Cost-Per-Wear Indicator Box -->
+          <div class="cpw-intelligence-card">
+            <div class="cpw-metric-row">
+              <div class="cpw-icon-wrap">
+                <i data-lucide="calculator" style="width: 15px; height: 15px; color: #03A685;"></i>
+              </div>
+              <span class="cpw-label">Estimated Cost-Per-Wear:</span>
+              <span class="cpw-value">₹${cpw.calculatedCostPerWear} / wear</span>
+            </div>
+            <span class="cpw-justification">${cpw.justificationText}</span>
+          </div>
+
+          <!-- Itemized Breakdown List with Styling Roles -->
           <div class="itemized-price-list">
-            ${(pairing?.itemsBreakdown || [
-              { name: `${heroProduct.brand} ${heroName} (Hero)`, price: heroProduct.price, isHero: true }
-            ]).map(item => `
-              <div class="price-breakdown-row">
-                <span class="item-name ${item.isHero ? 'is-hero-name' : ''}">
-                  ${item.isHero ? '<span class="pink-dot">●</span> ' : ''}${item.name}
+            <!-- Hero Piece Row -->
+            <div class="price-breakdown-row">
+              <div class="breakdown-item-meta">
+                <span class="item-name is-hero-name">
+                  <span class="pink-dot">●</span> ${heroProduct.brand} ${heroName} (Hero)
                 </span>
+                <span class="styling-role-badge">Anchor Foundation Piece</span>
+              </div>
+              <span class="item-cost">₹${heroProduct.price.toLocaleString('en-IN')}</span>
+            </div>
+
+            <!-- Paired Pieces Rows -->
+            ${(activeLook.pairings || []).map(item => `
+              <div class="price-breakdown-row">
+                <div class="breakdown-item-meta">
+                  <span class="item-name">${item.brand} ${item.title}</span>
+                  <span class="styling-role-badge">${item.stylingRole}</span>
+                </div>
                 <span class="item-cost">₹${item.price.toLocaleString('en-IN')}</span>
               </div>
             `).join('')}
@@ -206,18 +230,18 @@ export function renderStyleStudioDesktop() {
           <!-- Total Price Row -->
           <div class="complete-look-total-row">
             <span class="total-label">Complete Occasion Bundle</span>
-            <span class="total-price">₹${totalPrice.toLocaleString('en-IN')}</span>
+            <span class="total-price">₹${totalLookPrice.toLocaleString('en-IN')}</span>
           </div>
 
           <!-- Action Buttons -->
           <div class="stylestudio-cta-group">
             <button class="btn-buy-complete-look" data-action="buy-complete-look">
               <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
-              <span>BUY COMPLETE LOOK (₹${totalPrice.toLocaleString('en-IN')})</span>
+              <span>BUY COMPLETE LOOK (${(activeLook.pairings?.length || 2) + 1} ITEMS) • ₹${totalLookPrice.toLocaleString('en-IN')}</span>
             </button>
 
             <button class="btn-add-top-only" data-action="add-hero-only">
-              <span>ADD HERO ITEM ONLY (₹${heroProduct.price.toLocaleString('en-IN')})</span>
+              <span>ADD HERO ITEM ONLY • ₹${heroProduct.price.toLocaleString('en-IN')}</span>
             </button>
           </div>
 
@@ -402,22 +426,19 @@ export function renderStyleStudioDesktop() {
 
     // 8. Buy complete look
     if (e.target.closest('[data-action="buy-complete-look"]')) {
-      const itemsToAdd = (pairing?.itemsBreakdown || []).map(bItem => {
-        return {
-          id: bItem.id || `${heroProduct.id}-${bItem.name.replace(/\s+/g, '-').toLowerCase()}`,
-          name: bItem.name,
-          brand: bItem.isHero ? heroProduct.brand : 'STYLESTUDIO PAIRING',
-          price: bItem.price,
-          image: bItem.image || (bItem.isHero ? heroImage : (pairing?.canvasBottomImage || heroImage))
-        };
-      });
-
-      if (itemsToAdd.length === 0) {
-        itemsToAdd.push(heroProduct);
-      }
+      const itemsToAdd = [
+        heroProduct,
+        ...(activeLook.pairings || []).map(p => ({
+          id: p.skuId || `${heroProduct.id}-${p.title.replace(/\s+/g, '-').toLowerCase()}`,
+          name: `${p.brand} ${p.title}`,
+          brand: p.brand,
+          price: p.price,
+          image: p.image
+        }))
+      ];
 
       store.addToBag(itemsToAdd);
-      showToast('Complete Look Added! 🛍️', `3 items added to your bag (Total: ₹${totalPrice.toLocaleString('en-IN')})`, 'success');
+      showToast('Complete Look Added! 🛍️', `${itemsToAdd.length} items added to your bag (Total: ₹${totalLookPrice.toLocaleString('en-IN')})`, 'success');
       return;
     }
 

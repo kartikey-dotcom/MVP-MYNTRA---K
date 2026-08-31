@@ -48,6 +48,7 @@ stylestudio_css = read_file("css/stylestudio.css")
 
 catalog_js = read_file("js/data/catalog.js")
 pairing_engine_js = read_file("js/data/pairingEngine.js")
+ai_stylist_engine_js = read_file("js/data/aiStylistEngine.js")
 store_js = read_file("js/state/store.js")
 header_js = read_file("js/components/MyntraHeader.js")
 plp_js = read_file("js/components/ProductListingPage.js")
@@ -74,6 +75,7 @@ def clean_js(code):
 
 catalog_clean = clean_js(catalog_js)
 pairing_engine_clean = clean_js(pairing_engine_js)
+ai_stylist_engine_clean = clean_js(ai_stylist_engine_js)
 store_clean = clean_js(store_js)
 header_clean = clean_js(header_js)
 plp_clean = clean_js(plp_js)
@@ -102,6 +104,7 @@ all_styles = "\n".join([
 all_scripts = "\n\n".join([
     catalog_clean,
     pairing_engine_clean,
+    ai_stylist_engine_clean,
     store_clean,
     header_clean,
     plp_clean,
