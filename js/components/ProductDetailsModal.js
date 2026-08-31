@@ -32,7 +32,7 @@ export function renderProductDetailsModal() {
 
   container.innerHTML = `
     <div class="pdp-modal-overlay" id="pdp-modal-overlay" data-action="close-pdp-backdrop">
-      <div class="pdp-modal-dialog" onclick="event.stopPropagation()">
+      <div class="pdp-modal-dialog">
         
         <!-- Close Button -->
         <button class="pdp-modal-close-btn" data-action="close-pdp-modal" aria-label="Close Product Details">
@@ -44,7 +44,7 @@ export function renderProductDetailsModal() {
           <!-- Left: Product Media Gallery -->
           <div class="pdp-media-column">
             <div class="pdp-main-image-wrap">
-              <img src="${mainImage}" alt="${product.title}" class="pdp-main-image" />
+              <img src="${mainImage}" alt="${product.title}" class="pdp-main-image" id="pdp-active-main-image" />
               
               <!-- Floating Rating Pill -->
               ${product.rating ? `
@@ -59,10 +59,10 @@ export function renderProductDetailsModal() {
 
             <!-- Mini thumbnail previews -->
             <div class="pdp-thumbnails-strip">
-              <div class="pdp-thumb-item active">
+              <div class="pdp-thumb-item active" data-action="switch-pdp-image" data-img-src="${mainImage}">
                 <img src="${mainImage}" alt="Front view" />
               </div>
-              <div class="pdp-thumb-item">
+              <div class="pdp-thumb-item" data-action="switch-pdp-image" data-img-src="${mainImage}">
                 <img src="${mainImage}" alt="Detail view" style="filter: brightness(0.95);" />
               </div>
             </div>
@@ -97,11 +97,12 @@ export function renderProductDetailsModal() {
             <div class="pdp-size-section">
               <div class="pdp-size-header">
                 <span class="pdp-size-label">SELECT SIZE</span>
-                <button class="pdp-size-chart-link">SIZE CHART</button>
+                <span class="pdp-size-chart-link">SIZE CHART</span>
               </div>
               <div class="pdp-size-options-row">
                 ${sizeOptions.map(sz => `
                   <button 
+                    type="button"
                     class="pdp-size-btn ${selectedSize === sz ? 'selected' : ''}" 
                     data-action="select-size" 
                     data-size="${sz}"
@@ -117,13 +118,13 @@ export function renderProductDetailsModal() {
               
               <div class="pdp-main-buttons-row">
                 <!-- 1. Add to Bag -->
-                <button class="btn-pdp-add-bag" data-action="pdp-add-bag" data-product-id="${product.id}">
+                <button type="button" class="btn-pdp-add-bag" data-action="pdp-add-bag">
                   <i data-lucide="shopping-bag"></i>
                   <span>ADD TO BAG</span>
                 </button>
 
                 <!-- 2. Wishlist Toggle -->
-                <button class="btn-pdp-wishlist ${isWishlisted ? 'wishlisted' : ''}" data-action="pdp-toggle-wishlist" data-product-id="${product.id}">
+                <button type="button" class="btn-pdp-wishlist ${isWishlisted ? 'wishlisted' : ''}" data-action="pdp-toggle-wishlist">
                   <i data-lucide="heart" style="${isWishlisted ? 'fill: var(--myntra-crimson); color: var(--myntra-crimson);' : ''}"></i>
                   <span>${isWishlisted ? 'WISHLISTED' : 'WISHLIST'}</span>
                 </button>
@@ -131,12 +132,12 @@ export function renderProductDetailsModal() {
 
               <!-- 3. Buy Now & StyleStudio Multi-Actions -->
               <div class="pdp-secondary-buttons-row">
-                <button class="btn-pdp-buy-now" data-action="pdp-buy-now" data-product-id="${product.id}">
+                <button type="button" class="btn-pdp-buy-now" data-action="pdp-buy-now">
                   <i data-lucide="zap"></i>
                   <span>BUY NOW (FAST CHECKOUT)</span>
                 </button>
 
-                <button class="btn-pdp-stylestudio" data-action="pdp-open-stylestudio" data-product-id="${product.id}">
+                <button type="button" class="btn-pdp-stylestudio" data-action="pdp-open-stylestudio">
                   <i data-lucide="sparkles"></i>
                   <span>STYLE IN STYLESTUDIO (3 WAYS)</span>
                 </button>
@@ -162,7 +163,7 @@ export function renderProductDetailsModal() {
                   placeholder="Enter 6-digit Pincode"
                   id="pdp-pincode-input"
                 />
-                <button class="btn-check-pincode" data-action="check-pincode">CHECK</button>
+                <button type="button" class="btn-check-pincode" data-action="check-pincode">CHECK</button>
               </div>
 
               <ul class="pdp-delivery-perks-list">
@@ -223,7 +224,7 @@ export function renderProductDetailsModal() {
   // Setup Event Handlers
   container.onclick = (e) => {
     // 1. Close Modal
-    if (e.target.closest('[data-action="close-pdp-modal"]') || e.target.dataset.action === 'close-pdp-backdrop') {
+    if (e.target.closest('[data-action="close-pdp-modal"]') || e.target.classList.contains('pdp-modal-overlay')) {
       store.closeProductDetails();
       return;
     }
@@ -231,7 +232,8 @@ export function renderProductDetailsModal() {
     // 2. Select Size
     const sizeBtn = e.target.closest('[data-action="select-size"]');
     if (sizeBtn) {
-      store.setSelectedProductSize(sizeBtn.dataset.size);
+      const sz = sizeBtn.dataset.size;
+      store.setSelectedProductSize(sz);
       return;
     }
 
@@ -283,6 +285,19 @@ export function renderProductDetailsModal() {
       } else {
         showToast('Invalid Pincode', 'Please enter a valid 6-digit postal code', 'error');
       }
+      return;
+    }
+
+    // 8. Thumbnail image switcher
+    const thumbItem = e.target.closest('[data-action="switch-pdp-image"]');
+    if (thumbItem) {
+      const imgSrc = thumbItem.dataset.imgSrc;
+      const mainImg = document.getElementById('pdp-active-main-image');
+      if (mainImg && imgSrc) {
+        mainImg.src = imgSrc;
+      }
+      container.querySelectorAll('.pdp-thumb-item').forEach(t => t.classList.remove('active'));
+      thumbItem.classList.add('active');
       return;
     }
   };
