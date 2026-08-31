@@ -87,12 +87,6 @@ export function renderStyleStudioDesktop() {
               `).join('')}
             </div>
           </div>
-
-          <!-- Customize Lifestyle Button -->
-          <button class="btn-header-customize" data-action="open-customizer-modal" title="Customize Occasions">
-            <i data-lucide="settings" style="width: 14px; height: 14px;"></i>
-            <span>Customize</span>
-          </button>
         </div>
       </div>
 
