@@ -214,10 +214,12 @@ export function renderStyleStudioDesktop() {
 
           <!-- Action Buttons -->
           <div class="stylestudio-cta-group">
-            <button class="btn-buy-complete-look" data-action="buy-complete-look">
-              <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
-              <span>BUY COMPLETE LOOK (${(activeLook.pairings?.length || 2) + 1} ITEMS) • ₹${totalLookPrice.toLocaleString('en-IN')}</span>
-            </button>
+            ${(activeLook.pairings && activeLook.pairings.length > 0) ? `
+              <button class="btn-buy-complete-look" data-action="buy-complete-look">
+                <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i>
+                <span>BUY COMPLETE LOOK (${activeLook.pairings.length + 1} ITEMS) • ₹${totalLookPrice.toLocaleString('en-IN')}</span>
+              </button>
+            ` : ''}
 
             <button class="btn-add-top-only" data-action="add-hero-only">
               <span>ADD HERO ITEM ONLY • ₹${heroProduct.price.toLocaleString('en-IN')}</span>
